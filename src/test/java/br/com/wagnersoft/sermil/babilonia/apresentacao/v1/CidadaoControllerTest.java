@@ -1,4 +1,4 @@
-package br.mil.eb.sermil.webservices.conectagov.apresentacao.v1;
+package br.com.wagnersoft.babilonia.apresentacao.v1;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -9,11 +9,6 @@ import org.mockito.Mock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import br.mil.eb.sermil.webservices.conectagov.dominio.dto.CidadaoConsultDTO;
-import br.mil.eb.sermil.webservices.conectagov.dominio.dto.WSResultDTO;
-import br.mil.eb.sermil.webservices.conectagov.exceptions.ConectagovException;
-import br.mil.eb.sermil.webservices.conectagov.exceptions.NoDataFoundException;
-import br.mil.eb.sermil.webservices.conectagov.services.SermilService;
 import lombok.SneakyThrows;
 
 class CidadaoControllerTest {
@@ -23,7 +18,7 @@ class CidadaoControllerTest {
   private CidadaoController cidadaoController;
 
   @Mock
-  private SermilService sermilService;
+  private RemoteService rmtService;
 
   @Mock
   private WSResultDTO result;
@@ -39,7 +34,7 @@ class CidadaoControllerTest {
   @Test
   @SneakyThrows
   void consultarSituacaoCidadaoNotFound() {
-    when(sermilService.consultService(CidadaoConsultDTO.builder().cpf("123").build())).thenThrow(NoDataFoundException.class);
+    when(rmtService.consultService(CidadaoConsultDTO.builder().cpf("123").build())).thenThrow(NoDataFoundException.class);
     @SuppressWarnings("removal")
     ResponseEntity<Object> resposta = cidadaoController.consultarSituacaoCidadao("123", 0L);
     assertEquals(HttpStatus.NOT_FOUND, resposta.getStatusCode());
@@ -48,7 +43,7 @@ class CidadaoControllerTest {
   @Test
   @SneakyThrows
   void consultarSituacaoCidadao3() {
-    when(sermilService.consultService(CidadaoConsultDTO.builder().cpf("123").build())).thenThrow(NoDataFoundException.class);
+    when(rmtService.consultService(CidadaoConsultDTO.builder().cpf("123").build())).thenThrow(NoDataFoundException.class);
     @SuppressWarnings("removal")
     ResponseEntity<Object> resposta = cidadaoController.consultarSituacaoCidadao("123", 0L);
     assertEquals(HttpStatus.NOT_FOUND, resposta.getStatusCode());
@@ -57,7 +52,7 @@ class CidadaoControllerTest {
   @Test
   @SneakyThrows
   void consultarSituacaoCidadaoBadRequest()  {
-    when(sermilService.consultService(CidadaoConsultDTO.builder().cpf("123").build())).thenThrow(ConectagovException.class);
+    when(rmtService.consultService(CidadaoConsultDTO.builder().cpf("123").build())).thenThrow(ConectagovException.class);
     @SuppressWarnings("removal")
     ResponseEntity<Object> resposta = cidadaoController.consultarSituacaoCidadao("123", 0L);
     assertEquals(HttpStatus.BAD_REQUEST, resposta.getStatusCode());

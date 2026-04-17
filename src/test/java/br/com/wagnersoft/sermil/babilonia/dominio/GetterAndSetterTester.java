@@ -1,4 +1,4 @@
-package br.mil.eb.sermil.webservices.conectagov.dominio;
+package br.com.wagnersoft.babilonia.dominio;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

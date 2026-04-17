@@ -1,26 +1,26 @@
-package br.mil.eb.sermil.webservices.conectagov.dominio;
+package br.com.wagnersoft.babilonia.dominio.dto;
 
 import java.io.Serializable;
 import java.util.Set;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.reflections.Reflections;
 
-class EntityTest {
+class DTOTest {
 
   private Set<Class<? extends Serializable>> allClasses;
 
   private GetterAndSetterTester tester;
 
-  @BeforeEach
+  @BeforeAll
   public void setUp() {
     this.tester = new GetterAndSetterTester();
-    this.allClasses = new Reflections("br.mil.eb.sermil.webservices.conectagov.dominio").getSubTypesOf(Serializable.class);
+    this.allClasses = new Reflections("br.com.wagnersoft.babilonia.dominio.dto").getSubTypesOf(Serializable.class);
   }
 
   @Test
-  void testAllEntities() {
+  void testAllClasses() {
     this.allClasses.forEach(a -> this.tester.testClass(a));
   }
 

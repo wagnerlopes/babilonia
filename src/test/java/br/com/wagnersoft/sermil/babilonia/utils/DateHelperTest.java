@@ -1,4 +1,4 @@
-package br.mil.eb.sermil.webservices.conectagov.utils;
+package br.com.wagnersoft.babilonia.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

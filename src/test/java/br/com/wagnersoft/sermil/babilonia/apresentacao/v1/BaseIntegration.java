@@ -1,4 +1,4 @@
-package br.mil.eb.sermil.webservices.conectagov.apresentacao.v1;
+package br.com.wagnersoft.babilonia.apresentacao.v1;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,8 +13,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 import com.fasterxml.jackson.databind.ObjectWriter;
-
-import br.mil.eb.sermil.webservices.conectagov.Conectagov;
 
 import org.springframework.http.MediaType;
 
