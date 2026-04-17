@@ -1,0 +1,26 @@
+server:
+    port: 8080
+    context-path: /conectagov/api
+
+spring:
+    datasource:
+           url: jdbc:h2:mem:conectagov;INIT=CREATE SCHEMA IF NOT EXISTS conectagov;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
+           username: sa
+           password: 123
+           driver-class-name: org.h2.Driver
+           initial-size: 1
+    jpa:
+      show-sql: true
+      database-platform: H2
+      hibernate:
+          format_sql: true
+          ddl-auto: create-drop
+          
+conectagov: 
+  show-divergence: true
+  ws:
+    apolo: 
+      url1: http://apolo.defesa.mil.br/situacaomilitar/dpmm/v1/situacaomilitar.json
+      url2: http://apolo.defesa.mil.br/situacaomilitar/dpmm/v1/situacaomilitar/pesquisa.json
+    sismob: 
+      url1: https://apl1.sti.fab.mil.br/sismob-api/verificacao

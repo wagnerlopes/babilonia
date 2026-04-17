@@ -1,0 +1,26 @@
+package br.mil.eb.wagnersoft.babilonia.utils;
+
+public class StringCleanup {
+
+  private StringCleanup() {
+  }
+  
+  public static String cleanAccent(final String str) {
+    return str == null ? null : str.trim().toUpperCase()
+        .replaceAll("[ãâàáä]", "a")
+        .replaceAll("[êèéë]" , "e")
+        .replaceAll("[îìíï]" , "i")
+        .replaceAll("[õôòóö]", "o")
+        .replaceAll("[ûúùü]" , "u")
+        .replaceAll("[ÃÂÀÁÄ]", "A")
+        .replaceAll("[ÊÈÉË]" , "E")
+        .replaceAll("[ÎÌÍÏ]" , "I")
+        .replaceAll("[ÕÔÒÓÖ]", "O")
+        .replaceAll("[ÛÙÚÜ]" , "U")
+        .replace('ç', 'c')
+        .replace('Ç', 'C')
+        .replace('ñ', 'n')
+        .replace('Ñ', 'N');
+  }
+
+}

@@ -1,0 +1,97 @@
+debug: false
+
+server:
+
+    port: 443
+
+    servlet:
+      context-path: /conectagov/api
+
+    compression:
+        enabled: true
+        min-response-size: 1KB
+        
+    http2:
+        enabled: true
+        
+    undertow:
+        io-threads: 16
+        worker-threads: 200
+        accesslog:
+            enabled: true
+            pattern: "%t %a %r %s"
+            dir: ./logs
+            rotate: true
+            prefix: access_log
+            suffix: .log 
+
+    ssl:
+        key-store: keystore.p12
+        key-store-password: JxhAS2UJ43KLFIAHh
+        keyStoreType: PKCS12
+        keyAlias: servico-militar
+
+spring:
+
+    application:
+        name: conectagov
+    
+    datasource: 
+        url: jdbc:oracle:thin:@//exa11-scan1.eb.mil.br:1521/SERMIL_PRODUCAO
+        username: situacaomilitar
+        password: sermil_2020
+        hikari:
+            poolName: SERMIL_POOL 
+            readOnly: true
+            connectionTimeout: 15000
+            maxLifetime: 600000
+            maximumPoolSize: 30
+            minimumIdle: 5
+            idleTimeout: 120000
+            
+    jpa:
+      #database-platform: org.hibernate.dialect.Oracle10gDialect
+      show-sql: false
+      hibernate:
+          format_sql: true
+
+    jdbc:
+        template:
+            query-timeout: 30
+
+    mvc:
+        pathmatch:
+            matching-strategy: ant_path_matcher
+
+springdoc:
+    packagesToScan: br.mil.eb.sermil.webservices.conectagov.apresentacao
+    
+    pathsToMatch: /v2/**, /v3/**
+
+#logging:
+#  file: ./logs/conectagov.log
+  
+##########################################################
+# Utilizar quando classe OracleConfiguration estiver ativa
+# (HikariCP está oferecendo melhor performance)
+#    oracle:
+#        url: jdbc:oracle:thin:@//10.67.7.130:1521/sermil
+#        username: ????
+#        password: ????
+#        factoryClassName: oracle.jdbc.pool.OracleDataSource 
+############################################################
+
+# #####################
+# Conectagov App Config
+# #####################
+conectagov: 
+  show-divergence: true
+  ws:
+    apolo: 
+      url1: http://apolo.defesa.mil.br/situacaomilitar/dpmm/v1/situacaomilitar.json
+      url2: http://apolo.defesa.mil.br/situacaomilitar/dpmm/v1/situacaomilitar/pesquisa.json
+      ativo: true
+    sismob: 
+      url1: https://apl1.sti.fab.mil.br/sismob-api/verificacao
+      ativo: true
+ 
