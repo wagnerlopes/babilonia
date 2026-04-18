@@ -1,4 +1,4 @@
-package br.com.sermil.webservices.babilonia.exceptions;
+package br.com.wagnersoft.babilonia.exceptions;
 
 public class InvalidTokenException extends ConectagovException {
 
