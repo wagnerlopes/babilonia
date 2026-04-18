@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import br.mil.eb.wagnersoft.babilonia.dominio.Cidadao;
+import br.com.wagnersoft.babilonia.dominio.Cidadao;
 
 @Repository
 public interface CidadaoRepository extends JpaRepository<Cidadao, Long> {

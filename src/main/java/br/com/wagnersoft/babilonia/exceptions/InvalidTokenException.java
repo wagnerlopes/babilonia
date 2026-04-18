@@ -1,6 +1,8 @@
 package br.com.wagnersoft.babilonia.exceptions;
 
-public class InvalidTokenException extends ConectagovException {
+import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
+
+public class InvalidTokenException extends BabiloniaException {
 
   /** serialVersionUID. */
   private static final long serialVersionUID = 1L;

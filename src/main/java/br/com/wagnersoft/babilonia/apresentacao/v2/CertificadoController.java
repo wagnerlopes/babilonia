@@ -25,7 +25,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  * @since 0.1
  * @version 0.1
  */
-@RestController("certificadoController3")
+@RestController("certificadoController2")
 @RequestMapping(value = "v2/certificado", produces = {MediaType.TEXT_PLAIN_VALUE, MediaType.TEXT_XML_VALUE})
 @Tag(name = "v2/certificado", description = "API versão 2")
 public class CertificadoController {
@@ -33,7 +33,7 @@ public class CertificadoController {
   protected static final Logger LOGGER = LoggerFactory.getLogger(CertificadoController.class);
 
   @Autowired
-  private SermilService sermilSvc;
+  private RemoteService rmtSvc;
 
   @GetMapping
   @Operation(summary = "Consulta o certificado do cidadão.",
@@ -48,7 +48,7 @@ public class CertificadoController {
   @SecurityRequirement(name = "apikey")
   public ResponseEntity<Object> consultarCertificado(@RequestParam(name="ra", required=true) @Parameter(description = "Somente os 12 dígitos do RA", example = "000000000000") final String ra) {
     try {
-      String result = this.sermilSvc.consultDoc(ra);
+      String result = this.rmtSvc.consultDoc(ra);
       return ResponseEntity.ok(result);
     } catch (NoDataFoundException e) {
       return ResponseEntity.of(Optional.empty());

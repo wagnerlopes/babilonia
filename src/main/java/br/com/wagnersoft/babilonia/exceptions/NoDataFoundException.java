@@ -1,6 +1,8 @@
 package br.com.wagnersoft.babilonia.exceptions;
 
-public class NoDataFoundException extends ConectagovException {
+import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
+
+public class NoDataFoundException extends BabiloniaException {
 
   /** serialVersionUID. */
   private static final long serialVersionUID = 1L;

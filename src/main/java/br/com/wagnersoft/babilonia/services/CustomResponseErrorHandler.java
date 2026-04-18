@@ -9,7 +9,7 @@ import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.ResponseErrorHandler;
 
-import br.mil.eb.wagnersoft.babilonia.exceptions.WSException;
+import br.com.wagnersoft.babilonia.exceptions.WSException;
 import io.micrometer.core.instrument.util.IOUtils;
 
 /** Manipulador de erro na resposta do servidor WS.

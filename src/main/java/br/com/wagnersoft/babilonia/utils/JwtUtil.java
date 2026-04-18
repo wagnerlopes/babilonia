@@ -10,7 +10,7 @@ import java.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.mil.eb.wagnersoft.babilonia.exceptions.InvalidTokenException;
+import br.com.wagnersoft.babilonia.exceptions.InvalidTokenException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;

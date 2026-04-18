@@ -21,12 +21,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.mil.eb.wagnersoft.babilonia.dominio.Cidadao;
-import br.mil.eb.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
-import br.mil.eb.wagnersoft.babilonia.dominio.dto.WSResultDTO;
-import br.mil.eb.wagnersoft.babilonia.exceptions.BabiloniaException;
-import br.mil.eb.wagnersoft.babilonia.repository.CidadaoRepository;
-import br.mil.eb.wagnersoft.babilonia.utils.DateHelper;
+import br.com.wagnersoft.babilonia.dominio.Cidadao;
+import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
+import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
+import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
+import br.com.wagnersoft.babilonia.repository.CidadaoRepository;
+import br.com.wagnersoft.babilonia.utils.DateHelper;
 import jakarta.xml.bind.DatatypeConverter;
 
 /** Serviço de pesquisa de cidadão.

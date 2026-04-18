@@ -31,7 +31,7 @@ import jakarta.validation.Valid;
  * @since 0.1
  * @version 0.1
  */
-@RestController("cidadaoController2")
+@RestController("cidadaoController")
 @RequestMapping(value = "v1/cidadao", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_XML_VALUE})
 @Tag(name = "v1/cidadao", description = "API versão 1")
 public class CidadaoController {
@@ -101,27 +101,9 @@ public class CidadaoController {
     }
   }
 
-  private WSResultDTO findInfo(final CidadaoConsultDTO consult) throws ConectagovException {
-    WSResultDTO result = null;
-    switch (consult.getForca()) {
-    case 1:
-      if (apoloOn) {
-        result = this.apoloSvc.consultService(consult);
-      } else {
-        result = this.smlSvc.consultService(consult);
-      }
-      break;
-    case 2:
-      if (mobOn) {
-        result = this.mobSvc.consultService(consult);
-      } else {
-        result = this.smlSvc.consultService(consult);
-      }
-      break;
-    default:
-      result = this.smlSvc.consultService(consult);
-      break;
-    }
+  private WSResultDTO findInfo(final CidadaoConsultDTO consult) throws BabiloniaException {
+    final WSResultDTO result = this.rmtSvc.consultService(consult);
+    LOGGER.debug("{}", result);
     return result;
   }
 

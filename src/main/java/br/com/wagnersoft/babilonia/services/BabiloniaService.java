@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import br.mil.eb.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
-import br.mil.eb.wagnersoft.babilonia.dominio.dto.WSResultDTO;
-import br.mil.eb.wagnersoft.babilonia.exceptions.BabiloniaException;
+import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
+import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
+import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
 
 /** Interface de um serviço de pesquisa de informações em um subsistema.
  * @author WagnerSoft

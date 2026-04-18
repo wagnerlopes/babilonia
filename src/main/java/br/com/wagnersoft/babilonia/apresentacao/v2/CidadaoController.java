@@ -30,7 +30,7 @@ import jakarta.validation.Valid;
  * @since 0.1
  * @version 0.1
  */
-@RestController("cidadaoController3")
+@RestController("cidadaoController2")
 @RequestMapping(value = "v2/cidadao", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_XML_VALUE})
 @Tag(name = "v2/cidadao", description = "API versão 2")
 public class CidadaoController {
