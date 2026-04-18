@@ -1,4 +1,4 @@
-package br.mil.eb.wagnersoft.babilonia.services;
+package br.com.wagnersoft.babilonia.services;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
