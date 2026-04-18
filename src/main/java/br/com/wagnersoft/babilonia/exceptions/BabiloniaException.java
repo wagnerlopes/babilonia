@@ -1,4 +1,4 @@
-package br.com.wagnersoft.babilonia.dominio.excpetions;
+package br.com.wagnersoft.babilonia.excpetions;
 
 /** BabiloniaException.
  * @author WagnerSoft
