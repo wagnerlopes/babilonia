@@ -1,4 +1,4 @@
-package br.mil.eb.wagnersoft.babilonia.domini.dto;
+package br.com.wagnersoft.babilonia.domini.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
