@@ -1,4 +1,4 @@
-package br.mil.eb.wagnersoft.babilonia.utils;
+package br.com.wagnersoft.babilonia.utils;
 
 import java.time.Instant;
 import java.time.LocalDate;
