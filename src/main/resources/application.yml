@@ -5,7 +5,7 @@ server:
     port: 443
 
     servlet:
-      context-path: /conectagov/api
+      context-path: /babilonia/api
 
     compression:
         enabled: true
@@ -29,19 +29,19 @@ server:
         key-store: keystore.p12
         key-store-password: JxhAS2UJ43KLFIAHh
         keyStoreType: PKCS12
-        keyAlias: servico-militar
+        keyAlias: babilonia
 
 spring:
 
     application:
-        name: conectagov
+        name: babilonia
     
     datasource: 
-        url: jdbc:oracle:thin:@//exa11-scan1.eb.mil.br:1521/SERMIL_PRODUCAO
-        username: situacaomilitar
-        password: sermil_2020
+        url: jdbc:oracle:thin:@//exa11-scan1.com.br:1521/BD_PRODUCAO
+        username: babilonia 
+        password: xyz
         hikari:
-            poolName: SERMIL_POOL 
+            poolName: DB_POOL 
             readOnly: true
             connectionTimeout: 15000
             maxLifetime: 600000
@@ -64,18 +64,18 @@ spring:
             matching-strategy: ant_path_matcher
 
 springdoc:
-    packagesToScan: br.mil.eb.sermil.webservices.conectagov.apresentacao
+    packagesToScan: br.com.wagnersoft.babilonia.apresentacao
     
-    pathsToMatch: /v2/**, /v3/**
+    pathsToMatch: /v1/**, /v2/**
 
 #logging:
-#  file: ./logs/conectagov.log
+#  file: ./logs/babilonia.log
   
 ##########################################################
 # Utilizar quando classe OracleConfiguration estiver ativa
 # (HikariCP está oferecendo melhor performance)
 #    oracle:
-#        url: jdbc:oracle:thin:@//10.67.7.130:1521/sermil
+#        url: jdbc:oracle:thin:@//10.67.7.1:1521/xyz
 #        username: ????
 #        password: ????
 #        factoryClassName: oracle.jdbc.pool.OracleDataSource 
@@ -84,14 +84,14 @@ springdoc:
 # #####################
 # Conectagov App Config
 # #####################
-conectagov: 
+babilonia: 
   show-divergence: true
   ws:
     apolo: 
-      url1: http://apolo.defesa.mil.br/situacaomilitar/dpmm/v1/situacaomilitar.json
-      url2: http://apolo.defesa.mil.br/situacaomilitar/dpmm/v1/situacaomilitar/pesquisa.json
+      url1: http://apolo.com.br/xyz/v1/teste.json
+      url2: http://apolo.com.br/xyz/v1/pesquisa.json
       ativo: true
     sismob: 
-      url1: https://apl1.sti.fab.mil.br/sismob-api/verificacao
+      url1: https://apl1.com.br/xyz-api/verificacao
       ativo: true
  
