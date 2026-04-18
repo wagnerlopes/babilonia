@@ -1,4 +1,4 @@
-package br.mil.eb.sermil.webservices.babilonia.exceptions;
+package br.com.wagnersoft.babilonia.exceptions;
 
 import java.io.IOException;
 import java.util.Map;
