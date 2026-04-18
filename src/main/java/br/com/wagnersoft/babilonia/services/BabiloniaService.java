@@ -7,14 +7,14 @@ import java.util.List;
 
 import br.mil.eb.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
 import br.mil.eb.wagnersoft.babilonia.dominio.dto.WSResultDTO;
-import br.mil.eb.wagnersoft.babilonia.ConectagovException;
+import br.mil.eb.wagnersoft.babilonia.exceptions.BabiloniaException;
 
 /** Interface de um serviço de pesquisa de informações em um subsistema.
  * @author WagnerSoft
  * @since 0.1
  * @version 0.1
  */
-public interface ConectagovService {
+public interface BabiloniaService {
 
   /** Consulta as informações do cidadão.
    * @param consult
