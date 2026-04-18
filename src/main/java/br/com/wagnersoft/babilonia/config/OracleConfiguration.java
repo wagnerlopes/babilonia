@@ -1,4 +1,4 @@
-package br.mil.eb.wagnersoft.babilonia.config;
+package br.com.wagnersoft.babilonia.config;
 
 import java.sql.SQLException;
 
