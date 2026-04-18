@@ -1,4 +1,4 @@
-package br.mil.eb.wagnersoft.babilonia.services;
+package br.com.wagnersoft.babilonia.services;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
