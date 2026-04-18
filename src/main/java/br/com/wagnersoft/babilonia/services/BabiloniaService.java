@@ -21,23 +21,23 @@ public interface BabiloniaService {
    * @return
    * @throws ConectagovException
    */
-  WSResultDTO consultService(CidadaoConsultDTO consult) throws ConectagovException;
+  WSResultDTO consultService(CidadaoConsultDTO consult) throws BabiloniaException;
 
   /** Consulta lista de CPF.
    * @param listaCpf
    * @param forca
    * @return Lista WSResultDTO
-   * @throws ConectagovException
+   * @throws BabiloniaException
    */
-  public default List<WSResultDTO> consultService(final String[] listaCpf, final Integer forca) throws ConectagovException {
+  public default List<WSResultDTO> consultService(final String[] listaCpf, final Integer forca) throws BabiloniaException {
     if (listaCpf == null || listaCpf.length == 0) {
-      throw new ConectagovException("Lista de CPF vazia.");
+      throw new BabiloniaException("Lista de CPF vazia.");
     }
     final List<WSResultDTO> lista = new ArrayList<>(listaCpf.length);
     Arrays.asList(listaCpf).forEach(cpf -> {
       try {
         lista.add(this.consultService(CidadaoConsultDTO.builder().cpf(cpf).forca(forca).build()));
-      } catch (ConectagovException e) {
+      } catch (BabiloniaException e) {
         lista.add(
           WSResultDTO.builder()
             .cpf(cpf)

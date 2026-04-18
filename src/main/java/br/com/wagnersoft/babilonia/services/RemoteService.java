@@ -49,7 +49,7 @@ public class RemoteService implements BabiloniaService {
     Optional<Cidadao> cidOpt = Optional.empty();
     if (StringUtils.isNotBlank(consult.getCpf())) {
       cidOpt = this.cidadaoRep.findByCpf(consult.getCpf());
-    } else if (StringUtils.isNotBlank(consult.getNome()) {
+    } else if (StringUtils.isNotBlank(consult.getNome())) {
       cidOpt = this.cidadaoRep.findByNome(id);
     } else {
       if (!StringUtils.isAnyBlank(consult.getNome(), consult.getNomeMae()) && consult.getDataNascimento() != null) {
