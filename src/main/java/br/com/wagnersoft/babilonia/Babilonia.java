@@ -1,4 +1,4 @@
-package br.mil.eb.wagnersoft.babilonia;
+package br.com.wagnersoft.babilonia;
 
 import javax.sql.DataSource;
 
