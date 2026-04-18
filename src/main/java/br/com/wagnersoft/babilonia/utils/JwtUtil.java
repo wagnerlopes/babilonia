@@ -1,4 +1,4 @@
-package br.mil.eb.wagnersoft.babilonia;
+package br.com.wagnersoft.babilonia.utils;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
