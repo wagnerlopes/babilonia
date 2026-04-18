@@ -1,4 +1,4 @@
-package br.mil.eb.wagnersoft.babilonia.repository;
+package br.com.wagnersoft.babilonia.repository;
 
 import java.util.Date;
 import java.util.Optional;
