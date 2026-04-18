@@ -86,7 +86,6 @@ public class RemoteService implements BabiloniaService {
         .atualizacaoData(DateHelper.asLocalDate(cidadao.getAuditData()))
         .consultaData(LocalDate.now())
         .build();
-    }
     
     final SituacaoEnum situacao = this.situacaoHelper.verificaSituacao(cidadao);
     String divergencias = this.situacaoHelper.avaliaDivergencias(result, consult);
@@ -103,7 +102,7 @@ public class RemoteService implements BabiloniaService {
    */
   public String consultDoc(final String cpf) throws BabiloniaException {
     Optional<CidDoc> optional = Optional.empty();
-    if (cpf != "") {
+    if (!cpf.equals("")) {
       optional = this.certRep.findDoc(cpf);
     }
     final CidDoc doc = optional.orElse(new CidDoc(id));
