@@ -1,4 +1,4 @@
-package br.mil.eb.wagnersoft.babilonia.dominio;
+package br.com.wagnersoft.babilonia.dominio;
 
 import java.io.Serializable;
 import java.util.Date;
