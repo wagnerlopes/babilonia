@@ -38,14 +38,14 @@ public class RemoteService implements BabiloniaService {
     if (StringUtils.isNotBlank(consult.getCpf())) {
       cidOpt = this.cidadaoRep.findByCpf(consult.getCpf());
     } else if (StringUtils.isNotBlank(consult.getNome())) {
-      cidOpt = this.cidadaoRep.findByNome(id);
+      cidOpt = this.cidadaoRep.findByNome(consult.getNome());
     } else {
       if (!StringUtils.isAnyBlank(consult.getNome(), consult.getNomeMae()) && consult.getDataNascimento() != null) {
         cidOpt = this.cidadaoRep.findByOutros(consult.getNome(), consult.getNomeMae(), DateHelper.asDate(consult.getDataNascimento()));
       }
     }
     
-    final Cidadao cidadao = cidOpt.orElse(Cidadao.naoCadastrado(consult.getCpf(), id));
+    final Cidadao cidadao = cidOpt.orElse(Cidadao.naoCadastrado(consult.getCpf()));
     LOGGER.debug("Cidadao = {}", cidadao);
     
     WSResultDTO result = null;
@@ -58,9 +58,6 @@ public class RemoteService implements BabiloniaService {
         .mae(cidadao.getMae())
         .pai(cidadao.getPai())
         .nascimentoData(DateHelper.asLocalDate(cidadao.getNascimentoData()))
-        .certificadoSigla(docEnum.getSigla())
-        .certificadoDescricao(docEnum.getDescricao())
-        .certificadoData(certData)
         .validadeData(valData)
         .nascimentoLocal(cidadao.getMunicipioNascimento().toString())
         .atualizacaoData(DateHelper.asLocalDate(cidadao.getAuditData()))
@@ -75,7 +72,7 @@ public class RemoteService implements BabiloniaService {
   }
 
   private Long testNumber(String param) {
-    return StringUtils.isNotEmpty(param) && ra.matches("-?\\d+(\\.\\d+)?") ? Long.valueOf(param) : 0;
+    return StringUtils.isNotEmpty(param) && param.matches("-?\\d+(\\.\\d+)?") ? Long.valueOf(param) : 0;
   }
   
 } 

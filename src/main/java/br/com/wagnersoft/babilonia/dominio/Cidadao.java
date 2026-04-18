@@ -61,8 +61,8 @@ public class Cidadao implements Serializable {
   @JoinColumn(name = "MUNICIPIO_NASCIMENTO_CODIGO", referencedColumnName = "CODIGO")
   private Municipio municipioNascimento;
 
-  public static Cidadao naoCadastrado(String cpf, Long ra) {
-    return Cidadao.builder().cpf(cpf).evento(Evento.builder().id(0).descricao("NAO CADASTRADO").build()).build();
+  public static Cidadao naoCadastrado(String cpf) {
+    return Cidadao.builder().cpf(cpf).build();
   }
   
   @Override

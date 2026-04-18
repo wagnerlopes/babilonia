@@ -17,10 +17,11 @@ import jakarta.xml.bind.DatatypeConverter;
 
 public class FileUtil {
 
-  private FileUtil() {
-  }
+  private static final Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);
+
+  private FileUtil() {}
   
-  public static String getImgString(final Byte[] byteArray) throws IOException{
+  public static String getImgString(final byte[] byteArray) throws IOException{
     File file = new File("tempFile");
     FileUtils.writeByteArrayToFile(file, byteArray);
     PDDocument docPdf = Loader.loadPDF(file);

@@ -38,7 +38,7 @@ public class JwtUtil {
       final Claims claims = Jwts.parser().verifyWith(getParsedPublicKey()).build().parseSignedClaims(token).getPayload();
       return claims.getSubject();
     } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | IllegalArgumentException e) {
-      throw new InvalidTokenException("Token JWT inválido.", e);
+      throw new InvalidTokenException("Token JWT inválido.");
     }
   }
 
