@@ -50,7 +50,4 @@ public class CidadaoConsultDTO implements Serializable {
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd", locale = "pt-BR", timezone = "Brazil/East")
   private LocalDate dataNascimento;
 
-  @NotNull(message="Preencha o campo Força")
-  private Integer forca;
-  
 }

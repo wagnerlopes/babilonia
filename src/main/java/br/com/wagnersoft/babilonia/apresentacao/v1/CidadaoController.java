@@ -45,7 +45,7 @@ public class CidadaoController {
   @Operation(summary = "Consulta o cidadão.",
   description = "Deverá ser informado o CPF do cidadão.")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Cidadão cadastrado no SERMIL.",
+      @ApiResponse(responseCode = "200", description = "Informação de cidadão cadastrado.",
                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = WSResultDTO.class)) }),
       @ApiResponse(responseCode = "400", description = "Requisição inválida: informe um CPF válido."),
       @ApiResponse(responseCode = "401", description = "Não autorizado: apiKey informada não existe ou é válida."),
@@ -54,15 +54,15 @@ public class CidadaoController {
       @ApiResponse(responseCode = "500", description = "Serviço indisponível, tente mais tarde.")
   })
   @SecurityRequirement(name = "apikey")
-  public ResponseEntity<Object> consultarCidadao(@RequestParam(name="cpf", required=true) @Parameter(description = "Somente os 11 dígitos do CPF", example = "00000000000") final String cpf, @RequestParam(name="forca", required=false) @Parameter(description = "Força 0 = Não informado") final Integer forca) {
-    final CidadaoConsultDTO consult = CidadaoConsultDTO.builder().cpf(cpf).forca(forca == null ? 0 : forca).build();
+  public ResponseEntity<Object> consultarCidadao(@RequestParam(name="cpf", required=true) @Parameter(description = "Somente os 11 dígitos do CPF", example = "00000000000") final String cpf) {
+    final CidadaoConsultDTO consult = CidadaoConsultDTO.builder().cpf(cpf).build();
     try {
       final WSResultDTO result = findInfo(consult);
       return ResponseEntity.ok(result);
     } catch (NoDataFoundException e) {
       LOGGER.debug("{}", e.getMessage());
       return returnError(consult, SituacaoEnum.NAO_ENCONTRADO, HttpStatus.NOT_FOUND);
-    } catch (ConectagovException e) {
+    } catch (BabiloniaException e) {
       LOGGER.debug("{}", e.getMessage());
       return returnError(consult, SituacaoEnum.NAO_ENCONTRADO, HttpStatus.BAD_REQUEST);
     } catch (Exception e) {
@@ -92,7 +92,7 @@ public class CidadaoController {
     } catch (NoDataFoundException ndf) {
       LOGGER.debug("{}", ndf.getMessage());
       return returnError(consult, SituacaoEnum.NAO_ENCONTRADO, HttpStatus.NOT_FOUND);
-    } catch (ConectagovException e) {
+    } catch (BabiloniaException e) {
       LOGGER.debug("{}", e.getMessage());
       return returnError(consult, SituacaoEnum.NAO_ENCONTRADO, HttpStatus.BAD_REQUEST);
     } catch (Exception e) {
