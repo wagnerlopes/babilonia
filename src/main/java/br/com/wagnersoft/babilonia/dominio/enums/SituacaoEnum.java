@@ -1,4 +1,4 @@
-package br.com.babilonia.dominio.enums;
+package br.com.wagnersoft.babilonia.dominio.enums;
 
 import lombok.Getter;
 
