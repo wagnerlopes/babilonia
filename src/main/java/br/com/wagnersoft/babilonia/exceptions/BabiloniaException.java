@@ -1,4 +1,4 @@
-package br.com.wagnersoft.babilonia.excpetions;
+package br.com.wagnersoft.babilonia.exceptions;
 
 /** BabiloniaException.
  * @author WagnerSoft
@@ -7,7 +7,6 @@ package br.com.wagnersoft.babilonia.excpetions;
  */
 public class BabiloniaException extends Exception {
 
-  /** serialVersionUID. */
   private static final long serialVersionUID = 1L;
 
   public BabiloniaException() {

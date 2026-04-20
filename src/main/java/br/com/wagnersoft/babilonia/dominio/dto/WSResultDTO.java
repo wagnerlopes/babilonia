@@ -37,18 +37,6 @@ public class WSResultDTO implements Serializable {
 
   private String pai;
 
-  private Integer situacaoCodigo;
-
-  private String situacaoDescricao;
-
-  private String certificadoSigla;
-
-  private String certificadoDescricao;
-
-  private String certificadoData;
-
-  private String validadeData;
-  
   private String nascimentoLocal;
 
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd", locale = "pt-BR", timezone = "Brazil/East")

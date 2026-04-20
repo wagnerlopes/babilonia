@@ -58,7 +58,6 @@ public class RemoteService implements BabiloniaService {
         .mae(cidadao.getMae())
         .pai(cidadao.getPai())
         .nascimentoData(DateHelper.asLocalDate(cidadao.getNascimentoData()))
-        .validadeData(valData)
         .nascimentoLocal(cidadao.getMunicipioNascimento().toString())
         .atualizacaoData(DateHelper.asLocalDate(cidadao.getAuditData()))
         .consultaData(LocalDate.now())
