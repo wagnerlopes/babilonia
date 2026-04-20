@@ -18,8 +18,10 @@ import org.springframework.http.MediaType;
 
 import java.nio.charset.Charset;
 
+import br.com.wagnersoft.babilonia.Babilonia;
+
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-@SpringBootTest(classes = Conectagov.class)
+@SpringBootTest(classes = Babilonia.class)
 @ActiveProfiles("h2")
 public class BaseIntegration {
 

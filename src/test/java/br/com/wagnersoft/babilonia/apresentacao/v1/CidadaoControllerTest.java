@@ -4,13 +4,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import br.com.wagnersoft.babilonia.apresentacao.v1.CidadaoController;
+import br.com.wagnersoft.babilonia.service.RemoteService;
+import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
+import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
+import br.com.wagnersoft.babilonia.exception.NoDataFoundException;
+import br.com.wagnersoft.babilonia.exception.ConectagovException;
+
 import lombok.SneakyThrows;
 
+@ExtendWith(MockitoExtension.class)
 class CidadaoControllerTest {
 
   @SuppressWarnings("removal")
