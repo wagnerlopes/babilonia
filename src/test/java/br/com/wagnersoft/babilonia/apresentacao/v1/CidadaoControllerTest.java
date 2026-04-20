@@ -16,8 +16,8 @@ import br.com.wagnersoft.babilonia.apresentacao.v1.CidadaoController;
 import br.com.wagnersoft.babilonia.service.RemoteService;
 import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
 import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
+import br.com.wagnersoft.babilonia.exception.BabiloniaException;
 import br.com.wagnersoft.babilonia.exception.NoDataFoundException;
-import br.com.wagnersoft.babilonia.exception.ConectagovException;
 
 import lombok.SneakyThrows;
 
@@ -63,7 +63,7 @@ class CidadaoControllerTest {
   @Test
   @SneakyThrows
   void consultarSituacaoCidadaoBadRequest()  {
-    when(rmtService.consultService(CidadaoConsultDTO.builder().cpf("123").build())).thenThrow(ConectagovException.class);
+    when(rmtService.consultService(CidadaoConsultDTO.builder().cpf("123").build())).thenThrow(BabiloniaException.class);
     @SuppressWarnings("removal")
     ResponseEntity<Object> resposta = cidadaoController.consultarSituacaoCidadao("123", 0L);
     assertEquals(HttpStatus.BAD_REQUEST, resposta.getStatusCode());
