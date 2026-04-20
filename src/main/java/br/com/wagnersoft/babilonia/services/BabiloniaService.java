@@ -9,7 +9,7 @@ import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
 import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
 import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
 
-/** Interface de um serviço de pesquisa de informações em um subsistema.
+/** Interface de um serviço de pesquisa de informações.
  * @author WagnerSoft
  * @since 0.1
  * @version 0.1
@@ -36,7 +36,7 @@ public interface BabiloniaService {
     final List<WSResultDTO> lista = new ArrayList<>(listaCpf.length);
     Arrays.asList(listaCpf).forEach(cpf -> {
       try {
-        lista.add(this.consultService(CidadaoConsultDTO.builder().cpf(cpf).forca(forca).build()));
+        lista.add(this.consultService(CidadaoConsultDTO.builder().cpf(cpf).build()));
       } catch (BabiloniaException e) {
         lista.add(
           WSResultDTO.builder()
