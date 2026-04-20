@@ -13,12 +13,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import br.com.wagnersoft.babilonia.apresentacao.v1.CidadaoController;
-import br.com.wagnersoft.babilonia.service.RemoteService;
-import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
-import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
-import br.com.wagnersoft.babilonia.exception.BabiloniaException;
-import br.com.wagnersoft.babilonia.exception.NoDataFoundException;
+//import br.com.wagnersoft.babilonia.apresentacao.v1.CidadaoController;
+//import br.com.wagnersoft.babilonia.service.RemoteService;
+//import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
+//import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
+//import br.com.wagnersoft.babilonia.exception.BabiloniaException;
+//import br.com.wagnersoft.babilonia.exception.NoDataFoundException;
 
 import lombok.SneakyThrows;
 
