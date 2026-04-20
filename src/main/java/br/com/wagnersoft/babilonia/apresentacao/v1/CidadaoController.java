@@ -29,7 +29,7 @@ import jakarta.validation.Valid;
 
 import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
 import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
-
+import br.com.wagnersoft.babilonia.services.RemoteService;
 
 /** Controlador da pesquisa de cidadão.
  * @author WagnerSoft

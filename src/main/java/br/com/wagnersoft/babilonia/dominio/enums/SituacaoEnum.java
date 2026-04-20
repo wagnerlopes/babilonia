@@ -1,4 +1,4 @@
-package br.com.sermil.webservices.conectagov.dominio.enums;
+package br.com.babilonia.dominio.enums;
 
 import lombok.Getter;
 
