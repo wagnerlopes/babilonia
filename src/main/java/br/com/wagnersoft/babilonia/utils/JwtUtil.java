@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.com.wagnersoft.babilonia.exceptions.InvalidTokenException;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -51,7 +52,7 @@ public class JwtUtil {
       LOGGER.debug("{}", pubKey);
       return pubKey;
     } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-      throw new InvalidTokenException("A chave pública informada não é válida.", e);
+      throw new InvalidTokenException("A chave pública informada não é válida.");
     }
   }
 

@@ -11,6 +11,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
 
+import org.slf4j.LoggerFactory;
+
 import javax.imageio.ImageIO;
 
 import jakarta.xml.bind.DatatypeConverter;

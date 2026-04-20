@@ -23,7 +23,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 import jakarta.validation.Valid;
+
+import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
+import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
 
 /** Controlador da pesquisa do cidadão.
  * @author WagnerSoft
@@ -62,7 +66,7 @@ public class CidadaoController {
     } catch (NoDataFoundException e) {
       LOGGER.debug("{}", e.getMessage());
       return ResponseEntity.of(Optional.empty());
-    } catch (ConectagovException e) {
+    } catch (BabiloniaException e) {
       LOGGER.debug("{}", e.getMessage());
       return ResponseEntity.badRequest().body(e.getMessage());
     } catch (Exception e) {
@@ -94,7 +98,7 @@ public class CidadaoController {
     } catch (NoDataFoundException ndf) {
       LOGGER.debug("{}", ndf.getMessage());
       return ResponseEntity.of(Optional.empty());
-    } catch (ConectagovException e) {
+    } catch (BabiloniaException e) {
       LOGGER.debug("{}", e.getMessage());
       return ResponseEntity.badRequest().body(e.getMessage());
     } catch (Exception e) {
