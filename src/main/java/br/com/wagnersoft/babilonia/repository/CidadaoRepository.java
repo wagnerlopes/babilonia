@@ -13,10 +13,10 @@ import br.com.wagnersoft.babilonia.dominio.Cidadao;
 @Repository
 public interface CidadaoRepository extends JpaRepository<Cidadao, Long> {
 
-  @Query("SELECT c FROM Cidadao c JOIN c.evento e JOIN c.municipioNascimento m WHERE c.cpf = :cpf")
+  @Query("SELECT c FROM Cidadao c JOIN c.municipioNascimento m WHERE c.cpf = :cpf")
   Optional<Cidadao> findByCpf(@Param("cpf") String cpf);
 
-  @Query("SELECT c FROM Cidadao c JOIN c.evento e WHERE c.nome = :nome AND c.mae = :mae AND c.nascimentoData = :nascimentoData")
+  @Query("SELECT c FROM Cidadao c WHERE c.nome = :nome AND c.mae = :mae AND c.nascimentoData = :nascimentoData")
   Optional<Cidadao> findByOutros(@Param("nome") String nome, @Param("mae") String mae, @Param("nascimentoData") Date nascimentoData);
 
 }

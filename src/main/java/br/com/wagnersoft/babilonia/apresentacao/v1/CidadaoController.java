@@ -30,8 +30,10 @@ import jakarta.validation.Valid;
 import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
 import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
 import br.com.wagnersoft.babilonia.dominio.enums.SituacaoEnum;
-import br.com.wagnersoft.babilonia.services.RemoteService;
 import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
+import br.com.wagnersoft.babilonia.exceptions.NoDataFoundException;
+import br.com.wagnersoft.babilonia.services.RemoteService;
+import br.com.wagnersoft.babilonia.utils.StringCleanup;
 
 /** Controlador da pesquisa de cidadão.
  * @author WagnerSoft

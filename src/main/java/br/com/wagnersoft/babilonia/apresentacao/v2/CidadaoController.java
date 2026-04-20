@@ -28,9 +28,11 @@ import jakarta.validation.Valid;
 
 import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
 import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
-import br.com.wagnersoft.babilonia.services.RemoteService;
-import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
 import br.com.wagnersoft.babilonia.dominio.enums.SituacaoEnum;
+import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
+import br.com.wagnersoft.babilonia.exceptions.NoDataFoundException;
+import br.com.wagnersoft.babilonia.services.RemoteService;
+import br.com.wagnersoft.babilonia.utils.StringCleanup;
 
 /** Controlador da pesquisa do cidadão.
  * @author WagnerSoft
@@ -63,7 +65,7 @@ public class CidadaoController {
   public ResponseEntity<Object> consultarCidadao(@RequestParam(name="cpf", required=true) @Parameter(description = "Somente os 11 dígitos do CPF", example = "00000000000") final String cpf) {
     CidadaoConsultDTO consult = null;
     try {
-      consult = CidadaoConsultDTO.builder().cpf(cpf).forca(0).build();
+      consult = CidadaoConsultDTO.builder().cpf(cpf).build();
       WSResultDTO result = this.rmtSvc.consultService(consult);
       return ResponseEntity.ok(result);
     } catch (NoDataFoundException e) {

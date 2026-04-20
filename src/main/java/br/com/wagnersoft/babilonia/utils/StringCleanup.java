@@ -1,5 +1,7 @@
 package br.com.wagnersoft.babilonia.utils;
 
+import java.text.Normalizer;
+
 public class StringCleanup {
 
   private StringCleanup() {
@@ -21,6 +23,14 @@ public class StringCleanup {
         .replace('Ç', 'C')
         .replace('ñ', 'n')
         .replace('Ñ', 'N');
+  }
+
+  public static String cleanAllAccents(String str) {
+    if (str == null) {
+      return null;
+    }
+    String normalized = Normalizer.normalize(str, Normalizer.Form.NFD);
+    return normalized.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
   }
 
 }
