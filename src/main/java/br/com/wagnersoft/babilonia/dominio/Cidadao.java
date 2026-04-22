@@ -1,7 +1,8 @@
 package br.com.wagnersoft.babilonia.dominio;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,9 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,8 +30,6 @@ import lombok.Setter;
 @Table(name="CIDADAO")
 public class Cidadao implements Serializable {
 
-  public static final String STRING = null;
-
   private static final long serialVersionUID = 1L;
 
   @Id
@@ -47,15 +43,13 @@ public class Cidadao implements Serializable {
 
   private String rg;
 
-  private Byte sexo;
+  private String sexo;
 
   @Column(name = "NASCIMENTO_DATA")
-  @Temporal(TemporalType.DATE)
-  private Date nascimentoData;
+  private LocalDate nascimentoData;
 
   @Column(name = "AUDIT_DATA")
-  @Temporal(TemporalType.DATE)
-  private Date auditData;
+  private LocalDateTime auditData;
   
   @ManyToOne
   @JoinColumn(name = "MUNICIPIO_NASCIMENTO_CODIGO", referencedColumnName = "CODIGO")

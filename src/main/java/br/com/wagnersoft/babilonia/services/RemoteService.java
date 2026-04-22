@@ -15,7 +15,6 @@ import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
 import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
 import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
 import br.com.wagnersoft.babilonia.repository.CidadaoRepository;
-import br.com.wagnersoft.babilonia.utils.DateHelper;
 
 /** Serviço de pesquisa de cidadão.
  * @author WagnerSoft
@@ -39,7 +38,7 @@ public class RemoteService implements BabiloniaService {
       cidOpt = this.cidadaoRep.findByCpf(consult.getCpf());
     } else {
       if (!StringUtils.isAnyBlank(consult.getNome(), consult.getNomeMae()) && consult.getDataNascimento() != null) {
-        cidOpt = this.cidadaoRep.findByOutros(consult.getNome(), consult.getNomeMae(), DateHelper.asDate(consult.getDataNascimento()));
+        cidOpt = this.cidadaoRep.findByOutros(consult.getNome(), consult.getNomeMae(), consult.getDataNascimento());
       }
     }
     
@@ -47,7 +46,6 @@ public class RemoteService implements BabiloniaService {
     LOGGER.debug("Cidadao = {}", cidadao);
     
     WSResultDTO result = null;
-    final LocalDate dtNasc = DateHelper.asLocalDate(cidadao.getNascimentoData());
     
     // Montagem da resposta
     result = WSResultDTO.builder()
@@ -55,9 +53,9 @@ public class RemoteService implements BabiloniaService {
         .nome(cidadao.getNome())
         .mae(cidadao.getMae())
         .pai(cidadao.getPai())
-        .nascimentoData(DateHelper.asLocalDate(cidadao.getNascimentoData()))
+        .nascimentoData(cidadao.getNascimentoData())
         .nascimentoLocal(cidadao.getMunicipioNascimento().toString())
-        .atualizacaoData(DateHelper.asLocalDate(cidadao.getAuditData()))
+        .atualizacaoData(cidadao.getAuditData())
         .consultaData(LocalDate.now())
         .build();
     
@@ -68,6 +66,7 @@ public class RemoteService implements BabiloniaService {
     return this.consultService(listaCpf, 0);
   }
 
+  @SuppressWarnings("unused")
   private Long testNumber(String param) {
     return StringUtils.isNotEmpty(param) && param.matches("-?\\d+(\\.\\d+)?") ? Long.valueOf(param) : 0;
   }

@@ -9,8 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @EnableAutoConfiguration
@@ -40,6 +38,7 @@ public class Babilonia implements CommandLineRunner {
      */
   }
 
+  /*
   @Bean
   public UndertowServletWebServerFactory undertowServletWebServerFactory() {
     final UndertowServletWebServerFactory factory = new UndertowServletWebServerFactory();
@@ -48,5 +47,6 @@ public class Babilonia implements CommandLineRunner {
     //factory.addDeploymentInfoCustomizers(deploymentInfo -> deploymentInfo.addInitialHandlerChainWrapper(handler -> {return new RequestDumpingHandler(handler);}));
     return factory;
   }
-
+  */
+  
 }
