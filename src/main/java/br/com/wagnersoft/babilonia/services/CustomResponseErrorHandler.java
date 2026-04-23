@@ -1,6 +1,7 @@
 package br.com.wagnersoft.babilonia.services;
 
 import java.io.IOException;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.web.client.ResponseErrorHandler;
 
 import br.com.wagnersoft.babilonia.exceptions.WSException;
 import io.micrometer.core.instrument.util.IOUtils;
+import io.swagger.models.HttpMethod;
 
 /** Manipulador de erro na resposta do servidor WS.
  * @author WagnerSoft
@@ -26,8 +28,8 @@ public class CustomResponseErrorHandler implements ResponseErrorHandler {
     return this.errorHandler.hasError(response);
   }
 
-  @Override
-  public void handleError(ClientHttpResponse response) throws IOException {
+  //@Override
+  void handleError(URI url, HttpMethod method, ClientHttpResponse response) throws IOException {
     final String body = IOUtils.toString(response.getBody(), StandardCharsets.UTF_8);
     final WSException exception = new WSException();
     final Map<String, Object> properties = new HashMap<>();

@@ -15,8 +15,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
-//import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
-import org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping;
+import org.springframework.boot.webmvc.actuate.endpoint.web.WebMvcEndpointHandlerMapping;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -51,7 +50,6 @@ public class SwaggerConfig {
     return new WebMvcEndpointHandlerMapping(endpointMapping, webEndpoints, endpointMediaTypes, corsProperties.toCorsConfiguration(), new EndpointLinksResolver(allEndpoints, basePath), shouldRegisterLinksMapping);
   }
 
-
   private boolean shouldRegisterLinksMapping(WebEndpointProperties webEndpointProperties, Environment environment, String basePath) {
     return webEndpointProperties.getDiscovery().isEnabled() && (StringUtils.hasText(basePath) || ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT));
   }
@@ -60,12 +58,12 @@ public class SwaggerConfig {
   public GroupedOpenApi publicApi() {
     return GroupedOpenApi.builder()
         .group("babilonia-public")
-        .pathsToMatch("/v2/**", "/v3/**")
+        .pathsToMatch("/v1/**", "/v2/**")
         .build();
   }
 
   @Bean
-  public OpenAPI conectGovOpenAPI() {
+  public OpenAPI appOpenAPI() {
     final SecurityScheme securityScheme = new SecurityScheme()
         .name("x-api-key")
         .type(SecurityScheme.Type.APIKEY)
@@ -76,17 +74,17 @@ public class SwaggerConfig {
     final SecurityRequirement securityItem = new SecurityRequirement().addList("x-api-key");
 
     final Contact contato = new Contact()
-        .email("teste@remote.com.br")
-        .name("TESTE")
-        .url("http://teste.com.br/contato");
+        .email("babilonia@wagnersoft.com.br")
+        .name("BABILONIA - TESTE")
+        .url("http://wagnersoft.com.br/babilonia");
 
     return new OpenAPI()
         .info(new Info().title("BABILONIA API")
-            .description("API para integração")
-            .version("v1.5.1")
+            .description("REST API - TESTE")
+            .version("v0.1")
             .contact(contato)
             .license(new License().name("Apache 2.0").url("http://springdoc.org")))
-        .externalDocs(new ExternalDocumentation().description("Documentação Wiki").url("https://babilonia-teste.com.br"))
+        .externalDocs(new ExternalDocumentation().description("Documentação Wiki").url("https://wagnersoft.com.br/babilonia"))
         .components(securityComponent)
         .addSecurityItem(securityItem);
   }

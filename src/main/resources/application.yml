@@ -14,46 +14,44 @@ server:
     http2:
         enabled: true
         
-    undertow:
-        io-threads: 16
-        worker-threads: 200
-        accesslog:
-            enabled: true
-            pattern: "%t %a %r %s"
-            dir: ./logs
-            rotate: true
-            prefix: access_log
-            suffix: .log 
+    #undertow:
+    #    io-threads: 16
+    #    worker-threads: 200
+    #    accesslog:
+    #        enabled: true
+    #        pattern: "%t %a %r %s"
+    #        dir: ./logs
+    #        rotate: true
+    #        prefix: access_log
+    #        suffix: .log 
 
-    ssl:
-        key-store: keystore.p12
-        key-store-password: JxhAS2UJ43KLFIAHh
-        keyStoreType: PKCS12
-        keyAlias: babilonia
+    #ssl:
+    #    key-store: keystore.p12
+    #    key-store-password: 123
+    #    keyStoreType: PKCS12
+    #    keyAlias: babilonia
 
 spring:
 
     application:
         name: babilonia
-    
-    datasource: 
-        url: jdbc:oracle:thin:@//exa11-scan1.com.br:1521/BD_PRODUCAO
-        username: babilonia 
-        password: xyz
-        hikari:
-            poolName: DB_POOL 
-            readOnly: true
-            connectionTimeout: 15000
-            maxLifetime: 600000
-            maximumPoolSize: 30
-            minimumIdle: 5
-            idleTimeout: 120000
-            
+
+    datasource:
+        url: jdbc:h2:mem:babilonia;INIT=CREATE SCHEMA IF NOT EXISTS babilonia;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
+        driver-class-name: org.h2.Driver
+        username: sa
+        password: 123
+        initial-size: 1
+
     jpa:
-      #database-platform: org.hibernate.dialect.Oracle10gDialect
-      show-sql: false
-      hibernate:
-          format_sql: true
+        show-sql: true
+        defer-datasource-initialization: true
+        hibernate:
+            ddl-auto: create-drop
+        properties:
+            hibernate: 
+                database-platform: org.hibernate.dialect.H2Dialect
+                format_sql: true
 
     jdbc:
         template:
@@ -63,35 +61,39 @@ spring:
         pathmatch:
             matching-strategy: ant_path_matcher
 
+    h2:
+        console:
+            enabled: true
+
 springdoc:
     packagesToScan: br.com.wagnersoft.babilonia.apresentacao
-    
     pathsToMatch: /v1/**, /v2/**
 
-#logging:
-#  file: ./logs/babilonia.log
-  
 ##########################################################
 # Utilizar quando classe OracleConfiguration estiver ativa
 # (HikariCP está oferecendo melhor performance)
 #    oracle:
-#        url: jdbc:oracle:thin:@//10.67.7.1:1521/xyz
+#        url: jdbc:oracle:thin:@//teste.com/xyz
 #        username: ????
 #        password: ????
 #        factoryClassName: oracle.jdbc.pool.OracleDataSource 
 ############################################################
 
-# #####################
-# Conectagov App Config
-# #####################
-babilonia: 
-  show-divergence: true
-  ws:
-    apolo: 
-      url1: http://apolo.com.br/xyz/v1/teste.json
-      url2: http://apolo.com.br/xyz/v1/pesquisa.json
-      ativo: true
-    sismob: 
-      url1: https://apl1.com.br/xyz-api/verificacao
-      ativo: true
- 
+#datasource: 
+#    url: jdbc:oracle:thin:@//wagnersoft.com.br:1521/BD_PRODUCAO
+#    username: babilonia 
+#    password: xyz
+#    hikari:
+#        poolName: DB_POOL 
+#        readOnly: true
+#        connectionTimeout: 15000
+#        maxLifetime: 600000
+#        maximumPoolSize: 30
+#        minimumIdle: 5
+#        idleTimeout: 120000
+#        
+#jpa:
+#  database-platform: org.hibernate.dialect.Oracle10gDialect
+#  show-sql: false
+#  hibernate:
+#      format_sql: true

@@ -1,11 +1,10 @@
-package br.com.wagnersoft.babilonia.v1;
+package br.com.wagnersoft.babilonia.apresentacao.v1;
 
 import java.time.LocalDate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
+import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
+import br.com.wagnersoft.babilonia.dominio.enums.SituacaoEnum;
+import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
+import br.com.wagnersoft.babilonia.exceptions.NoDataFoundException;
+import br.com.wagnersoft.babilonia.services.RemoteService;
+import br.com.wagnersoft.babilonia.utils.StringCleanup;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,16 +30,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import jakarta.validation.Valid;
-
-import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
-import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
-import br.com.wagnersoft.babilonia.dominio.enums.SituacaoEnum;
-import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
-import br.com.wagnersoft.babilonia.exceptions.NoDataFoundException;
-import br.com.wagnersoft.babilonia.services.RemoteService;
-import br.com.wagnersoft.babilonia.utils.StringCleanup;
 
 /** Controlador da pesquisa de cidadão.
  * @author WagnerSoft

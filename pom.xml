@@ -23,7 +23,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.4.5</version>
+    <version>4.0.5</version>
   </parent>
 
   <dependencies>
@@ -52,17 +52,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-undertow</artifactId>
     </dependency>
 
     <dependency>
@@ -138,6 +127,11 @@
       <artifactId>reflections</artifactId>
       <version>0.9.12</version>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
     </dependency>
 
   </dependencies>
@@ -242,8 +236,8 @@
   </repositories>
 
   <organization>
-    <name>WagnerSoft</name>
-    <url>https://wagnerlopes.github.io/</url>
+    <name>WagnerSoft - WL</name>
+    <url>https://github.com/WagnerSoft-WL</url>
   </organization>
 
   <developers>
@@ -251,7 +245,7 @@
       <id>wagnerlopes</id>
       <name>Wagner Luis barbosa de Abreu Lopes</name>
       <email>wagner.luis.alopes@gmail.com</email>
-      <organization>WagnerSoft</organization>
+      <organization>WagnerSoft - WL</organization>
       <organizationUrl>https://wagnerlopes.github.io/</organizationUrl>
       <roles>
         <role>Manager</role>

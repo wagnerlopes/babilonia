@@ -1,6 +1,6 @@
 package br.com.wagnersoft.babilonia.repository;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +17,6 @@ public interface CidadaoRepository extends JpaRepository<Cidadao, Long> {
   Optional<Cidadao> findByCpf(@Param("cpf") String cpf);
 
   @Query("SELECT c FROM Cidadao c WHERE c.nome = :nome AND c.mae = :mae AND c.nascimentoData = :nascimentoData")
-  Optional<Cidadao> findByOutros(@Param("nome") String nome, @Param("mae") String mae, @Param("nascimentoData") Date nascimentoData);
+  Optional<Cidadao> findByOutros(@Param("nome") String nome, @Param("mae") String mae, @Param("nascimentoData") LocalDate nascimentoData);
 
 }
