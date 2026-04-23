@@ -44,13 +44,13 @@ public class WSResultDTO implements Serializable {
 
   private String situacaoDescricao;
 
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd", locale = "pt-BR", timezone = "Brazil/East")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "pt-BR", timezone = "Brazil/East")
   private LocalDate nascimentoData;
 
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd", locale = "pt-BR", timezone = "Brazil/East")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "pt-BR", timezone = "Brazil/East")
   private LocalDateTime atualizacaoData;
 
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd", locale = "pt-BR", timezone = "Brazil/East")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "pt-BR", timezone = "Brazil/East")
   private LocalDate consultaData;
   
 }

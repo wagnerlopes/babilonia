@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import br.com.wagnersoft.babilonia.dominio.Cidadao;
 import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
 import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
+import br.com.wagnersoft.babilonia.dominio.enums.SituacaoEnum;
 import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
 import br.com.wagnersoft.babilonia.repository.CidadaoRepository;
 
@@ -55,6 +56,8 @@ public class RemoteService implements BabiloniaService {
         .pai(cidadao.getPai())
         .nascimentoData(cidadao.getNascimentoData())
         .nascimentoLocal(cidadao.getMunicipioNascimento().toString())
+        .situacaoCodigo(1)
+        .situacaoDescricao(SituacaoEnum.EM_DIA.getDescricao())
         .atualizacaoData(cidadao.getAuditData())
         .consultaData(LocalDate.now())
         .build();
