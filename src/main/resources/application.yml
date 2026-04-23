@@ -37,37 +37,20 @@ spring:
         name: babilonia
 
     datasource:
-        undefinedundefinedurl: jdbc:h2:mem:babilonia;INIT=CREATE SCHEMA IF NOT EXISTS babilonia;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
+        url: jdbc:h2:mem:babilonia;INIT=CREATE SCHEMA IF NOT EXISTS babilonia;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
+        driver-class-name: org.h2.Driver
         username: sa
         password: 123
-        driver-class-name: org.h2.Driver
         initial-size: 1
 
     jpa:
         show-sql: true
-        database-platform: H2
         hibernate:
-        format_sql: true
-        ddl-auto: create-drop
-
-    #datasource: 
-    #    url: jdbc:oracle:thin:@//exa11-scan1.com.br:1521/BD_PRODUCAO
-    #    username: babilonia 
-    #    password: xyz
-    #    hikari:
-    #        poolName: DB_POOL 
-    #        readOnly: true
-    #        connectionTimeout: 15000
-    #        maxLifetime: 600000
-    #        maximumPoolSize: 30
-    #        minimumIdle: 5
-    #        idleTimeout: 120000
-    #        
-    #jpa:
-    #  database-platform: org.hibernate.dialect.Oracle10gDialect
-    #  show-sql: false
-    #  hibernate:
-    #      format_sql: true
+            ddl-auto: create-drop
+        properties:
+            hibernate: 
+                database-platform: org.hibernate.dialect.H2Dialect
+                format_sql: true
 
     jdbc:
         template:
@@ -76,6 +59,10 @@ spring:
     mvc:
         pathmatch:
             matching-strategy: ant_path_matcher
+
+    h2:
+        console:
+            enabled: true
 
 springdoc:
     packagesToScan: br.com.wagnersoft.babilonia.apresentacao
@@ -94,16 +81,21 @@ springdoc:
 #        factoryClassName: oracle.jdbc.pool.OracleDataSource 
 ############################################################
 
-# ####################
-# App Config Interno
-# ####################
-babilonia: 
-  show-divergence: false
-  ws:
-    apolo: 
-      url1: http://teste1.wagnersoft.com.br/xyz/v1/teste.json
-      url2: http://teste2.wagnersoft.com.br/xyz/v1/pesquisa.json
-      ativo: false
-    minerva: 
-      url1: https://teste3.wagnersoft.com.br/xyz/v1/teste.json
-      ativo: false
+#datasource: 
+#    url: jdbc:oracle:thin:@//wagnersoft.com.br:1521/BD_PRODUCAO
+#    username: babilonia 
+#    password: xyz
+#    hikari:
+#        poolName: DB_POOL 
+#        readOnly: true
+#        connectionTimeout: 15000
+#        maxLifetime: 600000
+#        maximumPoolSize: 30
+#        minimumIdle: 5
+#        idleTimeout: 120000
+#        
+#jpa:
+#  database-platform: org.hibernate.dialect.Oracle10gDialect
+#  show-sql: false
+#  hibernate:
+#      format_sql: true

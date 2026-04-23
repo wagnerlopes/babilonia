@@ -1,7 +1,5 @@
 package br.com.wagnersoft.babilonia.exceptions;
 
-import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
-
 public class NoDataFoundException extends BabiloniaException {
 
   private static final long serialVersionUID = 1L;
