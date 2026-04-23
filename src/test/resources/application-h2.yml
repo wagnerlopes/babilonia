@@ -15,12 +15,3 @@ spring:
       hibernate:
           format_sql: true
           ddl-auto: create-drop
-          
-conectagov: 
-  show-divergence: true
-  ws:
-    apolo: 
-      url1: http://apolo.teste.com.br/v1/situacao.json
-      url2: http://apolo.patch.com.br/v1/pesquisa.json
-    mob: 
-      url1: https://mob.teste.com.br/verificacao

@@ -27,7 +27,7 @@ server:
 
     #ssl:
     #    key-store: keystore.p12
-    #    key-store-password: JxhAS2UJ43KLFIAHh
+    #    key-store-password: 123
     #    keyStoreType: PKCS12
     #    keyAlias: babilonia
 
@@ -45,6 +45,7 @@ spring:
 
     jpa:
         show-sql: true
+        defer-datasource-initialization: true
         hibernate:
             ddl-auto: create-drop
         properties:
@@ -68,9 +69,6 @@ springdoc:
     packagesToScan: br.com.wagnersoft.babilonia.apresentacao
     pathsToMatch: /v1/**, /v2/**
 
-#logging:
-#  file: ./logs/babilonia.log
-  
 ##########################################################
 # Utilizar quando classe OracleConfiguration estiver ativa
 # (HikariCP está oferecendo melhor performance)
