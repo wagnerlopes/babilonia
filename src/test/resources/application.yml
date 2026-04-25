@@ -9,9 +9,13 @@ spring:
            password: 123
            driver-class-name: org.h2.Driver
            initial-size: 1
+
     jpa:
-      show-sql: true
-      database-platform: H2
-      hibernate:
-          format_sql: true
-          ddl-auto: create-drop
+       show-sql: true
+       defer-datasource-initialization: true
+       hibernate:
+           ddl-auto: create-drop
+       properties:
+           hibernate: 
+               database-platform: org.hibernate.dialect.H2Dialect
+               format_sql: true
