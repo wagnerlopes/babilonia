@@ -9,16 +9,11 @@
   <groupId>br.com.wagnersoft</groupId>
   <artifactId>babilonia</artifactId>
   <version>0.1</version>
+
   <name>br.com.wagnersoft.babilonia</name>
   <description>REST API Web Service</description>
   <inceptionYear>2026</inceptionYear>
   <url>https://wagnerlopes.github.io/</url>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>17</java.version>
-  </properties>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -63,11 +58,6 @@
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.19.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.oracle.database.jdbc</groupId>
-      <artifactId>ojdbc11</artifactId>
     </dependency>
 
     <dependency>
@@ -136,20 +126,6 @@
 
   </dependencies>
 
-  <pluginRepositories>
-  
-    <pluginRepository>
-      <id>smartbear-sweden-plugin-repository</id>
-      <url>http://www.soapui.org/repository/maven2/</url>
-    </pluginRepository>
-
-    <pluginRepository>
-      <id>maven.oracle.com</id>
-      <url>https://maven.oracle.com</url>
-    </pluginRepository>
-  
-  </pluginRepositories>
-
   <build>
 
     <plugins>
@@ -157,37 +133,6 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <executable>false</executable>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <annotationProcessorPaths>
-            <path>
-              <groupId>org.projectlombok</groupId>
-              <artifactId>lombok</artifactId>
-              <version>1.18.44</version>
-            </path>
-          </annotationProcessorPaths>		  
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-            </manifest>
-          </archive>
-        </configuration>
       </plugin>
 
       <plugin>
@@ -197,36 +142,11 @@
           <skipTests>true</skipTests>
         </configuration>
       </plugin>
-      <!-- 
-      <plugin>
-        <groupId>com.smartbear.soapui</groupId>
-        <artifactId>soapui-pro-maven-plugin</artifactId>
-        <version>5.1.2</version>
-        <configuration>
-          <projectFile>./conectagov-soapui.xml</projectFile>
-          <outputFolder>./report</outputFolder>
-          <exportAll>true</exportAll>
-          <junitReport>true</junitReport>
-          <printReport>true</printReport>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>0.9.12</version>
-          </dependency>
-          <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>5.0.0</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      -->
+
     </plugins>
 
   </build>
-
+<!--
   <repositories>
     <repository>
       <id>xwiki</id>
@@ -234,7 +154,7 @@
       <url>https://maven.xwiki.org/externals/</url>
     </repository>
   </repositories>
-
+-->
   <organization>
     <name>WagnerSoft - WL</name>
     <url>https://github.com/WagnerSoft-WL</url>
