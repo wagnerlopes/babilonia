@@ -1,8 +1,13 @@
 debug: false
 
+logging:
+    level:
+        org.springframework: WARN
+        br.com.wagnersoft.babilonia: INFO
+
 server:
 
-    port: 443
+    port: 80
 
     servlet:
       context-path: /babilonia/api
@@ -14,6 +19,13 @@ server:
     http2:
         enabled: true
         
+    ssl:
+        enabled: false
+        key-store: "" #keystore.p12
+        key-store-password: "" #123
+        #keyStoreType: PKCS12
+        #keyAlias: babilonia
+
     #undertow:
     #    io-threads: 16
     #    worker-threads: 200
@@ -25,13 +37,10 @@ server:
     #        prefix: access_log
     #        suffix: .log 
 
-    #ssl:
-    #    key-store: keystore.p12
-    #    key-store-password: 123
-    #    keyStoreType: PKCS12
-    #    keyAlias: babilonia
-
 spring:
+
+    profiles:
+        active: dev
 
     application:
         name: babilonia
@@ -46,12 +55,12 @@ spring:
     jpa:
         show-sql: true
         defer-datasource-initialization: true
+        open-in-view: false
         hibernate:
             ddl-auto: create-drop
+            dialect: org.hibernate.dialect.H2Dialect
         properties:
-            hibernate: 
-                database-platform: org.hibernate.dialect.H2Dialect
-                format_sql: true
+            hibernate.format_sql: true
 
     jdbc:
         template:

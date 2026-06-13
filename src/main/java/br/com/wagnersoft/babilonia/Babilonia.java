@@ -20,7 +20,7 @@ public class Babilonia implements CommandLineRunner {
   DataSource dataSource;
 
   public static void main(String[] args) {
-    LOGGER.info("Babilonia iniciando...");
+    LOGGER.warn("Babilonia iniciando...");
     SpringApplication.run(Babilonia.class, args);
   }
 
