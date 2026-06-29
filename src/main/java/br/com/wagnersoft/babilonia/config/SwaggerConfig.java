@@ -74,17 +74,17 @@ public class SwaggerConfig {
     final SecurityRequirement securityItem = new SecurityRequirement().addList("x-api-key");
 
     final Contact contato = new Contact()
-        .email("babilonia@wagnersoft.com.br")
-        .name("BABILONIA - TESTE")
-        .url("http://wagnersoft.com.br/babilonia");
+        .email("wagner.luis.alopes@gmail.com")
+        .name("BABILONIA")
+        .url("https://github.com/wagnerlopes");
 
     return new OpenAPI()
         .info(new Info().title("BABILONIA API")
             .description("REST API - TESTE")
-            .version("v0.1")
+            .version("v0.1.1")
             .contact(contato)
-            .license(new License().name("Apache 2.0").url("http://springdoc.org")))
-        .externalDocs(new ExternalDocumentation().description("Documentação Wiki").url("https://wagnersoft.com.br/babilonia"))
+            .license(new License().name("MIT License").url("https://github.com/wagnerlopes/babilonia?tab=MIT-1-ov-file")))
+        .externalDocs(new ExternalDocumentation().description("Documentação Wiki").url("https://github.com/wagnerlopes/babilonia?tab=readme-ov-file"))
         .components(securityComponent)
         .addSecurityItem(securityItem);
   }
