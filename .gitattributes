@@ -1,0 +1,9 @@
+* text=auto eol=lf
+*.java text eol=lf
+*.js text eol=lf
+*.html text eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
