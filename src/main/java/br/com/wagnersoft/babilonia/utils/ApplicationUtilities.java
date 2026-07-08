@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Base64;
+import java.util.Locale;
 
 public class ApplicationUtilities {
 
@@ -42,7 +43,7 @@ public class ApplicationUtilities {
     if (dirty == null) return null;
     String clean = Normalizer.normalize(dirty, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     LOGGER.debug("{} => {}", dirty, clean);
-    return clean.trim().toUpperCase();
+    return clean.trim().toUpperCase(Locale.getDefault());
   }
   
 }

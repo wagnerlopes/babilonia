@@ -53,10 +53,12 @@ public class JwtUtilities {
       X509EncodedKeySpec keySpec = new X509EncodedKeySpec(decode);
       KeyFactory keyFactory = KeyFactory.getInstance("RSA");
       return (RSAPublicKey) keyFactory.generatePublic(keySpec);
-    } catch (Exception e) {
-      // falha ao subir a aplicação: chave pública é configuração essencial
-      LOGGER.error("Chave pública RSA inválida.", e);
+    } catch (IllegalArgumentException ie) {
+      LOGGER.error("Chave pública RSA inválida.", ie);
       throw new IllegalStateException("A chave pública informada não é válida.");
+    } catch (Exception e) {
+      LOGGER.error(e.getMessage(), e);
+      throw new IllegalStateException(e.getMessage());
     }
   }
   
