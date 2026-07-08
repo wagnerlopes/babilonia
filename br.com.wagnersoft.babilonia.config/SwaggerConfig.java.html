@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SwaggerConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">br.com.wagnersoft.babilonia</a> &gt; <a href="index.source.html" class="el_package">br.com.wagnersoft.babilonia.config</a> &gt; <span class="el_source">SwaggerConfig.java</span></div><h1>SwaggerConfig.java</h1><pre class="source lang-java linenums">package br.com.wagnersoft.babilonia.config;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.springdoc.core.models.GroupedOpenApi;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
+import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
+import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
+import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
+import org.springframework.boot.webmvc.actuate.endpoint.web.WebMvcEndpointHandlerMapping;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.util.StringUtils;
+
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.ExternalDocumentation;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+
+/** SwaggerConfig.
+ * @author Abreu Lopes
+ * @since 0.1
+ * @version 0.1
+ */
+@Configuration
+<span class="nc" id="L38">public class SwaggerConfig {</span>
+
+  @Bean
+  public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(
+          WebEndpointsSupplier webEndpointsSupplier,
+          EndpointMediaTypes endpointMediaTypes,
+          CorsEndpointProperties corsProperties,
+          WebEndpointProperties webEndpointProperties,
+          Environment environment) {
+
+<span class="nc" id="L48">    List&lt;ExposableEndpoint&lt;?&gt;&gt; allEndpoints = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L49">    Collection&lt;ExposableWebEndpoint&gt; webEndpoints = webEndpointsSupplier.getEndpoints();</span>
+<span class="nc" id="L50">    allEndpoints.addAll(webEndpoints);</span>
+
+<span class="nc" id="L52">    String basePath = webEndpointProperties.getBasePath();</span>
+<span class="nc" id="L53">    EndpointMapping endpointMapping = new EndpointMapping(basePath);</span>
+
+<span class="nc" id="L55">    boolean shouldRegisterLinksMapping = this.shouldRegisterLinksMapping(webEndpointProperties, environment, basePath);</span>
+
+<span class="nc" id="L57">    return new WebMvcEndpointHandlerMapping(</span>
+        endpointMapping,
+        webEndpoints,
+        endpointMediaTypes,
+<span class="nc" id="L61">        corsProperties.toCorsConfiguration(),</span>
+        new EndpointLinksResolver(allEndpoints, basePath),
+        shouldRegisterLinksMapping
+        );
+  }
+  
+  private boolean shouldRegisterLinksMapping(final WebEndpointProperties webEndpointProperties, final Environment environment, String basePath) {
+<span class="nc bnc" id="L68" title="All 6 branches missed.">    return webEndpointProperties.getDiscovery().isEnabled() &amp;&amp; (StringUtils.hasText(basePath) || ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT));</span>
+  }
+  
+  @Bean
+  public GroupedOpenApi publicApi() {
+<span class="nc" id="L73">    return GroupedOpenApi.builder()</span>
+<span class="nc" id="L74">        .group(&quot;babilonia-public&quot;)</span>
+<span class="nc" id="L75">        .pathsToMatch(&quot;/v1/**&quot;, &quot;/v2/**&quot;)</span>
+<span class="nc" id="L76">        .build();</span>
+  }
+
+  @Bean
+  public OpenAPI appOpenAPI() {
+<span class="nc" id="L81">    final SecurityScheme securityScheme = new SecurityScheme()</span>
+<span class="nc" id="L82">        .name(&quot;x-api-key&quot;)</span>
+<span class="nc" id="L83">        .type(SecurityScheme.Type.APIKEY)</span>
+<span class="nc" id="L84">        .in(SecurityScheme.In.HEADER);</span>
+
+<span class="nc" id="L86">    final Components securityComponent = new Components().addSecuritySchemes(&quot;x-api-key&quot;, securityScheme);</span>
+
+<span class="nc" id="L88">    final SecurityRequirement securityItem = new SecurityRequirement().addList(&quot;x-api-key&quot;);</span>
+
+<span class="nc" id="L90">    final Contact contato = new Contact()</span>
+<span class="nc" id="L91">        .email(&quot;wagner.luis.alopes@gmail.com&quot;)</span>
+<span class="nc" id="L92">        .name(&quot;BABILONIA&quot;)</span>
+<span class="nc" id="L93">        .url(&quot;https://github.com/wagnerlopes&quot;);</span>
+
+<span class="nc" id="L95">    return new OpenAPI()</span>
+<span class="nc" id="L96">        .info(new Info().title(&quot;BABILONIA&quot;)</span>
+<span class="nc" id="L97">            .description(&quot;Open API Web Service&quot;)</span>
+<span class="nc" id="L98">            .version(&quot;v1.0.0-alpha&quot;)</span>
+<span class="nc" id="L99">            .contact(contato)</span>
+<span class="nc" id="L100">            .license(new License().name(&quot;MIT License&quot;).url(&quot;https://github.com/wagnerlopes/babilonia?tab=MIT-1-ov-file&quot;)))</span>
+<span class="nc" id="L101">        .externalDocs(new ExternalDocumentation().description(&quot;Documentação Wiki&quot;).url(&quot;https://github.com/wagnerlopes/babilonia?tab=readme-ov-file&quot;))</span>
+<span class="nc" id="L102">        .components(securityComponent)</span>
+<span class="nc" id="L103">        .addSecurityItem(securityItem);</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

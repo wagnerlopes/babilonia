@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BabiloniaService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">br.com.wagnersoft.babilonia</a> &gt; <a href="index.source.html" class="el_package">br.com.wagnersoft.babilonia.services</a> &gt; <span class="el_source">BabiloniaService.java</span></div><h1>BabiloniaService.java</h1><pre class="source lang-java linenums">package br.com.wagnersoft.babilonia.services;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
+import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
+import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
+
+/** Interface de um serviço de pesquisa de informações.
+ * @author WagnerSoft
+ * @since 0.1
+ * @version 0.1
+ */
+public interface BabiloniaService {
+
+  /** Consulta as informações do cidadão.
+   * @param consult
+   * @return
+   * @throws ConectagovException
+   */
+  WSResultDTO consultService(CidadaoConsultDTO consult) throws BabiloniaException;
+
+  /** Consulta lista de CPF.
+   * @param listaCpf
+   * @param forca
+   * @return Lista WSResultDTO
+   * @throws BabiloniaException
+   */
+  public default List&lt;WSResultDTO&gt; consultService(final String[] listaCpf, final Integer forca) throws BabiloniaException {
+<span class="nc bnc" id="L33" title="All 4 branches missed.">    if (listaCpf == null || listaCpf.length == 0) {</span>
+<span class="nc" id="L34">      throw new BabiloniaException(&quot;Lista de CPF vazia.&quot;);</span>
+    }
+<span class="nc" id="L36">    final List&lt;WSResultDTO&gt; lista = new ArrayList&lt;&gt;(listaCpf.length);</span>
+<span class="nc" id="L37">    Arrays.asList(listaCpf).forEach(cpf -&gt; {</span>
+      try {
+<span class="nc" id="L39">        lista.add(this.consultService(CidadaoConsultDTO.builder().cpf(cpf).build()));</span>
+<span class="nc" id="L40">      } catch (BabiloniaException e) {</span>
+<span class="nc" id="L41">        lista.add(WSResultDTO.builder()</span>
+<span class="nc" id="L42">            .cpf(cpf)</span>
+<span class="nc" id="L43">            .consultaData(LocalDate.now())</span>
+<span class="nc" id="L44">            .situacaoDescricao(e.getMessage())</span>
+<span class="nc" id="L45">            .build());</span>
+<span class="nc" id="L46">      }</span>
+<span class="nc" id="L47">    });</span>
+<span class="nc" id="L48">    return lista;</span>
+  }
+  
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
