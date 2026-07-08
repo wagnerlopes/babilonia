@@ -45,23 +45,23 @@ public class SwaggerConfig {
           WebEndpointProperties webEndpointProperties,
           Environment environment) {
 
-      List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
-      Collection<ExposableWebEndpoint> webEndpoints = webEndpointsSupplier.getEndpoints();
-      allEndpoints.addAll(webEndpoints);
+    List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
+    Collection<ExposableWebEndpoint> webEndpoints = webEndpointsSupplier.getEndpoints();
+    allEndpoints.addAll(webEndpoints);
 
-      String basePath = webEndpointProperties.getBasePath();
-      EndpointMapping endpointMapping = new EndpointMapping(basePath);
+    String basePath = webEndpointProperties.getBasePath();
+    EndpointMapping endpointMapping = new EndpointMapping(basePath);
 
-      boolean shouldRegisterLinksMapping = this.shouldRegisterLinksMapping(webEndpointProperties, environment, basePath);
+    boolean shouldRegisterLinksMapping = this.shouldRegisterLinksMapping(webEndpointProperties, environment, basePath);
 
-      return new WebMvcEndpointHandlerMapping(
-              endpointMapping,
-              webEndpoints,
-              endpointMediaTypes,
-              corsProperties.toCorsConfiguration(),
-              new EndpointLinksResolver(allEndpoints, basePath),
-              shouldRegisterLinksMapping
-      );
+    return new WebMvcEndpointHandlerMapping(
+        endpointMapping,
+        webEndpoints,
+        endpointMediaTypes,
+        corsProperties.toCorsConfiguration(),
+        new EndpointLinksResolver(allEndpoints, basePath),
+        shouldRegisterLinksMapping
+        );
   }
   
   private boolean shouldRegisterLinksMapping(final WebEndpointProperties webEndpointProperties, final Environment environment, String basePath) {

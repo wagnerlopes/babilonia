@@ -59,7 +59,7 @@ public class CidadaoController {
       @ApiResponse(responseCode = "404", description = "Não existe cidadão com o CPF informado"),
       @ApiResponse(responseCode = "500", description = "Serviço indisponível, tente mais tarde.")
   })
-  public ResponseEntity<Object> consultarCidadao(@RequestParam(name="cpf", required=true) @Parameter(description = "Somente os 11 dígitos do CPF", example = "00000000000") final String cpf) {
+  public ResponseEntity<Object> consultarCidadao(@RequestParam(name = "cpf", required = true) @Parameter(description = "Somente os 11 dígitos do CPF", example = "00000000000") final String cpf) {
     CidadaoConsultDTO consult = null;
     try {
       consult = CidadaoConsultDTO.builder().cpf(cpf).build();
@@ -91,7 +91,7 @@ public class CidadaoController {
       @ApiResponse(responseCode = "500", description = "Serviço indisponível, tente mais tarde.")
   })
   @SecurityRequirement(name = "apikey")
-  public ResponseEntity<Object> consultarCidadao(@Valid @RequestBody(required=true) @Parameter(description = "Informações do cidadão sendo obrigatório: nome, mae e data nascimento.") CidadaoConsultDTO consult) {
+  public ResponseEntity<Object> consultarCidadao(@Valid @RequestBody(required = true) @Parameter(description = "Informações do cidadão sendo obrigatório: nome, mae e data nascimento.") CidadaoConsultDTO consult) {
     try {
       consult.setNome(ApplicationUtilities.cleanAccent(consult.getNome()));
       consult.setNomeMae(ApplicationUtilities.cleanAccent(consult.getNomeMae()));

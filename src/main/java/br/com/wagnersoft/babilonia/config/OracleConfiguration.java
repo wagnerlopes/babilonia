@@ -53,6 +53,6 @@ public class OracleConfiguration {
      * 
      */
     return null;
-    }
+  }
 
 }

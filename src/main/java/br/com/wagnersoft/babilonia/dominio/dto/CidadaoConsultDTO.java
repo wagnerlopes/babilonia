@@ -35,18 +35,18 @@ public class CidadaoConsultDTO implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @Size(max=11, message="CPF com 11 caracteres")
+  @Size(max = 11, message = "CPF com 11 caracteres")
   private String cpf;
   
-  @NotEmpty(message="Preencha o campo nome do cidadão")
-  @Size(min=3, max=250, message="Nome de 3 a 250 caracteres")
+  @NotEmpty(message = "Preencha o campo nome do cidadão")
+  @Size(min = 3, max = 250, message = "Nome de 3 a 250 caracteres")
   private String nome;
 
-  @NotEmpty(message="Preencha o campo nome da mãe")
-  @Size(min=3, max=250, message="Nome da mãe de 3 a 250 caracteres")
+  @NotEmpty(message = "Preencha o campo nome da mãe")
+  @Size(min = 3, max = 250, message = "Nome da mãe de 3 a 250 caracteres")
   private String nomeMae;
   
-  @NotNull(message="Preencha o campo data no formato yyyymmdd")
+  @NotNull(message = "Preencha o campo data no formato yyyymmdd")
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd", locale = "pt-BR", timezone = "Brazil/East")
   private LocalDate dataNascimento;
 

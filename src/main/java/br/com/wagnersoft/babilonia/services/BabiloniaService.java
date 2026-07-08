@@ -38,8 +38,7 @@ public interface BabiloniaService {
       try {
         lista.add(this.consultService(CidadaoConsultDTO.builder().cpf(cpf).build()));
       } catch (BabiloniaException e) {
-        lista.add(
-          WSResultDTO.builder()
+        lista.add(WSResultDTO.builder()
             .cpf(cpf)
             .consultaData(LocalDate.now())
             .situacaoDescricao(e.getMessage())

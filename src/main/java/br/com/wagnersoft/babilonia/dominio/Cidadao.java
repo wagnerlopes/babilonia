@@ -27,7 +27,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="CIDADAO")
+@Table(name = "CIDADAO")
 public class Cidadao implements Serializable {
 
   private static final long serialVersionUID = 1L;
