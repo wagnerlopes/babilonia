@@ -12,10 +12,10 @@ on:
   pull_request:
     branches: [ "main" ]
   push:
-    branches: [ "next" ]
+    branches: [ "main" ]   # só publica quando há push/merge na main
 
 permissions:
-  contents: write
+  contents: write   # necessário para publicar no GitHub Pages
 
 jobs:
   build:
@@ -31,18 +31,10 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Set up Node.js (LTS)
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
       - name: Build with Maven (skip tests)
         run: mvn -B package -DskipTests
 
-      - name: Update dependency graph
-        uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
-
-  test:
+  quality-reports:
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -56,51 +48,74 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
+      # Jacoco
       - name: Run tests with coverage
         run: mvn -B test jacoco:report
 
-      - name: Upload coverage report
+      - name: Upload coverage report (artifact)
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
           path: target/site/jacoco
 
       - name: Deploy coverage report to GitHub Pages
+        if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/site/jacoco
-          
-  checkstyle:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+          destination_dir: coverage
 
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      # Javadocs
+      - name: Generate Javadocs
+        run: mvn javadoc:javadoc
+
+      - name: Upload Javadocs (artifact)
+        uses: actions/upload-artifact@v4
         with:
-          java-version: '21'
-          distribution: 'temurin'
-          cache: 'maven'
+          name: javadocs
+          path: target/site/apidocs
 
+      - name: Deploy Javadocs to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site/apidocs
+          destination_dir: javadocs
+
+      # Checkstyle
       - name: Run Checkstyle
-        run: mvn -B checkstyle:check
+        run: mvn checkstyle:checkstyle
 
-  spotbugs:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      - name: Upload Checkstyle report (artifact)
+        uses: actions/upload-artifact@v4
         with:
-          java-version: '21'
-          distribution: 'temurin'
-          cache: 'maven'
+          name: checkstyle-report
+          path: target/site/checkstyle.html
 
+      - name: Deploy Checkstyle report to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site
+          destination_dir: checkstyle
+
+      # SpotBugs
       - name: Run SpotBugs
-        run: mvn -B spotbugs:check
+        run: mvn spotbugs:spotbugs
+
+      - name: Upload SpotBugs report (artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: spotbugs-report
+          path: target/site/spotbugs.html
+
+      - name: Deploy SpotBugs report to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site
+          destination_dir: spotbugs
