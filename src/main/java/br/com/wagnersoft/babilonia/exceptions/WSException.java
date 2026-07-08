@@ -3,6 +3,9 @@ package br.com.wagnersoft.babilonia.exceptions;
 import java.io.IOException;
 import java.util.Map;
 
+import org.apache.logging.log4j.internal.annotation.SuppressFBWarnings;
+
+@SuppressFBWarnings("EI_EXPOSE_REP")
 public class WSException extends IOException {
 
   private static final long serialVersionUID = 1L;

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 import jakarta.validation.constraints.NotNull;
 
+import org.apache.logging.log4j.internal.annotation.SuppressFBWarnings;
 //import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ import lombok.Setter;
 @Setter
 //@Configuration
 //@ConfigurationProperties("spring.oracle")
+@SuppressFBWarnings("URF_UNREAD_FIELD")
 public class OracleConfiguration {
 
   @NotNull
@@ -53,6 +55,6 @@ public class OracleConfiguration {
      * 
      */
     return null;
-    }
+  }
 
 }

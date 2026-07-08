@@ -4,7 +4,9 @@ public class NoDataFoundException extends BabiloniaException {
 
   private static final long serialVersionUID = 1L;
 
-  public NoDataFoundException() {}
+  public NoDataFoundException() {
+    super();
+  }
   
   public NoDataFoundException(String msg) {
     super(msg);

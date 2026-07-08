@@ -69,9 +69,4 @@ public class RemoteService implements BabiloniaService {
     return this.consultService(listaCpf, 0);
   }
 
-  @SuppressWarnings("unused")
-  private Long testNumber(String param) {
-    return StringUtils.isNotEmpty(param) && param.matches("-?\\d+(\\.\\d+)?") ? Long.valueOf(param) : 0;
-  }
-  
 } 

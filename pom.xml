@@ -8,17 +8,17 @@
     
   <groupId>br.com.wagnersoft</groupId>
   <artifactId>babilonia</artifactId>
-  <version>0.1.0-alpha</version>
+  <version>1.0.0-alpha</version>
 
   <name>br.com.wagnersoft.babilonia</name>
-  <description>REST API Web Service</description>
+  <description>Open API Rest Web Service</description>
   <inceptionYear>2026</inceptionYear>
   <url>https://wagnerlopes.github.io/</url>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>4.0.7</version>
+    <version>4.1.0</version>
   </parent>
 
   <dependencies>
@@ -26,7 +26,7 @@
     <dependency>
       <groupId>org.springdoc</groupId>
         <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-        <version>2.8.8</version>
+        <version>3.0.3</version>
     </dependency>
     
     <dependency>
@@ -48,32 +48,10 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
-
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.19.0</version>
-    </dependency>
-
+    
     <dependency>
       <groupId>jakarta.validation</groupId>
       <artifactId>jakarta.validation-api</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>jakarta.xml.bind</groupId>
-      <artifactId>jakarta.xml.bind-api</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>jakarta.json</artifactId>
-      <version>2.0.1</version>
     </dependency>
 
     <dependency>
@@ -88,15 +66,9 @@
     </dependency>
 
     <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-boot-starter</artifactId>
-      <version>3.0.0</version>
-    </dependency>
-
-    <dependency>
       <groupId>org.apache.pdfbox</groupId>
       <artifactId>pdfbox</artifactId>
-      <version>3.0.5</version>
+      <version>3.0.7</version>
       <exclusions>
         <exclusion>
           <groupId>commons-logging</groupId>
@@ -115,7 +87,7 @@
     <dependency>
       <groupId>org.reflections</groupId>
       <artifactId>reflections</artifactId>
-      <version>0.9.12</version>
+      <version>0.10.2</version>
       <scope>test</scope>
     </dependency>
 
@@ -137,16 +109,79 @@
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
+        <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <skipTests>true</skipTests>
+          <release>21</release>
+          <source>21</source>
+          <target>21</target>
+          <fork>true</fork>
+          <parameters>true</parameters>
         </configuration>
       </plugin>
 
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>4.8.3.0</version>
+        <configuration>
+          <effort>Max</effort> <!-- nível de análise: Min, Default, Max -->
+          <threshold>Low</threshold> <!-- severidade mínima: High, Medium, Low -->
+          <xmlOutput>true</xmlOutput> <!-- gera relatório em XML -->
+          <failOnError>false</failOnError> <!-- não falhar build em caso de bugs -->
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+          
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skipTests>false</skipTests>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.3.1</version>
+        <configuration>
+          <configLocation>checkstyle.xml</configLocation>
+          <failOnViolation>false</failOnViolation>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.10</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+	
     </plugins>
 
   </build>
-<!--
+
+  <!--
   <repositories>
     <repository>
       <id>xwiki</id>
@@ -154,7 +189,8 @@
       <url>https://maven.xwiki.org/externals/</url>
     </repository>
   </repositories>
--->
+  -->
+  
   <organization>
     <name>WagnerSoft - WL</name>
     <url>https://github.com/WagnerSoft-WL</url>
@@ -163,7 +199,7 @@
   <developers>
     <developer>
       <id>wagnerlopes</id>
-      <name>Wagner Luis barbosa de Abreu Lopes</name>
+      <name>Wagner Luis Lopes</name>
       <email>wagner.luis.alopes@gmail.com</email>
       <organization>WagnerSoft - WL</organization>
       <organizationUrl>https://wagnerlopes.github.io/</organizationUrl>

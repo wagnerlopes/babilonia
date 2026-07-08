@@ -21,7 +21,7 @@ import br.com.wagnersoft.babilonia.dominio.enums.SituacaoEnum;
 import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
 import br.com.wagnersoft.babilonia.exceptions.NoDataFoundException;
 import br.com.wagnersoft.babilonia.services.RemoteService;
-import br.com.wagnersoft.babilonia.utils.StringCleanup;
+import br.com.wagnersoft.babilonia.utils.ApplicationUtilities;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -48,8 +48,7 @@ public class CidadaoController {
   private RemoteService rmtSvc;
 
   @GetMapping
-  @Operation(summary = "Consulta o cidadão.",
-  description = "Deverá ser informado o CPF do cidadão.")
+  @Operation(summary = "Consulta o cidadão.", description = "Deverá ser informado o CPF do cidadão.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Informação de cidadão cadastrado.",
                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = WSResultDTO.class)) }),
@@ -60,7 +59,7 @@ public class CidadaoController {
       @ApiResponse(responseCode = "500", description = "Serviço indisponível, tente mais tarde.")
   })
   @SecurityRequirement(name = "apikey")
-  public ResponseEntity<Object> consultarCidadao(@RequestParam(name="cpf", required=true) @Parameter(description = "Somente os 11 dígitos do CPF", example = "00000000000") final String cpf) {
+  public ResponseEntity<Object> consultarCidadao(@RequestParam(name = "cpf", required = true) @Parameter(description = "Somente os 11 dígitos do CPF", example = "00000000000") final String cpf) {
     final CidadaoConsultDTO consult = CidadaoConsultDTO.builder().cpf(cpf).build();
     try {
       final WSResultDTO result = findInfo(consult);
@@ -79,7 +78,7 @@ public class CidadaoController {
 
   @PostMapping
   @Operation(summary = "Consulta o cidadão pelo CPF, nome, nome da mãe, data de nascimento e Força Armada (default 0 = nenhuma).",
-  description = "Deverão ser informados os dados completos do cidadão.")
+      description = "Deverão ser informados os dados completos do cidadão.")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Cidadão cadastrado no SERMIL.",
                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = WSResultDTO.class)) }),
@@ -89,10 +88,10 @@ public class CidadaoController {
       @ApiResponse(responseCode = "404", description = "Não existe cidadão com o CPF informado"),
       @ApiResponse(responseCode = "500", description = "Serviço indisponível, tente mais tarde.")
   })
-  public ResponseEntity<Object> consultarCidadao(@Valid @RequestBody(required=true) @Parameter(description = "Informações do cidadão sendo obrigatório: nome, mae e data nascimento.") CidadaoConsultDTO consult) {
+  public ResponseEntity<Object> consultarCidadao(@Valid @RequestBody(required = true) @Parameter(description = "Informações do cidadão sendo obrigatório: nome, mae e data nascimento.") CidadaoConsultDTO consult) {
     try {
-      consult.setNome(StringCleanup.cleanAccent(consult.getNome()));
-      consult.setNomeMae(StringCleanup.cleanAccent(consult.getNomeMae()));
+      consult.setNome(ApplicationUtilities.cleanAccent(consult.getNome()));
+      consult.setNomeMae(ApplicationUtilities.cleanAccent(consult.getNomeMae()));
       WSResultDTO result = findInfo(consult);
       return ResponseEntity.ok(result);
     } catch (NoDataFoundException ndf) {
