@@ -64,6 +64,12 @@ jobs:
         with:
           name: jacoco-report
           path: target/site/jacoco
+
+      - name: Deploy coverage report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site/jacoco
           
   checkstyle:
     runs-on: ubuntu-latest
