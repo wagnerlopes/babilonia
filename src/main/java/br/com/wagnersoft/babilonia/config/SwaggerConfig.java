@@ -14,7 +14,6 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
-import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
 import org.springframework.boot.webmvc.actuate.endpoint.web.WebMvcEndpointHandlerMapping;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,21 +38,36 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 public class SwaggerConfig {
 
   @Bean
-  public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(WebEndpointsSupplier webEndpointsSupplier, ControllerEndpointsSupplier controllerEndpointsSupplier, EndpointMediaTypes endpointMediaTypes, CorsEndpointProperties corsProperties, WebEndpointProperties webEndpointProperties, Environment environment) {
-    final List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
-    final Collection<ExposableWebEndpoint> webEndpoints = webEndpointsSupplier.getEndpoints();
-    allEndpoints.addAll(webEndpoints);
-    allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
-    String basePath = webEndpointProperties.getBasePath();
-    final EndpointMapping endpointMapping = new EndpointMapping(basePath);
-    boolean shouldRegisterLinksMapping = this.shouldRegisterLinksMapping(webEndpointProperties, environment, basePath);
-    return new WebMvcEndpointHandlerMapping(endpointMapping, webEndpoints, endpointMediaTypes, corsProperties.toCorsConfiguration(), new EndpointLinksResolver(allEndpoints, basePath), shouldRegisterLinksMapping);
-  }
+  public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(
+          WebEndpointsSupplier webEndpointsSupplier,
+          EndpointMediaTypes endpointMediaTypes,
+          CorsEndpointProperties corsProperties,
+          WebEndpointProperties webEndpointProperties,
+          Environment environment) {
 
-  private boolean shouldRegisterLinksMapping(WebEndpointProperties webEndpointProperties, Environment environment, String basePath) {
+      List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
+      Collection<ExposableWebEndpoint> webEndpoints = webEndpointsSupplier.getEndpoints();
+      allEndpoints.addAll(webEndpoints);
+
+      String basePath = webEndpointProperties.getBasePath();
+      EndpointMapping endpointMapping = new EndpointMapping(basePath);
+
+      boolean shouldRegisterLinksMapping = this.shouldRegisterLinksMapping(webEndpointProperties, environment, basePath);
+
+      return new WebMvcEndpointHandlerMapping(
+              endpointMapping,
+              webEndpoints,
+              endpointMediaTypes,
+              corsProperties.toCorsConfiguration(),
+              new EndpointLinksResolver(allEndpoints, basePath),
+              shouldRegisterLinksMapping
+      );
+  }
+  
+  private boolean shouldRegisterLinksMapping(final WebEndpointProperties webEndpointProperties, final Environment environment, String basePath) {
     return webEndpointProperties.getDiscovery().isEnabled() && (StringUtils.hasText(basePath) || ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT));
   }
-
+  
   @Bean
   public GroupedOpenApi publicApi() {
     return GroupedOpenApi.builder()
@@ -79,9 +93,9 @@ public class SwaggerConfig {
         .url("https://github.com/wagnerlopes");
 
     return new OpenAPI()
-        .info(new Info().title("BABILONIA API")
-            .description("REST API - TESTE")
-            .version("v0.1.1")
+        .info(new Info().title("BABILONIA")
+            .description("Open API Web Service")
+            .version("v1.0.0-alpha")
             .contact(contato)
             .license(new License().name("MIT License").url("https://github.com/wagnerlopes/babilonia?tab=MIT-1-ov-file")))
         .externalDocs(new ExternalDocumentation().description("Documentação Wiki").url("https://github.com/wagnerlopes/babilonia?tab=readme-ov-file"))

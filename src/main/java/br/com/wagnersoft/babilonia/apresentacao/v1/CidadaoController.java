@@ -21,7 +21,7 @@ import br.com.wagnersoft.babilonia.dominio.enums.SituacaoEnum;
 import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
 import br.com.wagnersoft.babilonia.exceptions.NoDataFoundException;
 import br.com.wagnersoft.babilonia.services.RemoteService;
-import br.com.wagnersoft.babilonia.utils.StringCleanup;
+import br.com.wagnersoft.babilonia.utils.ApplicationUtilities;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -91,8 +91,8 @@ public class CidadaoController {
   })
   public ResponseEntity<Object> consultarCidadao(@Valid @RequestBody(required=true) @Parameter(description = "Informações do cidadão sendo obrigatório: nome, mae e data nascimento.") CidadaoConsultDTO consult) {
     try {
-      consult.setNome(StringCleanup.cleanAccent(consult.getNome()));
-      consult.setNomeMae(StringCleanup.cleanAccent(consult.getNomeMae()));
+      consult.setNome(ApplicationUtilities.cleanAccent(consult.getNome()));
+      consult.setNomeMae(ApplicationUtilities.cleanAccent(consult.getNomeMae()));
       WSResultDTO result = findInfo(consult);
       return ResponseEntity.ok(result);
     } catch (NoDataFoundException ndf) {
