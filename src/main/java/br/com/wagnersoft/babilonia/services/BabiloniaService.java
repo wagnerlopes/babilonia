@@ -19,7 +19,7 @@ public interface BabiloniaService {
   /** Consulta as informações do cidadão.
    * @param consult
    * @return
-   * @throws ConectagovException
+   * @throws BabiloniaException
    */
   WSResultDTO consultService(CidadaoConsultDTO consult) throws BabiloniaException;
 
