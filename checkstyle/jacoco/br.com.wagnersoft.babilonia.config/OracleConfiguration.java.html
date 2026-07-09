@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OracleConfiguration.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">br.com.wagnersoft.babilonia</a> &gt; <a href="index.source.html" class="el_package">br.com.wagnersoft.babilonia.config</a> &gt; <span class="el_source">OracleConfiguration.java</span></div><h1>OracleConfiguration.java</h1><pre class="source lang-java linenums">package br.com.wagnersoft.babilonia.config;
+
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+import jakarta.validation.constraints.NotNull;
+
+import org.apache.logging.log4j.internal.annotation.SuppressFBWarnings;
+//import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+
+import lombok.Setter;
+
+/** OracleConfiguration para configuração datasource Oracle.
+ * &lt;p&gt;Desabilitado, podendo ser utilizado caso haja necessidade de alterar parâmetros default.
+ * @author WagnerSoft
+ * @since 0.1
+ * @version 0.1
+ */
+@Setter
+//@Configuration
+//@ConfigurationProperties(&quot;spring.oracle&quot;)
+@SuppressFBWarnings(&quot;URF_UNREAD_FIELD&quot;)
+<span class="nc" id="L25">public class OracleConfiguration {</span>
+
+  @NotNull
+  private String username;
+
+  @NotNull
+  private String password;
+
+  @NotNull
+  private String url;
+
+  @NotNull
+  private String factoryClassName;
+
+  @Bean
+  public DataSource dataSource() throws SQLException {
+    /*
+     * final PoolDataSource pds = PoolDataSourceFactory.getPoolDataSource();
+     * pds.setURL(url); pds.setUser(username); pds.setPassword(password);
+     * pds.setConnectionFactoryClassName(factoryClassName);
+     * pds.setConnectionPoolName(&quot;DB_POOL&quot;);
+     * pds.setDatabaseName(&quot;DB_PROD&quot;);
+     * pds.setAbandonedConnectionTimeout(1000);
+     * pds.setConnectionWaitTimeout(120);
+     * pds.setFastConnectionFailoverEnabled(true);
+     * pds.setInactiveConnectionTimeout(1000); pds.setInitialPoolSize(10);
+     * pds.setMinPoolSize(20); pds.setMaxPoolSize(1000);
+     * pds.setConnectionProperty(&quot;v$session.program&quot;, &quot;BABILONIA&quot;);
+     * pds.setValidateConnectionOnBorrow(true);
+     * pds.setSQLForValidateConnection(&quot;SELECT 1 FROM DUAL&quot;); return pds;
+     * 
+     */
+<span class="nc" id="L57">    return null;</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
