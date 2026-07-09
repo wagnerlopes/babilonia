@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JwtUtilities.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">br.com.wagnersoft.babilonia</a> &gt; <a href="index.source.html" class="el_package">br.com.wagnersoft.babilonia.utils</a> &gt; <span class="el_source">JwtUtilities.java</span></div><h1>JwtUtilities.java</h1><pre class="source lang-java linenums">package br.com.wagnersoft.babilonia.utils;
+
+import java.security.KeyFactory;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import br.com.wagnersoft.babilonia.exceptions.InvalidTokenException;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
+
+public class JwtUtilities {
+
+<span class="nc" id="L21">  private static final Logger LOGGER = LoggerFactory.getLogger(JwtUtilities.class);</span>
+  
+  private static final String TOKEN_JWT = &quot;eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxMTM0MTMifQ.N0rtJSqT18QLTL-c77tSfYEBwGXAxln_uCsVphWUB1l9p3cZYG60SREiliKVHLlb5TfFaYFeoXPWLMLu9lZrUXBAlD5jjBfuZDlTUjRokB-sdGkojeaXc-PFGbSUlJQ3uAJoZyFOtQpf00AwaaQYvijVHm6hs52CsKBvIDylAIqq4nrr3quc6C6N5KL15SNQJqRafjrLTA5DDVLHADOmWPArVT6-MNO4IXp-Ry-b_pz5tfFDqOW2OKAtOA873cwTvjkhrngSIwy7r7sO8ho6gee0RMiQy35LlD55OnllbdENFj8DGvajMH0H4AJYZXcB05h3FogMDrgx8zAWATfTQw&quot;;
+  
+  private static final String PUBLIC_KEY = &quot;MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtJjGu4aeWy0u8Ek3jAklXhSyFb8SzkvUxTg3kB4WoGeORZGMv4bFraqRRMiPkg0EQIhZNmg6M1h1ZQ7t4l0bUqeYfGFw+Ujv9i+DU5L3roGJkWui6uI1edsJoRENqR3/Y45AE2Gwd/WroQVzUw1nrXAKczZv8/rrn/owSN8oTjxnFvdRNS2/rIckEcgPHlqvJeuh1oxSUuXQrJZUiljkiUJ8GDB/hSYVrnB11ioDx4NYMFSvhIXf7NC9nE8mghTVOUYGqM4CUBRaYs+VdBsYiRlIZamK0jChEXgPxgz0MYAlFQZ5Z8hxv3gIC2eXn0GH19R7f9MPOhjuz8EkyN4FFwIDAKAC&quot;;
+  
+<span class="nc" id="L27">  private static final RSAPublicKey PARSED_PUBLIC_KEY = parsePublicKey();</span>
+  
+  private JwtUtilities() { /* Utility class */ }
+
+  public static boolean isValid(String token) {
+<span class="nc bnc" id="L32" title="All 4 branches missed.">    return token != null &amp;&amp; token.equals(TOKEN_JWT);</span>
+  }
+  
+  public static String parseToken(String token) throws InvalidTokenException {
+    try {
+<span class="nc" id="L37">      Jws&lt;Claims&gt; jws = Jwts.parser()</span>
+<span class="nc" id="L38">          .verifyWith(PARSED_PUBLIC_KEY)</span>
+<span class="nc" id="L39">          .build()</span>
+<span class="nc" id="L40">          .parseSignedClaims(token);</span>
+
+<span class="nc" id="L42">      return jws.getPayload().getSubject();</span>
+<span class="nc" id="L43">    } catch (ExpiredJwtException e) {</span>
+<span class="nc" id="L44">      throw new InvalidTokenException(&quot;Token JWT expirado.&quot;);</span>
+<span class="nc" id="L45">    } catch (UnsupportedJwtException | MalformedJwtException | IllegalArgumentException e) {</span>
+<span class="nc" id="L46">      throw new InvalidTokenException(&quot;Token JWT inválido.&quot;);</span>
+    }
+  }
+  
+  private static RSAPublicKey parsePublicKey() {
+    try {
+<span class="nc" id="L52">      byte[] decode = Base64.getDecoder().decode(PUBLIC_KEY);</span>
+<span class="nc" id="L53">      X509EncodedKeySpec keySpec = new X509EncodedKeySpec(decode);</span>
+<span class="nc" id="L54">      KeyFactory keyFactory = KeyFactory.getInstance(&quot;RSA&quot;);</span>
+<span class="nc" id="L55">      return (RSAPublicKey) keyFactory.generatePublic(keySpec);</span>
+<span class="nc" id="L56">    } catch (IllegalArgumentException ie) {</span>
+<span class="nc" id="L57">      LOGGER.error(&quot;Chave pública RSA inválida.&quot;, ie);</span>
+<span class="nc" id="L58">      throw new IllegalStateException(&quot;A chave pública informada não é válida.&quot;);</span>
+<span class="nc" id="L59">    } catch (Exception e) {</span>
+<span class="nc" id="L60">      LOGGER.error(e.getMessage(), e);</span>
+<span class="nc" id="L61">      throw new IllegalStateException(e.getMessage());</span>
+    }
+  }
+  
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
