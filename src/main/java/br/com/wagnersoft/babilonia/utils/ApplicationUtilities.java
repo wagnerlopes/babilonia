@@ -18,12 +18,22 @@ import org.slf4j.LoggerFactory;
 import java.util.Base64;
 import java.util.Locale;
 
+/** App Utilities.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 public class ApplicationUtilities {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationUtilities.class);
 
   private ApplicationUtilities() { /* utility class */ }
 
+  /** PDF first page image.
+   * @param byteArray
+   * @return
+   * @throws IOException
+   */
   public static String pdfFirstPageToPngDataUrl(byte[] byteArray) throws IOException {
     try (PDDocument doc = Loader.loadPDF(byteArray)) {
       final PDFRenderer pdfRenderer = new PDFRenderer(doc);
@@ -39,6 +49,10 @@ public class ApplicationUtilities {
     }
   }
 
+  /** Clean string from diacritical marks.
+   * @param dirty
+   * @return clean string
+   */
   public static String cleanAccent(String dirty) {
     if (dirty == null) return null;
     String clean = Normalizer.normalize(dirty, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");

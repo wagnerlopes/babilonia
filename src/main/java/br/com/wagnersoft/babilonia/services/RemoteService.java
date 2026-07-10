@@ -17,7 +17,7 @@ import br.com.wagnersoft.babilonia.dominio.enums.SituacaoEnum;
 import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
 import br.com.wagnersoft.babilonia.repository.CidadaoRepository;
 
-/** Serviço de pesquisa de cidadão.
+/** Remote service.
  * @author WagnerSoft
  * @since 0.1
  * @version 0.1

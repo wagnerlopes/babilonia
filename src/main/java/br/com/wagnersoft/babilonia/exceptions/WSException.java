@@ -5,6 +5,11 @@ import java.util.Map;
 
 import org.apache.logging.log4j.internal.annotation.SuppressFBWarnings;
 
+/** WS exception.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @SuppressFBWarnings("EI_EXPOSE_REP")
 public class WSException extends IOException {
 

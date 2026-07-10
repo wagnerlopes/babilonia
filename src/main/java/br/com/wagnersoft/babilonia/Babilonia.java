@@ -10,6 +10,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/** Babilonia runner application.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @SpringBootApplication
 @EnableAutoConfiguration
 public class Babilonia implements CommandLineRunner {
