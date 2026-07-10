@@ -16,6 +16,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
+/** JWT Utilities.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 public class JwtUtilities {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(JwtUtilities.class);

@@ -14,9 +14,9 @@ import lombok.Setter;
 
 /** OracleConfiguration para configuração datasource Oracle.
  * <p>Desabilitado, podendo ser utilizado caso haja necessidade de alterar parâmetros default.
- * @author WagnerSoft
- * @since 0.1
- * @version 0.1
+ * @author Wagner Lopes
+ * @since 1,0
+ * @version 1.0
  */
 @Setter
 //@Configuration

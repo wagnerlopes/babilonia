@@ -29,10 +29,10 @@ import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 
-/** SwaggerConfig.
- * @author Abreu Lopes
- * @since 0.1
- * @version 0.1
+/** Open API info config.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
  */
 @Configuration
 public class SwaggerConfig {

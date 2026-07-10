@@ -31,10 +31,10 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
-/** Controlador da pesquisa do cidadão.
- * @author WagnerSoft
- * @since 0.1
- * @version 0.1
+/** Pesquisa de informacoes pessoais versao 2.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
  */
 @RestController("cidadaoController2")
 @RequestMapping(value = "v2/cidadao", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_XML_VALUE})

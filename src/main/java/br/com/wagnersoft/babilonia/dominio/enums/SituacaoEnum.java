@@ -2,6 +2,11 @@ package br.com.wagnersoft.babilonia.dominio.enums;
 
 import lombok.Getter;
 
+/** Situacao da pesquisa na API.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Getter
 public enum SituacaoEnum {
 

@@ -10,6 +10,11 @@ import org.springframework.stereotype.Repository;
 
 import br.com.wagnersoft.babilonia.dominio.Cidadao;
 
+/** Cidadao Repository.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Repository
 public interface CidadaoRepository extends JpaRepository<Cidadao, Long> {
 
