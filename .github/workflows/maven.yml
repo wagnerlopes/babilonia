@@ -78,9 +78,10 @@ jobs:
           cache: 'maven'
 
       - name: Generate Javadocs
-        run: mvn javadoc:javadoc
+        run: mvn -B compile javadoc:javadoc
 
       - name: Upload Javadocs (artifact)
+        if: success() && always()
         uses: actions/upload-artifact@v4
         with:
           name: javadocs
