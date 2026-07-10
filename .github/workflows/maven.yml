@@ -59,7 +59,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: javadocs
-          path: target/site/apidocs
+          path: target/apidocs
           if-no-files-found: ignore
 
   checkstyle:
