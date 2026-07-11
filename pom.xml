@@ -120,26 +120,6 @@
       </plugin>
 
       <plugin>
-        <groupId>com.github.spotbugs</groupId>
-        <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>4.8.3.0</version>
-        <configuration>
-          <effort>Max</effort> <!-- nível de análise: Min, Default, Max -->
-          <threshold>Low</threshold> <!-- severidade mínima: High, Medium, Low -->
-          <xmlOutput>true</xmlOutput> <!-- gera relatório em XML -->
-          <failOnError>false</failOnError> <!-- não falhar build em caso de bugs -->
-        </configuration>
-        <executions>
-          <execution>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-          
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
@@ -154,7 +134,24 @@
         <configuration>
           <configLocation>checkstyle.xml</configLocation>
           <failOnViolation>false</failOnViolation>
+          <outputDirectory>${project.build.directory}/site/checkstyle</outputDirectory>
         </configuration>
+        <executions>
+          <execution>
+            <id>checkstyle</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>checkstyle-report</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>checkstyle</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>
@@ -172,6 +169,41 @@
             <phase>test</phase>
             <goals>
               <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <encoding>UTF-8</encoding>
+          <docencoding>UTF-8</docencoding>
+          <charset>UTF-8</charset>
+          <failOnError>false</failOnError>
+          <doclint>none</doclint>
+          <outputDirectory>${project.build.directory}/site</outputDirectory>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>4.8.3.0</version>
+        <configuration>
+          <effort>Max</effort>             <!-- nível de análise: Min, Default, Max  -->
+          <threshold>Low</threshold>       <!-- severidade mínima: High, Medium, Low -->
+          <xmlOutput>true</xmlOutput>      <!-- gera relatório em XML                -->
+          <failOnError>false</failOnError> <!-- não falhar build em caso de bugs     -->
+          <outputDirectory>${project.build.directory}/site/spotbugs</outputDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
             </goals>
           </execution>
         </executions>
