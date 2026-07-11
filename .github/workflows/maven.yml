@@ -103,24 +103,28 @@ jobs:
         with:
           name: jacoco
           path: quality/coverage
+          if-no-files-found: ignore
 
       - name: Download Javadocs
         uses: actions/download-artifact@v4
         with:
           name: javadocs
           path: quality/javadocs
+          if-no-files-found: ignore
 
       - name: Download Checkstyle
         uses: actions/download-artifact@v4
         with:
           name: checkstyle
           path: quality
+          if-no-files-found: ignore
 
       - name: Download SpotBugs
         uses: actions/download-artifact@v4
         with:
           name: spotbugs
           path: quality
+          if-no-files-found: ignore
 
       - name: Create index.html
         run: |
