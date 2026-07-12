@@ -119,12 +119,12 @@ jobs:
           path: quality
           if-no-files-found: ignore
 
-      - name: Download SpotBugs
-        uses: actions/download-artifact@v4
-        with:
-          name: spotbugs
-          path: quality
-          if-no-files-found: ignore
+#      - name: Download SpotBugs
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: spotbugs
+#          path: quality
+#          if-no-files-found: ignore
 
       - name: Create index.html
         run: |
