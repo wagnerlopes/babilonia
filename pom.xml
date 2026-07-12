@@ -195,15 +195,15 @@
         <configuration>
           <effort>Max</effort>             <!-- nível de análise: Min, Default, Max  -->
           <threshold>Low</threshold>       <!-- severidade mínima: High, Medium, Low -->
-          <xmlOutput>true</xmlOutput>      <!-- gera relatório em XML                -->
           <failOnError>false</failOnError> <!-- não falhar build em caso de bugs     -->
-          <outputDirectory>${project.build.directory}/site/spotbugs</outputDirectory>
+          <xmlOutput>true</xmlOutput>      <!-- gera relatório em XML                -->
+          <htmlOutput>true</htmlOutput>
         </configuration>
         <executions>
           <execution>
             <phase>verify</phase>
             <goals>
-              <goal>check</goal>
+              <goal>spotbugs</goal>
             </goals>
           </execution>
         </executions>
