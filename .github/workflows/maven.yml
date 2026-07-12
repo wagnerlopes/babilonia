@@ -94,7 +94,11 @@ jobs:
           path: target/spotbugs.html
           if-no-files-found: ignore
 
-  deploy:
+  deployment:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }} # Optional, but recommended if using v4+ 
+
     runs-on: ubuntu-latest
     needs: [test, javadocs, checkstyle, spotbugs]
     steps:
@@ -161,4 +165,5 @@ jobs:
           path: quality
 
       - uses: actions/deploy-pages@v5
-        id: deploy
+        id: deployment
+
