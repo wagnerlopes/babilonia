@@ -1,11 +1,3 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: Java CI with Maven
 
 on:
@@ -39,6 +31,7 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+          cache: 'maven'
       - run: mvn -B verify jacoco:report
       - uses: actions/upload-artifact@v4
         with:
@@ -55,6 +48,7 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+          cache: 'maven'
       - run: mvn -B compile javadoc:javadoc
       - uses: actions/upload-artifact@v4
         with:
@@ -71,11 +65,12 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+          cache: 'maven'
       - run: mvn -B checkstyle:checkstyle
       - uses: actions/upload-artifact@v4
         with:
           name: checkstyle
-          path: target/site/checkstyle
+          path: target/site/checkstyle.html
           if-no-files-found: ignore
 
   spotbugs:
@@ -87,50 +82,47 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+          cache: 'maven'
       - run: mvn -B spotbugs:spotbugs
       - uses: actions/upload-artifact@v4
         with:
           name: spotbugs
-          path: target/spotbugs.html
+          path: target/site/spotbugs.html
           if-no-files-found: ignore
 
   deployment:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }} # Optional, but recommended if using v4+ 
+      url: ${{ steps.deployment.outputs.page_url }}
 
     runs-on: ubuntu-latest
     needs: [test, javadocs, checkstyle, spotbugs]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
-      - name: Download Jacoco
-        uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v4
         with:
           name: jacoco
           path: quality/coverage
           if-no-files-found: ignore
 
-      - name: Download Javadocs
-        uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v4
         with:
           name: javadocs
           path: quality/javadocs
           if-no-files-found: ignore
 
-      - name: Download Checkstyle
-        uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v4
         with:
           name: checkstyle
           path: quality
           if-no-files-found: ignore
 
-#      - name: Download SpotBugs
-#        uses: actions/download-artifact@v4
-#        with:
-#          name: spotbugs
-#          path: quality
-#          if-no-files-found: ignore
+      - uses: actions/download-artifact@v4
+        with:
+          name: spotbugs
+          path: quality
+          if-no-files-found: ignore
 
       - name: Create index.html
         run: |
@@ -140,7 +132,7 @@ jobs:
           <head>
             <meta charset="UTF-8">
             <title>Portal de Qualidade - Babilonia</title>
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"> 
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
           </head>
           <body class="m-5">
             <h1>Portal de Qualidade do Projeto Babilonia</h1>
@@ -164,4 +156,3 @@ jobs:
 
       - uses: actions/deploy-pages@v5
         id: deployment
-
