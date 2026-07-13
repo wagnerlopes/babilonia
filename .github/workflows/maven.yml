@@ -20,41 +20,29 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    uses: ./.github/workflows/setup-java.yml
+    with: {}
+    secrets: inherit
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'temurin'
-          cache: 'maven'
       - run: mvn -B package -DskipTests
 
   test:
-    runs-on: ubuntu-latest
+    uses: ./.github/workflows/setup-java.yml
     needs: build
+    secrets: inherit
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'temurin'
       - run: mvn -B verify jacoco:report
       - uses: actions/upload-artifact@v4
         with:
           name: jacoco
           path: target/site/jacoco
-          if-no-files-found: ignore
+          if-no-files-found: ignore  
 
   javadocs:
-    runs-on: ubuntu-latest
+    uses: ./.github/workflows/setup-java.yml
     needs: build
+    secrets: inherit
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'temurin'
       - run: mvn -B compile javadoc:javadoc
       - uses: actions/upload-artifact@v4
         with:
@@ -63,30 +51,22 @@ jobs:
           if-no-files-found: ignore
 
   checkstyle:
-    runs-on: ubuntu-latest
+    uses: ./.github/workflows/setup-java.yml
     needs: build
+    secrets: inherit
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'temurin'
       - run: mvn -B checkstyle:checkstyle
       - uses: actions/upload-artifact@v4
         with:
           name: checkstyle
-          path: target/site/checkstyle
-          if-no-files-found: ignore
+          path: target/site/checkstyle.html
+          if-no-files-found: ignore  
 
   spotbugs:
-    runs-on: ubuntu-latest
+    uses: ./.github/workflows/setup-java.yml
     needs: build
+    secrets: inherit
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'temurin'
       - run: mvn -B spotbugs:spotbugs
       - uses: actions/upload-artifact@v4
         with:
@@ -164,4 +144,3 @@ jobs:
 
       - uses: actions/deploy-pages@v5
         id: deployment
-
