@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 # Bloco comum de steps (checkout + setup Java)
-steps-common: &java-setup
+java-setup: &java-setup
   - uses: actions/checkout@v4
   - uses: actions/setup-java@v4
     with:
