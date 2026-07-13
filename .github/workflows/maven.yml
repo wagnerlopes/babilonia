@@ -70,7 +70,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: checkstyle
-          path: target/site/checkstyle.html
+          path: target/site/checkstyle/checkstyle.html
           if-no-files-found: ignore
 
   spotbugs:
@@ -104,26 +104,26 @@ jobs:
         with:
           name: jacoco
           path: quality/coverage
-          if-no-files-found: ignore
+        continue-on-error: true
 
       - uses: actions/download-artifact@v4
         with:
           name: javadocs
           path: quality/javadocs
-          if-no-files-found: ignore
-
+        continue-on-error: true
+        
       - uses: actions/download-artifact@v4
         with:
           name: checkstyle
           path: quality
-          if-no-files-found: ignore
-
+        continue-on-error: true
+        
       - uses: actions/download-artifact@v4
         with:
           name: spotbugs
           path: quality
-          if-no-files-found: ignore
-
+        continue-on-error: true
+        
       - name: Create index.html
         run: |
           cat <<'EOF' > quality/index.html
