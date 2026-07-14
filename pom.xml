@@ -85,6 +85,13 @@
     </dependency>
 
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webmvc-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+
+    <dependency>
       <groupId>org.reflections</groupId>
       <artifactId>reflections</artifactId>
       <version>0.10.2</version>
@@ -94,6 +101,12 @@
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <scope>test</scope>
     </dependency>
 
   </dependencies>
@@ -124,6 +137,10 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <skipTests>false</skipTests>
+          <!-- O @{argLine} é crucial aqui! Ele junta os argumentos do JaCoCo com os seus customizados -->
+          <argLine>
+            @{argLine} -XX:+EnableDynamicAgentLoading
+          </argLine>
         </configuration>
       </plugin>
 

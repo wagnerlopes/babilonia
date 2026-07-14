@@ -3,7 +3,6 @@ package br.com.wagnersoft.babilonia.apresentacao.v1;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,8 +19,7 @@ import br.com.wagnersoft.babilonia.services.RemoteService;
 import lombok.SneakyThrows;
 
 @ExtendWith(MockitoExtension.class)
-@Disabled("Feature not yet implemented")
-class CidadaoControllerTest {
+class CidadaoControllerOldTest {
 
   @InjectMocks
   private CidadaoController cidadaoController;
@@ -34,14 +32,14 @@ class CidadaoControllerTest {
 
   @Test
   @SneakyThrows
-  void consultarCidadao() {
+  void deveRetornarCidadaoPorCpf() {
     ResponseEntity<Object> resposta = cidadaoController.consultarCidadao("123");
     assertEquals(HttpStatus.OK, resposta.getStatusCode());
   }
 
   @Test
   @SneakyThrows
-  void consultarSituacaoCidadaoNotFound() {
+  void deveRetornarCidadaoNaoEncontrado() {
     when(rmtService.consultService(CidadaoConsultDTO.builder().cpf("123").build())).thenThrow(NoDataFoundException.class);
     ResponseEntity<Object> resposta = cidadaoController.consultarCidadao("123");
     assertEquals(HttpStatus.NOT_FOUND, resposta.getStatusCode());
@@ -49,15 +47,7 @@ class CidadaoControllerTest {
 
   @Test
   @SneakyThrows
-  void consultarSituacaoCidadao3() {
-    when(rmtService.consultService(CidadaoConsultDTO.builder().cpf("123").build())).thenThrow(NoDataFoundException.class);
-    ResponseEntity<Object> resposta = cidadaoController.consultarCidadao("123");
-    assertEquals(HttpStatus.NOT_FOUND, resposta.getStatusCode());
-  }
-
-  @Test
-  @SneakyThrows
-  void consultarSituacaoCidadaoBadRequest()  {
+  void deveRetornarRequisicaoInvalida()  {
     when(rmtService.consultService(CidadaoConsultDTO.builder().cpf("123").build())).thenThrow(BabiloniaException.class);
     ResponseEntity<Object> resposta = cidadaoController.consultarCidadao("123");
     assertEquals(HttpStatus.BAD_REQUEST, resposta.getStatusCode());
