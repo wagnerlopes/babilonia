@@ -31,6 +31,9 @@ public class Babilonia implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
+     final DataSource ds = dataSource;
+     LOGGER.info("DB: {}", ds.getConnection());
+     LOGGER.info("Timeout = {}", ds.getLoginTimeout());
     /*
      * final PoolDataSource ds = (PoolDataSource) dataSource;
      * final DatabaseMetaData metadata = ds.getConnection().getMetaData();
