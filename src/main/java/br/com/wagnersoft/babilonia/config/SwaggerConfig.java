@@ -72,7 +72,7 @@ public class SwaggerConfig {
   public GroupedOpenApi publicApi() {
     return GroupedOpenApi.builder()
         .group("babilonia-public")
-        .pathsToMatch("/v1/**", "/v2/**")
+        .pathsToMatch("/v1/**")
         .build();
   }
 
@@ -94,7 +94,7 @@ public class SwaggerConfig {
 
     return new OpenAPI()
         .info(new Info().title("BABILONIA")
-            .description("Open API Web Service")
+            .description("Open API Rest Web Service")
             .version("v1.0.0-alpha")
             .contact(contato)
             .license(new License().name("MIT License").url("https://github.com/wagnerlopes/babilonia?tab=MIT-1-ov-file")))

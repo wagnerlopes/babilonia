@@ -1,4 +1,4 @@
-package br.com.wagnersoft.babilonia.exceptions;
+package br.com.wagnersoft.babilonia.exception;
 
 /** Pesquisa sem informacoes.
  * @since 1.0
@@ -9,10 +9,6 @@ public class NoDataFoundException extends BabiloniaException {
 
   private static final long serialVersionUID = 1L;
 
-  public NoDataFoundException() {
-    super();
-  }
-  
   public NoDataFoundException(String msg) {
     super(msg);
   }
@@ -21,8 +17,4 @@ public class NoDataFoundException extends BabiloniaException {
     super(msg, e);
   }
 
-  public NoDataFoundException(Throwable e) {
-    super(e);
-  }
-  
 }

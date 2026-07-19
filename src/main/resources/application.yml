@@ -75,8 +75,8 @@ spring:
             enabled: true
 
 springdoc:
-    packagesToScan: br.com.wagnersoft.babilonia.apresentacao
-    pathsToMatch: /v1/**, /v2/**
+    packagesToScan: br.com.wagnersoft.babilonia.controller
+    pathsToMatch: /v1/**
 
 ##########################################################
 # Utilizar quando classe OracleConfiguration estiver ativa

@@ -17,11 +17,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import br.com.wagnersoft.babilonia.dominio.Cidadao;
-import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
-import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
-import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
+import br.com.wagnersoft.babilonia.dto.CidadaoConsultDTO;
+import br.com.wagnersoft.babilonia.dto.WSResultDTO;
+import br.com.wagnersoft.babilonia.exception.BabiloniaException;
+import br.com.wagnersoft.babilonia.model.Cidadao;
 import br.com.wagnersoft.babilonia.repository.CidadaoRepository;
+import br.com.wagnersoft.babilonia.service.ConsultService;
 
 @ExtendWith(MockitoExtension.class)
 class RemoteServiceTest {
@@ -30,7 +31,7 @@ class RemoteServiceTest {
   private CidadaoRepository cidadaoRep;
 
   @InjectMocks
-  private RemoteService remoteService;
+  private ConsultService remoteService;
 
   // Helper para criar uma entidade Cidadão válida para o Mock
   private Cidadao criarCidadaoMock(String cpf) {

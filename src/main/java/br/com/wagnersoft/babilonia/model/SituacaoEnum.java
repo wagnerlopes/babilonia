@@ -1,4 +1,4 @@
-package br.com.wagnersoft.babilonia.dominio.enums;
+package br.com.wagnersoft.babilonia.model;
 
 import lombok.Getter;
 
@@ -13,7 +13,10 @@ public enum SituacaoEnum {
   FORA_AR("SERVIÇO TEMPORARIAMENTE FORA DO AR. TENTE MAIS TARDE.", 0),
   EM_DIA("EM DIA.", 1),
   EM_DEBITO("EM DÉBITO.", 2),
-  NAO_ENCONTRADO("REGISTRO NÃO ENCONTRADO.", 3);
+  NAO_ENCONTRADO("REGISTRO NÃO ENCONTRADO.", 3),
+  REQUISICAO_INVALIDA("REQUISIÇÃO INVÁLIDA.", 4),
+  TOKEN_EXPIRADO("Token de acesso expirado. Faça login novamente.", 5),
+  TOKEN_INVALIDO("Token de acesso inválido ou corrompido.", 6);
 
   private Integer codigo;
 

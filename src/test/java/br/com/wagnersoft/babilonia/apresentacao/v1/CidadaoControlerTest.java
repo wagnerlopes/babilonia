@@ -23,12 +23,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import br.com.wagnersoft.babilonia.dominio.dto.CidadaoConsultDTO;
-import br.com.wagnersoft.babilonia.dominio.dto.WSResultDTO;
-import br.com.wagnersoft.babilonia.dominio.enums.SituacaoEnum;
-import br.com.wagnersoft.babilonia.exceptions.BabiloniaException;
-import br.com.wagnersoft.babilonia.exceptions.NoDataFoundException;
-import br.com.wagnersoft.babilonia.services.RemoteService;
+import br.com.wagnersoft.babilonia.controller.CidadaoController;
+import br.com.wagnersoft.babilonia.dto.CidadaoConsultDTO;
+import br.com.wagnersoft.babilonia.dto.WSResultDTO;
+import br.com.wagnersoft.babilonia.exception.BabiloniaException;
+import br.com.wagnersoft.babilonia.exception.NoDataFoundException;
+import br.com.wagnersoft.babilonia.model.SituacaoEnum;
+import br.com.wagnersoft.babilonia.service.ConsultService;
 
 @WebMvcTest(CidadaoController.class)
 class CidadaoControllerTest {
@@ -39,7 +40,7 @@ class CidadaoControllerTest {
   private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
   @MockitoBean
-  private RemoteService rmtSvc;
+  private ConsultService rmtSvc;
 
   @MockitoBean
   private DataSource dataSource;

@@ -1,4 +1,4 @@
-package br.com.wagnersoft.babilonia.utils;
+package br.com.wagnersoft.babilonia.util;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;

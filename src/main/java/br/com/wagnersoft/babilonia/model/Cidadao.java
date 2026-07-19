@@ -1,4 +1,4 @@
-package br.com.wagnersoft.babilonia.dominio;
+package br.com.wagnersoft.babilonia.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -14,6 +14,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode.Include;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,6 +30,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "CIDADAO")
 @SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
@@ -38,18 +41,21 @@ public class Cidadao implements Serializable {
   @Id
   private String cpf;
 
+  @Include
   private String nome;
 
-  private String pai;
-
+  @Include
   private String mae;
+
+  @Include
+  @Column(name = "NASCIMENTO_DATA")
+  private LocalDate nascimentoData;
+
+  private String pai;
 
   private String rg;
 
   private String sexo;
-
-  @Column(name = "NASCIMENTO_DATA")
-  private LocalDate nascimentoData;
 
   @Column(name = "AUDIT_DATA")
   private LocalDateTime auditData;
@@ -61,42 +67,5 @@ public class Cidadao implements Serializable {
   public static Cidadao naoCadastrado(String cpf) {
     return Cidadao.builder().cpf(cpf).build();
   }
-  
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((mae == null) ? 0 : mae.hashCode());
-    result = prime * result + ((nascimentoData == null) ? 0 : nascimentoData.hashCode());
-    result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-    return result;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    Cidadao other = (Cidadao) obj;
-    if (mae == null) {
-      if (other.mae != null)
-        return false;
-    } else if (!mae.equals(other.mae))
-      return false;
-    if (nascimentoData == null) {
-      if (other.nascimentoData != null)
-        return false;
-    } else if (!nascimentoData.equals(other.nascimentoData))
-      return false;
-    if (nome == null) {
-      if (other.nome != null)
-        return false;
-    } else if (!nome.equals(other.nome))
-      return false;
-    return true;
-  }
-  
+   
 }
