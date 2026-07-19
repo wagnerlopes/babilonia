@@ -12,10 +12,13 @@ import org.springframework.context.annotation.Bean;
 
 import lombok.Setter;
 
-/** OracleConfiguration para configuração datasource Oracle.
- * <p>Desabilitado, podendo ser utilizado caso haja necessidade de alterar parâmetros default.
+/**
+ * OracleConfiguration configura o datasource Oracle Database.
+ * 
+ * <p>Somente tem interesse quando utilizando um driver jdbc Oracle.</p>
+ * 
  * @author Wagner Lopes
- * @since 1,0
+ * @since 1.0
  * @version 1.0
  */
 @Setter

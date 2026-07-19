@@ -29,10 +29,12 @@ import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 
-/** Open API info config.
+/** 
+ * OpenAPI configuration.
+ * 
+ * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
- * @author Wagner Lopes
  */
 @Configuration
 public class SwaggerConfig {
@@ -64,15 +66,11 @@ public class SwaggerConfig {
         );
   }
   
-  private boolean shouldRegisterLinksMapping(final WebEndpointProperties webEndpointProperties, final Environment environment, String basePath) {
-    return webEndpointProperties.getDiscovery().isEnabled() && (StringUtils.hasText(basePath) || ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT));
-  }
-  
   @Bean
   public GroupedOpenApi publicApi() {
     return GroupedOpenApi.builder()
         .group("babilonia-public")
-        .pathsToMatch("/v1/**", "/v2/**")
+        .pathsToMatch("/v1/**")
         .build();
   }
 
@@ -94,7 +92,7 @@ public class SwaggerConfig {
 
     return new OpenAPI()
         .info(new Info().title("BABILONIA")
-            .description("Open API Web Service")
+            .description("Open API Rest Web Service")
             .version("v1.0.0-alpha")
             .contact(contato)
             .license(new License().name("MIT License").url("https://github.com/wagnerlopes/babilonia?tab=MIT-1-ov-file")))
@@ -103,4 +101,10 @@ public class SwaggerConfig {
         .addSecurityItem(securityItem);
   }
 
+  private boolean shouldRegisterLinksMapping(final WebEndpointProperties webEndpointProperties,
+                                             final Environment environment, String basePath) {
+    return webEndpointProperties.getDiscovery().isEnabled() &&
+        (StringUtils.hasText(basePath) || ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT));
+  }
+  
 }
