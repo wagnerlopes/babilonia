@@ -14,10 +14,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.EqualsAndHashCode.Include;
 
-/** Entidade Municipio.
+/** 
+ * Entidade Municipio.
+ * 
  * @author Wagner Lopes
- * @since 1.0.0
- * @version 1.0.0
+ * @since 1.0
+ * @version 1.0
  */
 @Builder
 @Getter

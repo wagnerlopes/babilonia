@@ -1,4 +1,4 @@
-package br.com.wagnersoft.babilonia.dominio;
+package br.com.wagnersoft.babilonia.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

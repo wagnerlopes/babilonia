@@ -1,4 +1,4 @@
-package br.com.wagnersoft.babilonia.dominio;
+package br.com.wagnersoft.babilonia.model;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -16,7 +16,7 @@ class EntityTest {
   @BeforeEach
   public void setUp() {
     this.tester = new GetterAndSetterTester();
-    this.allClasses = new Reflections("br.com.wagnersoft.babilonia.dominio").getSubTypesOf(Serializable.class);
+    this.allClasses = new Reflections("br.com.wagnersoft.babilonia.model").getSubTypesOf(Serializable.class);
   }
 
   @Test

@@ -1,9 +1,13 @@
 package br.com.wagnersoft.babilonia.exception;
 
-/** Pesquisa sem informacoes.
+/**
+ * Resultado de pesquisa sem informações.
+ * 
+ * <p>Esta exceção está associada ao status http 404 na API.</p>
+ * 
+ * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
- * @author Wagner Lopes
  */
 public class NoDataFoundException extends BabiloniaException {
 

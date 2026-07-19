@@ -18,10 +18,12 @@ import org.slf4j.LoggerFactory;
 import java.util.Base64;
 import java.util.Locale;
 
-/** App Utilities.
+/**
+ * Utilitários da API.
+ * 
+ * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
- * @author Wagner Lopes
  */
 public class ApplicationUtilities {
 
@@ -59,5 +61,5 @@ public class ApplicationUtilities {
     LOGGER.debug("{} => {}", dirty, clean);
     return clean.trim().toUpperCase(Locale.getDefault());
   }
-  
+
 }

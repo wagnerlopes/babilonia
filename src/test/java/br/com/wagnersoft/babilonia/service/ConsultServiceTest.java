@@ -1,9 +1,9 @@
-package br.com.wagnersoft.babilonia.services;
+package br.com.wagnersoft.babilonia.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -20,18 +20,18 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import br.com.wagnersoft.babilonia.dto.CidadaoConsultDTO;
 import br.com.wagnersoft.babilonia.dto.WSResultDTO;
 import br.com.wagnersoft.babilonia.exception.BabiloniaException;
+import br.com.wagnersoft.babilonia.exception.NoDataFoundException;
 import br.com.wagnersoft.babilonia.model.Cidadao;
 import br.com.wagnersoft.babilonia.repository.CidadaoRepository;
-import br.com.wagnersoft.babilonia.service.ConsultService;
 
 @ExtendWith(MockitoExtension.class)
-class RemoteServiceTest {
+class ConsultServiceTest {
 
   @Mock
-  private CidadaoRepository cidadaoRep;
+  private CidadaoRepository rep;
 
   @InjectMocks
-  private ConsultService remoteService;
+  private ConsultService svc;
 
   // Helper para criar uma entidade Cidadão válida para o Mock
   private Cidadao criarCidadaoMock(String cpf) {
@@ -56,15 +56,15 @@ class RemoteServiceTest {
       CidadaoConsultDTO consultDTO = CidadaoConsultDTO.builder().cpf(cpf).build();
       Cidadao cidadaoMock = criarCidadaoMock(cpf);
 
-      when(cidadaoRep.findByCpf(cpf)).thenReturn(Optional.of(cidadaoMock));
+      when(rep.findByCpf(cpf)).thenReturn(Optional.of(cidadaoMock));
 
       // Act
-      WSResultDTO result = remoteService.consultService(consultDTO);
+      WSResultDTO result = svc.consultService(consultDTO);
 
       // Assert
       assertNotNull(result);
       assertEquals(cpf, result.getCpf());
-      verify(cidadaoRep).findByCpf(cpf);
+      verify(rep).findByCpf(cpf);
     }
 
     @Test
@@ -74,15 +74,11 @@ class RemoteServiceTest {
       String cpfInexistente = "11111111111";
       CidadaoConsultDTO consultDTO = CidadaoConsultDTO.builder().cpf(cpfInexistente).build();
 
-      when(cidadaoRep.findByCpf(cpfInexistente)).thenReturn(Optional.empty());
+      when(rep.findByCpf(cpfInexistente)).thenReturn(Optional.empty());
 
       // Act
-      WSResultDTO result = remoteService.consultService(consultDTO);
+      assertThrows(NoDataFoundException.class, () -> svc.consultService(consultDTO));
 
-      // Assert
-      assertNotNull(result);
-      assertEquals(cpfInexistente, result.getCpf());
-      verify(cidadaoRep).findByCpf(cpfInexistente);
     }
 
     @Test
@@ -97,16 +93,16 @@ class RemoteServiceTest {
           .build();
       Cidadao cidadaoMock = criarCidadaoMock("99999999999");
 
-      when(cidadaoRep.findByOutros("JOÃO SILVA", "MARIA SILVA", LocalDate.of(1995, 10, 10)))
+      when(rep.findByOutros("JOÃO SILVA", "MARIA SILVA", LocalDate.of(1995, 10, 10)))
       .thenReturn(Optional.of(cidadaoMock));
 
       // Act
-      WSResultDTO result = remoteService.consultService(consultDTO);
+      WSResultDTO result = svc.consultService(consultDTO);
 
       // Assert
       assertNotNull(result);
       assertEquals("99999999999", result.getCpf());
-      verify(cidadaoRep).findByOutros("JOÃO SILVA", "MARIA SILVA", LocalDate.of(1995, 10, 10));
+      verify(rep).findByOutros("JOÃO SILVA", "MARIA SILVA", LocalDate.of(1995, 10, 10));
     }
 
     @Test
@@ -121,12 +117,8 @@ class RemoteServiceTest {
           .build();
 
       // Act
-      WSResultDTO result = remoteService.consultService(consultDTO);
+      assertThrows(NoDataFoundException.class, () -> svc.consultService(consultDTO));
 
-      // Assert
-      assertNotNull(result);
-      // Garante que o fluxo caiu diretamente no orElse(Cidadao.naoCadastrado) sem bater no banco de dados
-      verifyNoInteractions(cidadaoRep);
     }
   }
 }

@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -15,10 +17,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/** DTO resultado da consulta de informações em um subsistema.
- * @author Abreu Lopes
- * @since 0.1
- * @version 0.1
+/**
+ *  Resultado da consulta de informações do cidadão.
+ *  
+ * @author Wagner Lopes
+ * @since 1.0
+ * @version 1.0
  */
 @Builder
 @Getter
@@ -27,7 +31,8 @@ import lombok.ToString;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "Objeto de resposta com os dados cadastrais e situação do cidadão")
+@JsonInclude(Include.NON_NULL)
+@Schema(description = "Objeto de resposta com informações cadastrais e situação do cidadão")
 public class WSResultDTO implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -64,5 +69,5 @@ public class WSResultDTO implements Serializable {
   @Schema(description = "Data em que a consulta atual foi gerada", example = "2026-07-18")
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "pt-BR", timezone = "Brazil/East")
   private LocalDate consultaData;
-  
+
 }

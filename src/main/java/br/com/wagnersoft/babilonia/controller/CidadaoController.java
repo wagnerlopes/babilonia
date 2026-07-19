@@ -26,9 +26,8 @@ import jakarta.validation.Valid;
 
 /**
  * Controller responsável por gerenciar e expor os endpoints de informações do cidadão.
- * <p>
- * Fornece operações de consulta com base no CPF ou outros dados de identificação.
- * </p>
+ * 
+ * <p>Fornece as operações de consulta com base no CPF ou outros dados de identificação.</p>
  *
  * @author Wagner Lopes
  * @since 1.0
@@ -59,8 +58,7 @@ public class CidadaoController {
   }
 
   @PostMapping
-  @Operation(summary = "Consulta o cidadão pelo CPF, nome, nome da mãe, data de nascimento.",
-  description = "Deverão ser informados os dados completos do cidadão.")
+  @Operation(summary = "Consulta o cidadão pelo CPF, nome, nome da mãe, data de nascimento.", description = "Deverão ser informados os dados completos do cidadão.")
   @ApiResponse(responseCode = "200", description = "Cidadão cadastrado localizado com sucesso.")
   @ApiStandardErrors
   public ResponseEntity<WSResultDTO> consultarCidadao(@Valid @RequestBody CidadaoConsultDTO consult) {

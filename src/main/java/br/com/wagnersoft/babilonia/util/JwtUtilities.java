@@ -12,10 +12,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 
-/** JWT Utilities.
+/** 
+ * JWT Utilities para manipulação de tokens.
+ * 
+ * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
- * @author Wagner Lopes
  */
 public class JwtUtilities {
 

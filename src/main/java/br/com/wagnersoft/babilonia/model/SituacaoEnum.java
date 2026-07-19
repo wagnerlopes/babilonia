@@ -2,7 +2,9 @@ package br.com.wagnersoft.babilonia.model;
 
 import lombok.Getter;
 
-/** Situacao da pesquisa na API.
+/**
+ * Situacao do cidadão no cadastro ou status de erro na pesquisa.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

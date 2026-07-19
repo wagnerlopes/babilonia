@@ -1,4 +1,4 @@
-package br.com.wagnersoft.babilonia.apresentacao.v1;
+package br.com.wagnersoft.babilonia.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -23,7 +23,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import br.com.wagnersoft.babilonia.controller.CidadaoController;
 import br.com.wagnersoft.babilonia.dto.CidadaoConsultDTO;
 import br.com.wagnersoft.babilonia.dto.WSResultDTO;
 import br.com.wagnersoft.babilonia.exception.BabiloniaException;
@@ -97,7 +96,7 @@ class CidadaoControllerTest {
           .param("cpf", cpfInvalido)
           .contentType(MediaType.APPLICATION_JSON))
       .andExpect(status().isBadRequest())
-      .andExpect(jsonPath("$.situacaoCodigo").value(SituacaoEnum.NAO_ENCONTRADO.getCodigo()));
+      .andExpect(jsonPath("$.situacaoCodigo").value(SituacaoEnum.REQUISICAO_INVALIDA.getCodigo()));
     }
 
     @Test
@@ -172,12 +171,14 @@ class CidadaoControllerTest {
     void deveRetornar400QuandoPayloadForInvalido() throws Exception {
       // Se CidadaoConsultDTO possuir validações do jakarta.validation (ex: @NotNull)
       // Enviar um objeto vazio ou inválido deve falhar antes de chamar o service
-      CidadaoConsultDTO requestInvalido = CidadaoConsultDTO.builder().build(); 
+      CidadaoConsultDTO requestInvalido = CidadaoConsultDTO.builder().build();
 
       mockMvc.perform(post("/v1/cidadao")
           .contentType(MediaType.APPLICATION_JSON)
           .content(objectMapper.writeValueAsString(requestInvalido)))
       .andExpect(status().isBadRequest());
     }
+
   }
+
 }

@@ -21,7 +21,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * DTO de consulta de informações de cidadão.
+ * Parâmetros de consulta de informações do cidadão.
  * 
  * @author Wagner Lopes
  * @since 1.0
@@ -43,7 +43,7 @@ public class CidadaoConsultDTO implements Serializable {
   @Schema(description = "Somente os 11 dígitos do CPF", example = "22222222222", requiredMode = RequiredMode.NOT_REQUIRED)
   @Size(max = 11, message = "CPF com 11 caracteres")
   private String cpf;
-  
+
   @Schema(description = "Nome completo do cidadão", example = "Cidadao A", minLength = 3, maxLength = 250, requiredMode = RequiredMode.REQUIRED)
   @NotEmpty(message = "Preencha o campo nome do cidadão")
   @Size(min = 3, max = 250, message = "Nome de 3 a 250 caracteres")
@@ -53,7 +53,7 @@ public class CidadaoConsultDTO implements Serializable {
   @NotEmpty(message = "Preencha o campo nome da mãe")
   @Size(min = 3, max = 250, message = "Nome da mãe de 3 a 250 caracteres")
   private String nomeMae;
-  
+
   @Schema(description = "Data de nascimento no formato yyyyMMdd", example = "19980907", requiredMode = RequiredMode.REQUIRED)  
   @NotNull(message = "Preencha o campo data no formato yyyymmdd")
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd", locale = "pt-BR", timezone = "Brazil/East")

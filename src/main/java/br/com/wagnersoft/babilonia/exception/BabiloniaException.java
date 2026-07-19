@@ -1,9 +1,15 @@
 package br.com.wagnersoft.babilonia.exception;
 
-/** BabiloniaException gerando erro HTTP 400 Bad Request.
+/**
+ *{@code BabiloniaException} é a superclasse das exceções que podem ser lançadas pela API
+ *durante sua execução normal.
+ *  
+ *<p>Esta exceção está associada ao status http 400 (requisição inválida) e suas subsclasses aos
+ *status http subsequentes da faixa 400.</p>
+ *
  * @author Wagner Lopes
- * @since 1.0.0
- * @version 1.0.0
+ * @since 1.0
+ * @version 1.0
  */
 public class BabiloniaException extends RuntimeException {
 

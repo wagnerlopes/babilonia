@@ -11,7 +11,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -20,10 +19,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/** Entidade Cidadao.
- * @author WagnerSoft
- * @since 0.1
- * @version 0.1
+/** 
+ * Entidade Cidadao.
+ * 
+ * @author Wagner Lopes
+ * @since 1.0
+ * @version 1.0
  */
 @Builder
 @Getter
@@ -31,9 +32,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
-@Table(name = "CIDADAO")
 @SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
+@Entity
 public class Cidadao implements Serializable {
 
   private static final long serialVersionUID = 1L;

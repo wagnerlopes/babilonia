@@ -19,10 +19,12 @@ import br.com.wagnersoft.babilonia.model.Cidadao;
 import br.com.wagnersoft.babilonia.model.SituacaoEnum;
 import br.com.wagnersoft.babilonia.repository.CidadaoRepository;
 
-/** Consult service.
+/** 
+ * Serviço de consulta de informações da API.
+ * 
  * @author Wagner Lopes
- * @since 1.0.0
- * @version 1.0.0
+ * @since 1.0
+ * @version 1.0
  */
 @Service
 public class ConsultService {

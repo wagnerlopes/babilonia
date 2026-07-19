@@ -29,10 +29,12 @@ import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 
-/** Open API info config.
+/** 
+ * OpenAPI configuration.
+ * 
+ * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
- * @author Wagner Lopes
  */
 @Configuration
 public class SwaggerConfig {
@@ -62,10 +64,6 @@ public class SwaggerConfig {
         new EndpointLinksResolver(allEndpoints, basePath),
         shouldRegisterLinksMapping
         );
-  }
-  
-  private boolean shouldRegisterLinksMapping(final WebEndpointProperties webEndpointProperties, final Environment environment, String basePath) {
-    return webEndpointProperties.getDiscovery().isEnabled() && (StringUtils.hasText(basePath) || ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT));
   }
   
   @Bean
@@ -103,4 +101,10 @@ public class SwaggerConfig {
         .addSecurityItem(securityItem);
   }
 
+  private boolean shouldRegisterLinksMapping(final WebEndpointProperties webEndpointProperties,
+                                             final Environment environment, String basePath) {
+    return webEndpointProperties.getDiscovery().isEnabled() &&
+        (StringUtils.hasText(basePath) || ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT));
+  }
+  
 }
