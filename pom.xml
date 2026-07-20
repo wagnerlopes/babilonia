@@ -62,7 +62,7 @@
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt</artifactId>
-      <version>0.12.6</version>
+      <version>0.13.0</version>
     </dependency>
 
     <dependency>
@@ -89,7 +89,6 @@
       <artifactId>spring-boot-starter-webmvc-test</artifactId>
       <scope>test</scope>
     </dependency>
-
 
     <dependency>
       <groupId>org.reflections</groupId>
@@ -147,7 +146,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.3.1</version>
+        <version>3.6.0</version>
         <configuration>
           <configLocation>checkstyle.xml</configLocation>
           <failOnViolation>false</failOnViolation>
@@ -174,7 +173,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.10</version>
+        <version>0.8.15</version>
         <executions>
           <execution>
             <goals>
