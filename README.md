@@ -1,9 +1,9 @@
 # Project Babilonia
 
- - Open remote view Rest API
+ - Rest Web Service
  - SpringBoot 4
  - Jdk 21
  - JavaScript
+
 ----
-(C) 2026 WagnerSoft.
-  
+(C) 2026 WagnerSoft IT Solutions.
