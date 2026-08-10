@@ -1,6 +1,44 @@
-insert into municipio(codigo, descricao, uf_sigla) values(1, 'Sao Paulo', 'SP'); 
-insert into municipio(codigo, descricao, uf_sigla) values(2, 'Rio de Janeiro', 'RJ');
-insert into municipio(codigo, descricao, uf_sigla) values(3, 'Aracaju', 'SE');
+insert into uf(descricao, sigla) values('AC', 'Acre');
+insert into uf(descricao, sigla) values('AL', 'Alagoas');
+insert into uf(descricao, sigla) values('AM', 'Amazonas');
+insert into uf(descricao, sigla) values('AP', 'Amapá');
+insert into uf(descricao, sigla) values('BA', 'Bahia');
+insert into uf(descricao, sigla) values('CE', 'Ceará');
+insert into uf(descricao, sigla) values('DF', 'Distrito Federal');
+insert into uf(descricao, sigla) values('ES', 'Espírito Santo');
+insert into uf(descricao, sigla) values('GO', 'Goiás');
+insert into uf(descricao, sigla) values('MA', 'Maranhão');
+insert into uf(descricao, sigla) values('MG', 'Minas Gerais');
+insert into uf(descricao, sigla) values('MT', 'Mato Grosso');
+insert into uf(descricao, sigla) values('MS', 'Mato Grosso do Sul');
+insert into uf(descricao, sigla) values('PA', 'Pará');
+insert into uf(descricao, sigla) values('PB', 'Paraíba');
+insert into uf(descricao, sigla) values('PE', 'Pernambuco');
+insert into uf(descricao, sigla) values('PI', 'Piauí');
+insert into uf(descricao, sigla) values('PR', 'Paraná');
+insert into uf(descricao, sigla) values('RN', 'Rio Grande do Norte');
+insert into uf(descricao, sigla) values('RJ', 'Rio de Janeiro');
+insert into uf(descricao, sigla) values('RO', 'ROndônia');
+insert into uf(descricao, sigla) values('RR', 'Roraima');
+insert into uf(descricao, sigla) values('RS', 'Rio Grande do Sul');
+insert into uf(descricao, sigla) values('SC', 'Santa Catarina');
+insert into uf(descricao, sigla) values('SE', 'Sergipe');
+insert into uf(descricao, sigla) values('SP', 'São Paulo');
+insert into uf(descricao, sigla) values('TO', 'Tocantins');
+
+insert into mesoregiao(descricao, uf_id) values('X', 1);
+
+insert into microregiao(descricao, mesoregiao_id) values('X',1);
+
+insert into municipio(codigo, descricao, uf_sigla, microregiao_id) values(1, 'Sao Paulo', 'SP', 1); 
+insert into municipio(codigo, descricao, uf_sigla, microregiao_id) values(2, 'Rio de Janeiro', 'RJ', 1);
+insert into municipio(codigo, descricao, uf_sigla, microregiao_id) values(3, 'Aracaju', 'SE', 1);
+
+insert into distrito(descricao, municipio_id) values('X',1);
+
+insert into categoria(id, descricao) values('05','Cidade');
+
+insert into localidade(descricao, tipo, nivel, categoria_id, distrito_id) values('São Paulo', 'URBANA', 1, '05', 1);
 
 insert into cidadao(cpf, mae, nascimento_data, nome, pai, rg, sexo, municipio_nascimento_codigo, audit_data)
     values('22222222222', 'Mae do Cidadao A', '1998-09-07', 'Cidadao A', 'Pai do Cidadao A', '1523551', 'M', 1, '2023-02-14 09:00:00');
