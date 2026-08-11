@@ -25,6 +25,8 @@ import lombok.ToString;
 /** 
  * Mesoregiao.
  * 
+ * <p>Uma mesoregião dentro de uma {@link Uf UF}.
+ *
  * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
@@ -43,7 +45,7 @@ public class Mesoregiao implements Serializable {
   @Include
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
-  
+
   private String descricao;
 
   @NotNull
@@ -54,5 +56,5 @@ public class Mesoregiao implements Serializable {
 
   @OneToMany(mappedBy = "mesoregiao", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private List<Microregiao> microregioes = new ArrayList<>();
-  
+
 }

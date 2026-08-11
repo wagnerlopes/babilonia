@@ -12,7 +12,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 /** 
- * Categoria de localidade.
+ * Categoria (urbana/rural).
+ * 
+ * <p>Categoria de uma {@link Localidade localidade}.
  * 
  * @author Wagner Lopes
  * @since 1.0
@@ -31,7 +33,7 @@ public class Categoria implements Serializable {
   @Id
   @Include
   private String id;
-  
+
   private String descricao;
 
 }

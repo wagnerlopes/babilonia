@@ -22,13 +22,13 @@ import lombok.ToString;
 import lombok.ToString.Exclude;
 
 /** 
- * Localidade.
+ * Localidade geográfica.
  * 
  * <p>Um local geográfico habitado.</p>
  * 
+ * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
- * @author Wagner Lopes
  */
 @Getter
 @Setter
@@ -61,7 +61,7 @@ public class Localidade implements Serializable {
   private String bairro;
 
   private String subdistrito;
-  
+
   private Double latitude;
 
   private Double longitude;
@@ -79,5 +79,5 @@ public class Localidade implements Serializable {
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
   @JoinColumn(name = "categoria_id", updatable = false, nullable = false)
   private Categoria categoria;
-  
+
 }

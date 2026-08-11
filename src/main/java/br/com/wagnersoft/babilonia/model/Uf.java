@@ -19,7 +19,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /** 
- * Distrito.
+ * Unidade da Federação.
  * 
  * @author Wagner Lopes
  * @since 1.0
@@ -39,12 +39,12 @@ public class Uf implements Serializable {
   @Include
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
-  
+
   private String descricao;
 
   private String sigla;
-  
+
   @OneToMany(mappedBy = "uf", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private List<Mesoregiao> mesoregioes = new ArrayList<>();
-  
+
 }

@@ -25,6 +25,8 @@ import lombok.ToString;
 /** 
  * Distrito.
  * 
+ * <p>Um distrito de um {@link Municipio município}.
+ * 
  * @author Wagner Lopes
  * @since 1.0
  * @version 1.0

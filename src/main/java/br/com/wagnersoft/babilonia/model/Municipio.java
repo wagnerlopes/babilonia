@@ -22,8 +22,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /** 
- * Entidade Municipio.
+ * Município.
  * 
+ * <p>Um município de uma {@link Microregiao microregião}.
+ *
  * @author Wagner Lopes
  * @since 1.0
  * @version 1.0

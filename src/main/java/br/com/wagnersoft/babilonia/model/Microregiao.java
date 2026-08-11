@@ -23,8 +23,10 @@ import lombok.Setter;
 import lombok.ToString;
 
 /** 
- * Mesoregiao.
+ * Microregiao.
  * 
+ * <p>Uma microregião dentro de uma {@link Mesoregiao mesoregião}.
+ *
  * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
@@ -43,7 +45,7 @@ public class Microregiao implements Serializable {
   @Include
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
-  
+
   private String descricao;
 
   @NotNull
@@ -54,5 +56,5 @@ public class Microregiao implements Serializable {
 
   @OneToMany(mappedBy = "microregiao", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private List<Municipio> municipios = new ArrayList<>();
-  
+
 }
