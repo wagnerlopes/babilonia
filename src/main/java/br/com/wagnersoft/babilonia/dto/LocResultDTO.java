@@ -45,6 +45,9 @@ public class LocResultDTO implements Serializable {
   @Schema(description = "Nível", example = "1, 2, 3, ...")
   private String nivel;
 
+  @Schema(description = "Categoria", example = "Cidade, Vila, Povoado")
+  private String categoria;
+  
   @Schema(description = "Bairro", example = "Jardim Alegria")
   private String bairro;
 

@@ -57,6 +57,7 @@ public class LocalidadeService {
         .descricao(loc.getDescricao())
         .tipo(loc.getTipo())
         .nivel(loc.getNivel().toString())
+        .categoria(loc.getCategoria().getDescricao())
         .bairro(loc.getBairro())
         .subdistrito(loc.getSubdistrito())
         .distrito(loc.getDistrito().getDescricao())
