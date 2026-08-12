@@ -1,5 +1,7 @@
 package br.com.wagnersoft.babilonia.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -36,16 +38,14 @@ public class LocalidadeService {
   private LocalidadeRepository locRep;
 
   @Transactional
-  public LocResultDTO consultService(final Integer id, String descricao) {
+  public LocResultDTO consultById(final Integer id) {
 
     // 1. Busca da Localidade
-    Optional<Localidade> locOpt = Optional.empty();
-    
-    if (StringUtils.isBlank(descricao)) {
-      locOpt = this.locRep.findById(id);
-    } else {
-      List<Localidade> lista = this.locRep.findByDescricao(descricao);
+    if (id == null) {
+      return LocResultDTO.empty();
     }
+
+    Optional<Localidade> locOpt = this.locRep.findById(id);
 
     // 2. SE NÃO ENCONTRAR, ESTOURE A EXCEÇÃO! (O GlobalExceptionHandler vai capturar isso e gerar o 404)
     final Localidade loc = locOpt.orElseThrow(() -> new NoDataFoundException("Localidade não localizada com os dados informados."));
@@ -69,6 +69,47 @@ public class LocalidadeService {
         .longitude(Objects.toString(loc.getLongitude(), ""))
         .altitude(Objects.toString(loc.getAltitude(), ""))
         .build();
+  }
+
+  @Transactional
+  public List<LocResultDTO> consultByDescricao(String descricao) {
+
+    // 1. Busca da Localidade
+    if (StringUtils.isBlank(descricao)) {
+      return Collections.emptyList();
+    }
+
+    List<Localidade> lista = this.locRep.findByDescricao(descricao);
+
+    // 2. SE NÃO ENCONTRAR, ESTOURE A EXCEÇÃO! (O GlobalExceptionHandler vai capturar isso e gerar o 404)
+    if (lista.isEmpty()) {
+      throw new NoDataFoundException("Localidade não localizada com os dados informados.");
+    }
+
+    LOGGER.debug("Localidade = {}", lista);
+
+    // 3. Montagem da resposta para o caminho feliz (Localidade existe)
+    final List<LocResultDTO> result = new ArrayList<>(lista.size());
+
+    for (Localidade loc : lista) {
+      result.add(LocResultDTO.builder()
+          .descricao(loc.getDescricao())
+          .tipo(loc.getTipo())
+          .nivel(loc.getNivel().toString())
+          .categoria(loc.getCategoria().getDescricao())
+          .bairro(loc.getBairro())
+          .subdistrito(loc.getSubdistrito())
+          .distrito(loc.getDistrito().getDescricao())
+          .municipio(loc.getDistrito().getMunicipio().getDescricao())
+          .microregiao(loc.getDistrito().getMunicipio().getMicroregiao().getDescricao())
+          .mesoregiao(loc.getDistrito().getMunicipio().getMicroregiao().getMesoregiao().getDescricao())
+          .uf(loc.getDistrito().getMunicipio().getMicroregiao().getMesoregiao().getUf().getSigla())
+          .latitude(Objects.toString(loc.getLatitude(), ""))
+          .longitude(Objects.toString(loc.getLongitude(), ""))
+          .altitude(Objects.toString(loc.getAltitude(), ""))
+          .build());
+    }
+    return result;
   }
 
 }

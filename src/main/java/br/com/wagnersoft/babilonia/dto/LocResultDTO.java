@@ -82,4 +82,8 @@ public class LocResultDTO implements Serializable {
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "pt-BR", timezone = "Brazil/East")
   private LocalDate consultaData;
 
+  public static LocResultDTO empty() {
+    return LocResultDTO.builder().build();
+  }
+  
 }

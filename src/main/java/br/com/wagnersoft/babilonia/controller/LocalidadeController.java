@@ -1,4 +1,6 @@
-  package br.com.wagnersoft.babilonia.controller;
+package br.com.wagnersoft.babilonia.controller;
+
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,14 +41,26 @@ public class LocalidadeController {
   @Autowired
   private LocalidadeService locSvc;
 
-  @GetMapping
-  @Operation(summary = "Consulta a localidade.", description = "Deverá ser informado o ID da localidade.")
+  @GetMapping("/id")
+  @Operation(summary = "Consulta a localidade por ID.", description = "Deverá ser informado o ID da localidade.")
   @ApiResponse(responseCode = "200", description = "Informação de localidade.")
   @ApiStandardErrors  
   public ResponseEntity<LocResultDTO> consultarLocalidade(
       @Parameter(description = "ID", example = "1")
       @RequestParam final Integer id) {
-    final LocResultDTO result = this.locSvc.consultService(id, "");
+    final LocResultDTO result = this.locSvc.consultById(id);
+    LOGGER.debug("{}", result);
+    return ResponseEntity.ok(result);
+  }
+
+  @GetMapping("/descricao")
+  @Operation(summary = "Consulta a localidade por nome.", description = "Deverá ser informado o nome da localidade.")
+  @ApiResponse(responseCode = "200", description = "Informação de localidade.")
+  @ApiStandardErrors  
+  public ResponseEntity<List<LocResultDTO>> consultarLocalidade(
+      @Parameter(description = "descricao", example = "Maracá")
+      @RequestParam String descricao) {
+    final List<LocResultDTO> result = this.locSvc.consultByDescricao(descricao);
     LOGGER.debug("{}", result);
     return ResponseEntity.ok(result);
   }
