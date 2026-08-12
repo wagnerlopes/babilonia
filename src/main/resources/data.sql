@@ -1,6 +1,48 @@
-insert into municipio(codigo, descricao, uf_sigla) values(1, 'Sao Paulo', 'SP'); 
-insert into municipio(codigo, descricao, uf_sigla) values(2, 'Rio de Janeiro', 'RJ');
-insert into municipio(codigo, descricao, uf_sigla) values(3, 'Aracaju', 'SE');
+insert into categoria(id, descricao) values('05','Cidade');
+insert into categoria(id, descricao) values('10','Vila');
+insert into categoria(id, descricao) values('15','Vila');
+insert into categoria(id, descricao) values('20','Vila');
+
+insert into uf(sigla,descricao) values('AC', 'Acre');
+insert into uf(sigla,descricao) values('AL', 'Alagoas');
+insert into uf(sigla,descricao) values('AM', 'Amazonas');
+insert into uf(sigla,descricao) values('AP', 'Amapá');
+insert into uf(sigla,descricao) values('BA', 'Bahia');
+insert into uf(sigla,descricao) values('CE', 'Ceará');
+insert into uf(sigla,descricao) values('DF', 'Distrito Federal');
+insert into uf(sigla,descricao) values('ES', 'Espírito Santo');
+insert into uf(sigla,descricao) values('GO', 'Goiás');
+insert into uf(sigla,descricao) values('MA', 'Maranhão');
+insert into uf(sigla,descricao) values('MG', 'Minas Gerais');
+insert into uf(sigla,descricao) values('MT', 'Mato Grosso');
+insert into uf(sigla,descricao) values('MS', 'Mato Grosso do Sul');
+insert into uf(sigla,descricao) values('PA', 'Pará');
+insert into uf(sigla,descricao) values('PB', 'Paraíba');
+insert into uf(sigla,descricao) values('PE', 'Pernambuco');
+insert into uf(sigla,descricao) values('PI', 'Piauí');
+insert into uf(sigla,descricao) values('PR', 'Paraná');
+insert into uf(sigla,descricao) values('RN', 'Rio Grande do Norte');
+insert into uf(sigla,descricao) values('RJ', 'Rio de Janeiro');
+insert into uf(sigla,descricao) values('RO', 'Rondônia');
+insert into uf(sigla,descricao) values('RR', 'Roraima');
+insert into uf(sigla,descricao) values('RS', 'Rio Grande do Sul');
+insert into uf(sigla,descricao) values('SC', 'Santa Catarina');
+insert into uf(sigla,descricao) values('SE', 'Sergipe');
+insert into uf(sigla,descricao) values('SP', 'São Paulo');
+insert into uf(sigla,descricao) values('TO', 'Tocantins');
+
+insert into mesoregiao(descricao, uf_id) values('ZONA DA MATA', 11);
+
+insert into microregiao(descricao, mesoregiao_id) values('PONTE NOVA',1);
+
+insert into municipio(codigo, descricao, uf_sigla, microregiao_id) values(1, 'PONTE NOVA', 'MG', 1); 
+insert into municipio(codigo, descricao, uf_sigla, microregiao_id) values(2, 'Rio de Janeiro', 'RJ', 1);
+insert into municipio(codigo, descricao, uf_sigla, microregiao_id) values(3, 'Aracaju', 'SE', 1);
+
+insert into distrito(descricao, municipio_id) values('PONTE NOVA',1);
+
+insert into localidade(descricao, tipo, bairro, subdistrito, nivel, categoria_id, distrito_id, latitude, longitude, altitude) values('PONTE NOVA', 'URBANA', 'Centro Histórico', '1 SUBDISTRITO', 1, '05', 1, -20.41664342, -42.90968427, 422.561737);
+
 
 insert into cidadao(cpf, mae, nascimento_data, nome, pai, rg, sexo, municipio_nascimento_codigo, audit_data)
     values('22222222222', 'Mae do Cidadao A', '1998-09-07', 'Cidadao A', 'Pai do Cidadao A', '1523551', 'M', 1, '2023-02-14 09:00:00');

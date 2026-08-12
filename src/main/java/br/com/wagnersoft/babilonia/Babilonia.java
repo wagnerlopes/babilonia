@@ -9,6 +9,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
+
+import jakarta.servlet.Servlet;
 
 /** 
  * Babilonia runner application.
@@ -26,6 +30,13 @@ public class Babilonia implements CommandLineRunner {
   @Autowired
   DataSource dataSource;
 
+  @Bean
+  public ServletRegistrationBean<Servlet> h2ServletRegistration() {
+    final Servlet servlet = new org.h2.server.web.JakartaWebServlet();
+    LOGGER.info("{}", servlet);
+    return new ServletRegistrationBean<>(servlet, "/h2-console/*");
+  }
+  
   public static void main(String[] args) {
     LOGGER.warn("Babilonia iniciando...");
     SpringApplication.run(Babilonia.class, args);
