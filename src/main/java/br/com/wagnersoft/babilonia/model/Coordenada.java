@@ -1,30 +1,39 @@
-package br.com.wagnersoft.babilonia.util;
+package br.com.wagnersoft.babilonia.model;
 
+import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+/** 
+ * Coordenada geográfica.
+ * 
+ * <p>Coordenadas geográficas (latitude, longitude e altitude) de uma {@link Localidade localidade}.
+ * <p>Permite calcular a distância de uma outra localidade com a fórmula de Haversine.</p>
+ * 
+ * @author Wagner Lopes
+ * @since 1.0
+ * @version 1.0
+ */
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Embeddable
 public class Coordenada {
 
-  private double latitude;   // graus, -90 a +90
+  @DecimalMin(value = "-90.0", message = "A latitude deve ser maior ou igual a -90.0")
+  @DecimalMax(value = "90.0", message = "A latitude deve ser menor ou igual a 90.0")
+  private Double latitude;
 
-  private double longitude;  // graus, -180 a +180
+  @DecimalMin(value = "-180.0", message = "A longitude deve ser maior ou igual a -180.0")
+  @DecimalMax(value = "180.0", message = "A longitude deve ser menor ou igual a 180.0")
+  private Double longitude;
 
-  private double altitude;   // metros
-
-  public Coordenada(double latitude, double longitude, double altitude) {
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.altitude = altitude;
-  }
-
-  public double getLatitude() {
-    return latitude;
-  }
-
-  public double getLongitude() {
-    return longitude;
-  }
-
-  public double getAltitude() {
-    return altitude;
-  }
+  private Double altitude;   // metros
 
   /**
    * Calcula a distância entre esta coordenada e outra usando a fórmula de Haversine.
@@ -32,7 +41,7 @@ public class Coordenada {
    * @return distância em metros
    */
   public double distancia(Coordenada outra) {
-    
+
     final int RAIO_TERRA = 6371000; // em metros
 
     double lat1Rad = Math.toRadians(this.latitude);
