@@ -27,7 +27,7 @@ import br.com.wagnersoft.babilonia.dto.CidadaoConsultDTO;
 import br.com.wagnersoft.babilonia.dto.WSResultDTO;
 import br.com.wagnersoft.babilonia.exception.BabiloniaException;
 import br.com.wagnersoft.babilonia.exception.NoDataFoundException;
-import br.com.wagnersoft.babilonia.model.SituacaoEnum;
+import br.com.wagnersoft.babilonia.model.TipoSituacao;
 import br.com.wagnersoft.babilonia.service.ConsultService;
 
 @WebMvcTest(CidadaoController.class)
@@ -55,8 +55,8 @@ class CidadaoControllerTest {
       String cpfValido = "12345678901";
       WSResultDTO mockResult = WSResultDTO.builder()
           .cpf(cpfValido)
-          .situacaoCodigo(SituacaoEnum.EM_DEBITO.getCodigo()) // Altere para um Enum real do seu projeto
-          .situacaoDescricao(SituacaoEnum.EM_DEBITO.getDescricao())
+          .situacaoCodigo(TipoSituacao.EM_DEBITO.getCodigo()) // Altere para um Enum real do seu projeto
+          .situacaoDescricao(TipoSituacao.EM_DEBITO.getDescricao())
           .build();
 
       when(rmtSvc.consultService(any(CidadaoConsultDTO.class))).thenReturn(mockResult);
@@ -81,7 +81,7 @@ class CidadaoControllerTest {
           .contentType(MediaType.APPLICATION_JSON))
       .andExpect(status().isNotFound())
       .andExpect(jsonPath("$.cpf").value(cpfInexistente))
-      .andExpect(jsonPath("$.situacaoCodigo").value(SituacaoEnum.NAO_ENCONTRADO.getCodigo()));
+      .andExpect(jsonPath("$.situacaoCodigo").value(TipoSituacao.NAO_ENCONTRADO.getCodigo()));
     }
 
     @Test
@@ -96,7 +96,7 @@ class CidadaoControllerTest {
           .param("cpf", cpfInvalido)
           .contentType(MediaType.APPLICATION_JSON))
       .andExpect(status().isBadRequest())
-      .andExpect(jsonPath("$.situacaoCodigo").value(SituacaoEnum.REQUISICAO_INVALIDA.getCodigo()));
+      .andExpect(jsonPath("$.situacaoCodigo").value(TipoSituacao.REQUISICAO_INVALIDA.getCodigo()));
     }
 
     @Test
@@ -111,7 +111,7 @@ class CidadaoControllerTest {
           .param("cpf", cpfError)
           .contentType(MediaType.APPLICATION_JSON))
       .andExpect(status().isInternalServerError())
-      .andExpect(jsonPath("$.situacaoCodigo").value(SituacaoEnum.FORA_AR.getCodigo()));
+      .andExpect(jsonPath("$.situacaoCodigo").value(TipoSituacao.FORA_AR.getCodigo()));
     }
   }
 
@@ -163,7 +163,7 @@ class CidadaoControllerTest {
           .contentType(MediaType.APPLICATION_JSON)
           .content(objectMapper.writeValueAsString(requestDTO)))
       .andExpect(status().isNotFound())
-      .andExpect(jsonPath("$.situacaoCodigo").value(SituacaoEnum.NAO_ENCONTRADO.getCodigo()));
+      .andExpect(jsonPath("$.situacaoCodigo").value(TipoSituacao.NAO_ENCONTRADO.getCodigo()));
     }
 
     @Test

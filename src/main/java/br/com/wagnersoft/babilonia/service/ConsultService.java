@@ -16,7 +16,7 @@ import br.com.wagnersoft.babilonia.dto.WSResultDTO;
 import br.com.wagnersoft.babilonia.exception.BabiloniaException;
 import br.com.wagnersoft.babilonia.exception.NoDataFoundException;
 import br.com.wagnersoft.babilonia.model.Cidadao;
-import br.com.wagnersoft.babilonia.model.SituacaoEnum;
+import br.com.wagnersoft.babilonia.model.TipoSituacao;
 import br.com.wagnersoft.babilonia.repository.CidadaoRepository;
 
 /** 
@@ -58,7 +58,7 @@ public class ConsultService {
         .nascimentoData(cidadao.getNascimentoData())
         .nascimentoLocal(cidadao.getMunicipioNascimento() == null ? "" : cidadao.getMunicipioNascimento().toString())
         .situacaoCodigo(1) 
-        .situacaoDescricao(SituacaoEnum.EM_DIA.getDescricao())
+        .situacaoDescricao(TipoSituacao.EM_DIA.getDescricao())
         .atualizacaoData(cidadao.getAuditData())
         .consultaData(LocalDate.now())
         .build();
@@ -78,7 +78,7 @@ public class ConsultService {
         lista.add(WSResultDTO.builder()
             .cpf(cpf)
             .consultaData(LocalDate.now())
-            .situacaoCodigo(SituacaoEnum.NAO_ENCONTRADO.getCodigo())
+            .situacaoCodigo(TipoSituacao.NAO_ENCONTRADO.getCodigo())
             .situacaoDescricao(e.getMessage())
             .build());
       }
