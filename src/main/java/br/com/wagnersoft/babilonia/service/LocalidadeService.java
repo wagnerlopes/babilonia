@@ -112,4 +112,14 @@ public class LocalidadeService {
     return result;
   }
 
+  public double distancia(final Integer localId, final Integer remoteid) {
+    
+    Localidade origem = locRep.findById(localId).orElseThrow(() -> new NoDataFoundException("Origem não encontrada"));
+
+    Localidade destino = locRep.findById(remoteid).orElseThrow(() -> new NoDataFoundException("Destino não encontrado"));
+    
+    return origem.getCoordenada().distancia(destino.getCoordenada());
+    
+  }
+
 }
