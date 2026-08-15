@@ -65,9 +65,9 @@ public class LocalidadeService {
         .microregiao(loc.getDistrito().getMunicipio().getMicroregiao().getDescricao())
         .mesoregiao(loc.getDistrito().getMunicipio().getMicroregiao().getMesoregiao().getDescricao())
         .uf(loc.getDistrito().getMunicipio().getMicroregiao().getMesoregiao().getUf().getSigla())
-        .latitude(Objects.toString(loc.getLatitude(), ""))
-        .longitude(Objects.toString(loc.getLongitude(), ""))
-        .altitude(Objects.toString(loc.getAltitude(), ""))
+        .latitude(Objects.toString(loc.getCoordenada().getLatitude(), ""))
+        .longitude(Objects.toString(loc.getCoordenada().getLongitude(), ""))
+        .altitude(Objects.toString(loc.getCoordenada().getAltitude(), ""))
         .build();
   }
 
@@ -104,12 +104,22 @@ public class LocalidadeService {
           .microregiao(loc.getDistrito().getMunicipio().getMicroregiao().getDescricao())
           .mesoregiao(loc.getDistrito().getMunicipio().getMicroregiao().getMesoregiao().getDescricao())
           .uf(loc.getDistrito().getMunicipio().getMicroregiao().getMesoregiao().getUf().getSigla())
-          .latitude(Objects.toString(loc.getLatitude(), ""))
-          .longitude(Objects.toString(loc.getLongitude(), ""))
-          .altitude(Objects.toString(loc.getAltitude(), ""))
+          .latitude(Objects.toString(loc.getCoordenada().getLatitude(), ""))
+          .longitude(Objects.toString(loc.getCoordenada().getLongitude(), ""))
+          .altitude(Objects.toString(loc.getCoordenada().getAltitude(), ""))
           .build());
     }
     return result;
+  }
+
+  public double distancia(final Integer localId, final Integer remoteid) {
+    
+    Localidade origem = locRep.findById(localId).orElseThrow(() -> new NoDataFoundException("Origem não encontrada"));
+
+    Localidade destino = locRep.findById(remoteid).orElseThrow(() -> new NoDataFoundException("Destino não encontrado"));
+    
+    return origem.getCoordenada().distancia(destino.getCoordenada());
+    
   }
 
 }

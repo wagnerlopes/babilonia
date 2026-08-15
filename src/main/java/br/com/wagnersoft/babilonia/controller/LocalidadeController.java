@@ -38,6 +38,8 @@ public class LocalidadeController {
 
   protected static final Logger LOGGER = LoggerFactory.getLogger(LocalidadeController.class);
 
+  public record DistanciaDTO(String origem, String destino, Double distancia, String unidade) {};
+  
   @Autowired
   private LocalidadeService locSvc;
 
@@ -65,4 +67,18 @@ public class LocalidadeController {
     return ResponseEntity.ok(result);
   }
 
+  @GetMapping("/distancia")
+  @Operation(summary = "Calcula a distância entre duas localidades.", description = "Deverá ser informado o ID da origem e do destino.")
+  @ApiResponse(responseCode = "200", description = "Distância entre duas localidades localidade.")
+  @ApiStandardErrors  
+  public ResponseEntity<Object> consultarDistancia(
+      @Parameter(description = "ID da origem", example = "1") @RequestParam Integer origem,
+      @Parameter(description = "ID do destino", example = "2") @RequestParam Integer destino) {
+    LocResultDTO local1 = this.locSvc.consultById(origem);
+    LocResultDTO local2 = this.locSvc.consultById(destino);
+    double dkm = Math.round(this.locSvc.distancia(origem, destino) / 1000.0);
+    LOGGER.debug("{}", dkm);
+    return ResponseEntity.ok(new DistanciaDTO(local1.getDescricao(), local2.getDescricao(), dkm, "Km"));
+  }
+  
 }

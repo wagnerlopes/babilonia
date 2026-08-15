@@ -3,6 +3,8 @@ package br.com.wagnersoft.babilonia.model;
 import java.io.Serializable;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.CheckConstraint;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Include;
@@ -37,6 +40,12 @@ import lombok.ToString.Exclude;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 @Entity
+@Table(name = "localidade", 
+       check = {
+         @CheckConstraint(name = "chk_latitude_range", constraint = "latitude >= -90.0 AND latitude <= 90.0"),
+         @CheckConstraint(name = "chk_longitude_range", constraint = "longitude >= -180.0 AND longitude <= 180.0")
+       }
+)
 public class Localidade implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -62,12 +71,9 @@ public class Localidade implements Serializable {
 
   private String subdistrito;
 
-  private Double latitude;
-
-  private Double longitude;
-
-  private Double altitude;
-
+  @Embedded
+  private Coordenada coordenada;
+  
   @NotNull
   @Exclude
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)

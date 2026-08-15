@@ -32,16 +32,29 @@ insert into uf(sigla,descricao) values('SP', 'São Paulo');
 insert into uf(sigla,descricao) values('TO', 'Tocantins');
 
 insert into mesoregiao(descricao, uf_id) values('ZONA DA MATA', 11);
+insert into mesoregiao(descricao, uf_id) values('LESTE RONDONIENSE', 21);
+insert into mesoregiao(descricao, uf_id) values('DISTRITO FEDERAL', 7);
+insert into mesoregiao(descricao, uf_id) values('METROPOLITANA DE SÃO PAULO', 26);
 
 insert into microregiao(descricao, mesoregiao_id) values('PONTE NOVA',1);
+insert into microregiao(descricao, mesoregiao_id) values('CACOAL',2);
+insert into microregiao(descricao, mesoregiao_id) values('BRASÌLIA',3);
+insert into microregiao(descricao, mesoregiao_id) values('SÃO PAULO',4);
 
 insert into municipio(codigo, descricao, uf_sigla, microregiao_id) values(1, 'PONTE NOVA', 'MG', 1); 
-insert into municipio(codigo, descricao, uf_sigla, microregiao_id) values(2, 'Rio de Janeiro', 'RJ', 1);
-insert into municipio(codigo, descricao, uf_sigla, microregiao_id) values(3, 'Aracaju', 'SE', 1);
+insert into municipio(codigo, descricao, uf_sigla, microregiao_id) values(2, 'ALTA FLORESTA D''OESTE', 'RO', 2);
+insert into municipio(codigo, descricao, uf_sigla, microregiao_id) values(3, 'BRASÌLIA', 'DF', 3);
+insert into municipio(codigo, descricao, uf_sigla, microregiao_id) values(4, 'SÃO PAULO', 'SP', 4);
 
 insert into distrito(descricao, municipio_id) values('PONTE NOVA',1);
+insert into distrito(descricao, municipio_id) values('ALTA FLORESTA D''OESTE',2);
+insert into distrito(descricao, municipio_id) values('BRASÌLIA',3);
+insert into distrito(descricao, municipio_id) values('ÁGUA RASA',4);
 
 insert into localidade(descricao, tipo, bairro, subdistrito, nivel, categoria_id, distrito_id, latitude, longitude, altitude) values('PONTE NOVA', 'URBANA', 'Centro Histórico', '1 SUBDISTRITO', 1, '05', 1, -20.41664342, -42.90968427, 422.561737);
+insert into localidade(descricao, tipo, bairro, subdistrito, nivel, categoria_id, distrito_id, latitude, longitude, altitude) values('ALTA FLORESTA D''OESTE', 'URBANA', 'Redondo', null, 1, '05', 2, -11.9355403, -61.9998239, 337.735719);
+insert into localidade(descricao, tipo, bairro, subdistrito, nivel, categoria_id, distrito_id, latitude, longitude, altitude) values('BRASÌLIA', 'URBANA', null, 'BRASÌLIA', 1, '05', 3, -15.79408736, -47.88790548, 1115.248357);
+insert into localidade(descricao, tipo, bairro, subdistrito, nivel, categoria_id, distrito_id, latitude, longitude, altitude) values('SÃO PAULO', 'URBANA', null, null, 1, '05', 4, -23.5673865, -46.57038318, 783.615127);
 
 
 insert into cidadao(cpf, mae, nascimento_data, nome, pai, rg, sexo, municipio_nascimento_codigo, audit_data)
