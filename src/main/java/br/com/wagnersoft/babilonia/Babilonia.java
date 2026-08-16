@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
+import br.com.wagnersoft.babilonia.service.ExcelResourceService;
 import jakarta.servlet.Servlet;
 
 /** 
@@ -28,8 +29,11 @@ public class Babilonia implements CommandLineRunner {
   protected static final Logger LOGGER = LoggerFactory.getLogger(Babilonia.class);
 
   @Autowired
-  DataSource dataSource;
+  private DataSource dataSource;
 
+  @Autowired
+  private ExcelResourceService excelSvc;
+  
   @Bean
   public ServletRegistrationBean<Servlet> h2ServletRegistration() {
     final Servlet servlet = new org.h2.server.web.JakartaWebServlet();
@@ -47,6 +51,7 @@ public class Babilonia implements CommandLineRunner {
     final DataSource ds = dataSource;
     LOGGER.info("DB: {}", ds.getConnection());
     LOGGER.info("Timeout = {}", ds.getLoginTimeout());
+    excelSvc.readMesoregiao();
     /*
      * final PoolDataSource ds = (PoolDataSource) dataSource;
      * final DatabaseMetaData metadata = ds.getConnection().getMetaData();

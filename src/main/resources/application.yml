@@ -60,8 +60,11 @@ spring:
             ddl-auto: create-drop
             dialect: org.hibernate.dialect.H2Dialect
         properties:
-            hibernate.format_sql: true
-
+            hibernate:
+                format_sql: true
+                jdbc:
+                    batch_size: 500
+                order_inserts: true
     jdbc:
         template:
             query-timeout: 30
