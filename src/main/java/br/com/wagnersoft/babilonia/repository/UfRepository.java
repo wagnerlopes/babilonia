@@ -1,6 +1,7 @@
 package br.com.wagnersoft.babilonia.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -30,4 +31,7 @@ public interface UfRepository extends JpaRepository<Uf, String> {
   @Query("SELECT u FROM Uf u WHERE LOWER(u.descricao) LIKE LOWER(CONCAT(:descricao, '%'))")
   List<Uf> findByDescricao(@Param("descricao") String descricao);
 
+  @Query("SELECT u FROM Uf u LEFT JOIN FETCH u.mesoregioes WHERE u.sigla = :sigla")
+  Optional<Uf> findBySigla(@Param("sigla") String sigla);
+  
 }

@@ -47,6 +47,7 @@ public class ExcelResourceService {
       Sheet sheet = workbook.getSheetAt(0);
 
       for (Row row : sheet) {
+        
         if (row.getRowNum() == 0) continue; // Pula o cabeçalho
 
         String mesoDesc = row.getCell(7) != null ? row.getCell(7).getStringCellValue() : "";
