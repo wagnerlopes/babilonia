@@ -3,6 +3,8 @@ package br.com.wagnersoft.babilonia.model;
 import java.io.Serializable;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Include;
@@ -34,6 +36,7 @@ public class Categoria implements Serializable {
   @Include
   private String id;
 
-  private String descricao;
-
+  @Enumerated(EnumType.STRING)
+  private TipoCategoria descricao;
+  
 }

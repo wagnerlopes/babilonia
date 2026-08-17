@@ -32,7 +32,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  */
 @RestController
 @RequestMapping(value = "v1/localidade", produces = MediaType.APPLICATION_JSON_VALUE)
-@Tag(name = "v1/localidade", description = "API versão 1")
+@Tag(name = "v1/localidade", description = "Localidade Endpoint")
 @SecurityRequirement(name = "apikey")
 public class LocalidadeController {
 

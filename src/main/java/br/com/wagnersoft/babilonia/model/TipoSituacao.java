@@ -10,7 +10,7 @@ import lombok.Getter;
  * @author Wagner Lopes
  */
 @Getter
-public enum SituacaoEnum {
+public enum TipoSituacao {
 
   FORA_AR("SERVIÇO TEMPORARIAMENTE FORA DO AR. TENTE MAIS TARDE.", 0),
   EM_DIA("EM DIA.", 1),
@@ -24,7 +24,7 @@ public enum SituacaoEnum {
 
   private String descricao;
 
-  SituacaoEnum(String descricao, Integer codigo) {
+  TipoSituacao(String descricao, Integer codigo) {
     this.descricao = descricao;
     this.codigo = codigo;
   }

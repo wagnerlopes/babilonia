@@ -29,7 +29,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
+@ToString(onlyExplicitlyIncluded = true)
 @Entity
 public class Uf implements Serializable {
 
@@ -40,8 +40,10 @@ public class Uf implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
+  @Include
   private String descricao;
 
+  @Include
   private String sigla;
 
   @OneToMany(mappedBy = "uf", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
