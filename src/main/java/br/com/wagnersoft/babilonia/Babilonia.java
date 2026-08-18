@@ -52,6 +52,7 @@ public class Babilonia implements CommandLineRunner {
     LOGGER.info("DB: {}", ds.getConnection());
     LOGGER.info("Timeout = {}", ds.getLoginTimeout());
     excelSvc.readMesoregiao();
+    excelSvc.readMicroregiao();
     /*
      * final PoolDataSource ds = (PoolDataSource) dataSource;
      * final DatabaseMetaData metadata = ds.getConnection().getMetaData();

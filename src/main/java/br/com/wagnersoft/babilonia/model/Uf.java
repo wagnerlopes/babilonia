@@ -47,6 +47,6 @@ public class Uf implements Serializable {
   private String sigla;
 
   @OneToMany(mappedBy = "uf", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-  private List<Mesoregiao> mesoregioes = new ArrayList<>();
+  private List<MesoRegiao> mesoregioes = new ArrayList<>();
 
 }

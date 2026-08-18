@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.wagnersoft.babilonia.exception.NoDataFoundException;
 import br.com.wagnersoft.babilonia.model.Uf;
 import br.com.wagnersoft.babilonia.repository.UfRepository;
 import jakarta.transaction.Transactional;
@@ -32,19 +31,17 @@ public class UfService {
   private UfRepository ufRep;
 
   @Transactional
-  public Uf consultBySigla(final String sigla) {
+  public Optional<Uf> consultBySigla(String sigla) {
 
     if (sigla == null || sigla.isBlank()) {
-      return null;
+      return Optional.empty();
     }
 
-    Optional<Uf> ufOpt = this.ufRep.findBySigla(sigla);
+    Optional<Uf> ufOpt = this.ufRep.findBySiglaWithMesoRegiao(sigla);
 
-    final Uf uf = ufOpt.orElseThrow(() -> new NoDataFoundException("UF não localizada com os dados informados."));
+    ufOpt.ifPresent(uf -> LOGGER.debug("{}", uf));
 
-    LOGGER.debug("{}", uf);
-
-    return uf;
+    return ufOpt;
   }
 
 }

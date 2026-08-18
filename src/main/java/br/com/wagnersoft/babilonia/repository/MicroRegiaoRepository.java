@@ -6,20 +6,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import br.com.wagnersoft.babilonia.model.Microregiao;
+import br.com.wagnersoft.babilonia.model.MicroRegiao;
 
 /**
- * Repositório de dados para a entidade {@link Microregiao}.
+ * Repositório de dados para a entidade {@link MicroRegiao microregião}.
  * <p>
  * Provê operações de acesso ao banco de dados e consultas customizadas
- * para gerenciamento de uma microregião.
+ * para gerenciamento de uma microrregião.
  * </p>
  * 
  * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
  */
-public interface MicroregiaoRepository extends JpaRepository<Microregiao, Integer> {
+public interface MicroRegiaoRepository extends JpaRepository<MicroRegiao, Integer> {
 
   /**
    * Busca distrito cujo nome inicie com o termo informado (case-insensitive).
@@ -27,7 +27,7 @@ public interface MicroregiaoRepository extends JpaRepository<Microregiao, Intege
    * @param descricao O prefixo ou termo para filtragem (ex: "Mar" busca "maranhao", "Maranhão", etc.).
    * @return Lista de microregiões correspondentes ao filtro.
    */
-  @Query("SELECT g FROM Microregiao g WHERE LOWER(g.descricao) LIKE LOWER(CONCAT(:descricao, '%'))")
-  List<Microregiao> findByDescricao(@Param("descricao") String descricao);
+  @Query("SELECT g FROM MicroRegiao g WHERE LOWER(g.descricao) LIKE LOWER(CONCAT(:descricao, '%'))")
+  List<MicroRegiao> findByDescricao(@Param("descricao") String descricao);
 
 }

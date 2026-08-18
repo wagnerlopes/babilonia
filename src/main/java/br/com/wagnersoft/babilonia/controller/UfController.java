@@ -1,6 +1,6 @@
 package br.com.wagnersoft.babilonia.controller;
 
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -23,9 +23,9 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
- * Controller responsável por gerenciar e expor os endpoints de informações de UF.
+ * Controller responsável por gerenciar e expor os endpoints de informações de {@link Uf unidade da federação}.
  * 
- * <p>Fornece as operações de consulta com base no ID ou descrição.</p>
+ * <p>Fornece as operações de consulta com base na sigla da UF.</p>
  *
  * @author Wagner Lopes
  * @since 1.0
@@ -33,13 +33,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  */
 @RestController
 @RequestMapping(value = "v1/uf", produces = MediaType.APPLICATION_JSON_VALUE)
-@Tag(name = "v1/uf", description = "UF endpoint")
+@Tag(name = "v1/uf", description = "Unidade da Federação endpoint")
 @SecurityRequirement(name = "apikey")
 public class UfController {
 
   protected static final Logger LOGGER = LoggerFactory.getLogger(UfController.class);
 
-  public record UfDTO(String uf, String descricao, List<String> mesorregiao) {};
+  public record MesoRegiaoDTO(Integer id, String descricao) {};
+
+  public record UfDTO(String uf, String descricao, List<MesoRegiaoDTO> mesorregiao) {};
 
   @Autowired
   private UfService ufSvc;
@@ -48,15 +50,18 @@ public class UfController {
   @Operation(summary = "Consulta de UF por sigla.", description = "Deverá ser informado a sigla da UF.")
   @ApiResponse(responseCode = "200", description = "Informação de UF.")
   @ApiStandardErrors
-  public ResponseEntity<UfDTO> consultarUf(@Parameter(description = "uf", example = "1") @RequestParam final String uf) {
-    
-    final Uf result = this.ufSvc.consultBySigla(uf);
-    
-    LOGGER.debug("{}", result);
+  public ResponseEntity<UfDTO> consultarPorSigla(@Parameter(description = "sigla", example = "DF") @RequestParam final String sigla) {
 
-    UfDTO ufDTO = result == null ? new UfDTO("", "", Collections.emptyList()) : new UfDTO(result.getSigla(), result.getDescricao(), result.getMesoregioes().stream().map(i -> i.getDescricao()).sorted().toList());
-    
-    return ResponseEntity.ok(ufDTO);
+    return ufSvc.consultBySigla(sigla)
+        .map(u -> new UfDTO(
+            u.getSigla(),
+            u.getDescricao(),
+            u.getMesoregioes().stream()
+              .map(m -> new MesoRegiaoDTO(m.getId(), m.getDescricao()))
+              .sorted(Comparator.comparing(MesoRegiaoDTO::descricao))
+              .toList()))
+        .map(ResponseEntity::ok)
+        .orElseGet(() -> ResponseEntity.notFound().build());
   }
 
 }

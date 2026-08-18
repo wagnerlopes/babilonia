@@ -31,15 +31,15 @@ insert into uf(sigla,descricao) values('SE', 'Sergipe');
 insert into uf(sigla,descricao) values('SP', 'São Paulo');
 insert into uf(sigla,descricao) values('TO', 'Tocantins');
 
-insert into mesoregiao(descricao, uf_id) values('ZONA DA MATA', 11);
-insert into mesoregiao(descricao, uf_id) values('LESTE RONDONIENSE', 21);
-insert into mesoregiao(descricao, uf_id) values('DISTRITO FEDERAL', 7);
-insert into mesoregiao(descricao, uf_id) values('METROPOLITANA DE SÃO PAULO', 26);
+insert into mesoregiao(descricao, uf_id) values('ZONA DA MATA (T)', 11);
+insert into mesoregiao(descricao, uf_id) values('LESTE RONDONIENSE (T)', 21);
+insert into mesoregiao(descricao, uf_id) values('DISTRITO FEDERAL (T)', 7);
+insert into mesoregiao(descricao, uf_id) values('METROPOLITANA DE SÃO PAULO (T)', 26);
 
-insert into microregiao(descricao, mesoregiao_id) values('PONTE NOVA',1);
-insert into microregiao(descricao, mesoregiao_id) values('CACOAL',2);
-insert into microregiao(descricao, mesoregiao_id) values('BRASÌLIA',3);
-insert into microregiao(descricao, mesoregiao_id) values('SÃO PAULO',4);
+insert into microregiao(descricao, mesoregiao_id) values('PONTE NOVA (T)',1);
+insert into microregiao(descricao, mesoregiao_id) values('CACOAL (T)',2);
+insert into microregiao(descricao, mesoregiao_id) values('BRASÌLIA (T)',3);
+insert into microregiao(descricao, mesoregiao_id) values('SÃO PAULO (T)',4);
 
 insert into municipio(codigo, descricao, uf_sigla, microregiao_id) values(1, 'PONTE NOVA', 'MG', 1); 
 insert into municipio(codigo, descricao, uf_sigla, microregiao_id) values(2, 'ALTA FLORESTA D''OESTE', 'RO', 2);

@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Include;
@@ -23,9 +24,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 /** 
- * Microregiao.
+ * Mesoregiao.
  * 
- * <p>Uma microregião dentro de uma {@link Mesoregiao mesoregião}.
+ * <p>Uma mesoregião dentro de uma {@link Uf UF}.
  *
  * @author Wagner Lopes
  * @since 1.0
@@ -37,7 +38,8 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 @Entity
-public class Microregiao implements Serializable {
+@Table(name = "mesoregiao")
+public class MesoRegiao implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -51,10 +53,11 @@ public class Microregiao implements Serializable {
   @NotNull
   @Exclude
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-  @JoinColumn(name = "mesoregiao_id", updatable = false, nullable = false)
-  private Mesoregiao mesoregiao;
+  @JoinColumn(name = "uf_id", updatable = false, nullable = false)
+  private Uf uf;
 
-  @OneToMany(mappedBy = "microregiao", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-  private List<Municipio> municipios = new ArrayList<>();
+  @Exclude
+  @OneToMany(mappedBy = "mesoregiao", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  private List<MicroRegiao> microregioes = new ArrayList<>();
 
 }

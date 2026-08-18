@@ -24,7 +24,7 @@ import lombok.Setter;
 /** 
  * Município.
  * 
- * <p>Um município de uma {@link Microregiao microregião}.
+ * <p>Um município de uma {@link MicroRegiao microregião}.
  *
  * @author Wagner Lopes
  * @since 1.0
@@ -52,7 +52,7 @@ public class Municipio implements Serializable {
 
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
   @JoinColumn(name = "microregiao_id", updatable = false, nullable = false)
-  private Microregiao microregiao;
+  private MicroRegiao microregiao;
   
   @OneToMany(mappedBy = "municipio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private final List<Distrito> distritos = new ArrayList<>();
