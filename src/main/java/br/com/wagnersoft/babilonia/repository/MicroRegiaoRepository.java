@@ -1,6 +1,7 @@
 package br.com.wagnersoft.babilonia.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -30,4 +31,7 @@ public interface MicroRegiaoRepository extends JpaRepository<MicroRegiao, Intege
   @Query("SELECT g FROM MicroRegiao g WHERE LOWER(g.descricao) LIKE LOWER(CONCAT(:descricao, '%'))")
   List<MicroRegiao> findByDescricao(@Param("descricao") String descricao);
 
+  @Query("SELECT m FROM MicroRegiao m LEFT JOIN FETCH m.municipios WHERE m.id = :id")
+  Optional<MicroRegiao> findByIdWithMunicipios(@Param("id") Integer id);
+  
 }

@@ -56,6 +56,7 @@ public class MicroRegiao implements Serializable {
   @JoinColumn(name = "mesoregiao_id", updatable = false, nullable = false)
   private MesoRegiao mesoregiao;
 
+  @Exclude
   @OneToMany(mappedBy = "microregiao", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private List<Municipio> municipios = new ArrayList<>();
 
