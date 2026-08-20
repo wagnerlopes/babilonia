@@ -6,10 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.wagnersoft.babilonia.model.Distrito;
 import br.com.wagnersoft.babilonia.repository.DistritoRepository;
-import jakarta.transaction.Transactional;
 
 /** 
  * Serviço responsável pelo gerenciamento e pelas regras de negócio da entidade {@link Distrito distrito}.
@@ -23,6 +23,7 @@ import jakarta.transaction.Transactional;
  * @version 1.0
  */
 @Service
+@Transactional(readOnly = true)
 public class DistritoService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DistritoService.class);
@@ -30,7 +31,6 @@ public class DistritoService {
   @Autowired
   private DistritoRepository rep;
 
-  @Transactional
   public Optional<Distrito> consultById(final Integer id) {
 
     if (id == null) {

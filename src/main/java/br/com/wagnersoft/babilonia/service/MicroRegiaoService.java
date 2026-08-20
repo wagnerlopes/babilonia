@@ -6,10 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.wagnersoft.babilonia.model.MicroRegiao;
 import br.com.wagnersoft.babilonia.repository.MicroRegiaoRepository;
-import jakarta.transaction.Transactional;
 
 /** 
  * Serviço responsável pelo gerenciamento e pelas regras de negócio da entidade {@link MicroRegiao microrregião}.
@@ -23,6 +23,7 @@ import jakarta.transaction.Transactional;
  * @version 1.0
  */
 @Service
+@Transactional(readOnly = true)
 public class MicroRegiaoService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MicroRegiaoService.class);
@@ -30,7 +31,6 @@ public class MicroRegiaoService {
   @Autowired
   private MicroRegiaoRepository rep;
 
-  @Transactional
   public Optional<MicroRegiao> consultById(final Integer id) {
 
     if (id == null) {

@@ -53,16 +53,8 @@ public class Babilonia implements CommandLineRunner {
     LOGGER.info("Timeout = {}", ds.getLoginTimeout());
     excelSvc.readMesoregiao();
     excelSvc.readMicroregiao();
-    /*
-     * final PoolDataSource ds = (PoolDataSource) dataSource;
-     * final DatabaseMetaData metadata = ds.getConnection().getMetaData();
-     * LOGGER.info("Database Product Name: {}", metadata.getDatabaseProductName());
-     * LOGGER.info("Database Product Version: {}", metadata.getDatabaseProductVersion());
-     * LOGGER.info("Logged User: {}", metadata.getUserName());
-     * LOGGER.info("JDBC Driver: {}", metadata.getDriverName());
-     * LOGGER.info("Driver Version: {}", metadata.getDriverVersion());
-     * LOGGER.info("DataSource: {}", ds.getClass());
-     */
+    excelSvc.readMunicipio();
+    excelSvc.readDistrito();
   }
 
   /*
@@ -74,6 +66,6 @@ public class Babilonia implements CommandLineRunner {
     //factory.addDeploymentInfoCustomizers(deploymentInfo -> deploymentInfo.addInitialHandlerChainWrapper(handler -> {return new RequestDumpingHandler(handler);}));
     return factory;
   }
-   */
+  */
 
 }

@@ -6,10 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.wagnersoft.babilonia.model.Uf;
 import br.com.wagnersoft.babilonia.repository.UfRepository;
-import jakarta.transaction.Transactional;
 
 /** 
  * Serviço responsável pelo gerenciamento e pelas regras de negócio da entidade {@link Uf}.
@@ -23,6 +23,7 @@ import jakarta.transaction.Transactional;
  * @version 1.0
  */
 @Service
+@Transactional(readOnly = true)
 public class UfService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(UfService.class);
@@ -30,7 +31,6 @@ public class UfService {
   @Autowired
   private UfRepository ufRep;
 
-  @Transactional
   public Optional<Uf> consultBySigla(String sigla) {
 
     if (sigla == null || sigla.isBlank()) {
