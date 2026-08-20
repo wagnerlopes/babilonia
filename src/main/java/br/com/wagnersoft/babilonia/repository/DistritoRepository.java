@@ -1,6 +1,7 @@
 package br.com.wagnersoft.babilonia.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -30,4 +31,7 @@ public interface DistritoRepository extends JpaRepository<Distrito, Integer> {
   @Query("SELECT g FROM Distrito g WHERE LOWER(g.descricao) LIKE LOWER(CONCAT(:descricao, '%'))")
   List<Distrito> findByDescricao(@Param("descricao") String descricao);
 
+  @Query("SELECT g FROM Distrito g LEFT JOIN FETCH g.localidades WHERE g.id = :id")
+  Optional<Distrito> findByIdWithLocalidades(@Param("id") Integer id);
+  
 }

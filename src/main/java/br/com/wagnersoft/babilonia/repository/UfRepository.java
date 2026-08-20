@@ -32,6 +32,6 @@ public interface UfRepository extends JpaRepository<Uf, String> {
   List<Uf> findByDescricao(@Param("descricao") String descricao);
 
   @Query("SELECT u FROM Uf u LEFT JOIN FETCH u.mesoregioes WHERE u.sigla = :sigla")
-  Optional<Uf> findBySigla(@Param("sigla") String sigla);
+  Optional<Uf> findBySiglaWithMesoRegiao(@Param("sigla") String sigla);
   
 }

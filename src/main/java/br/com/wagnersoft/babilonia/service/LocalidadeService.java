@@ -11,12 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.wagnersoft.babilonia.dto.LocResultDTO;
 import br.com.wagnersoft.babilonia.exception.NoDataFoundException;
 import br.com.wagnersoft.babilonia.model.Localidade;
 import br.com.wagnersoft.babilonia.repository.LocalidadeRepository;
-import jakarta.transaction.Transactional;
 
 /** 
  * Serviço responsável pelo gerenciamento e pelas regras de negócio da entidade {@link Localidade}.
@@ -30,6 +30,7 @@ import jakarta.transaction.Transactional;
  * @version 1.0
  */
 @Service
+@Transactional(readOnly = true)
 public class LocalidadeService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(LocalidadeService.class);
@@ -37,7 +38,6 @@ public class LocalidadeService {
   @Autowired
   private LocalidadeRepository locRep;
 
-  @Transactional
   public LocResultDTO consultById(final Integer id) {
 
     // 1. Busca da Localidade
@@ -71,7 +71,6 @@ public class LocalidadeService {
         .build();
   }
 
-  @Transactional
   public List<LocResultDTO> consultByDescricao(String descricao) {
 
     // 1. Busca da Localidade

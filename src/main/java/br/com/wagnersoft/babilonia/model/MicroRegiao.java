@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Include;
@@ -25,7 +26,7 @@ import lombok.ToString;
 /** 
  * Microregiao.
  * 
- * <p>Uma microregião dentro de uma {@link Mesoregiao mesoregião}.
+ * <p>Uma microregião dentro de uma {@link MesoRegiao mesorregião}.
  *
  * @author Wagner Lopes
  * @since 1.0
@@ -37,7 +38,8 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 @Entity
-public class Microregiao implements Serializable {
+@Table(name = "microregiao")
+public class MicroRegiao implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -52,8 +54,9 @@ public class Microregiao implements Serializable {
   @Exclude
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
   @JoinColumn(name = "mesoregiao_id", updatable = false, nullable = false)
-  private Mesoregiao mesoregiao;
+  private MesoRegiao mesoregiao;
 
+  @Exclude
   @OneToMany(mappedBy = "microregiao", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private List<Municipio> municipios = new ArrayList<>();
 

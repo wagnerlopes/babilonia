@@ -53,7 +53,7 @@ spring:
         initial-size: 1
 
     jpa:
-        show-sql: true
+        show-sql: false
         defer-datasource-initialization: true
         open-in-view: false
         hibernate:

@@ -9,6 +9,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -24,7 +26,7 @@ import lombok.Setter;
 /** 
  * Município.
  * 
- * <p>Um município de uma {@link Microregiao microregião}.
+ * <p>Um município de uma {@link MicroRegiao microregião}.
  *
  * @author Wagner Lopes
  * @since 1.0
@@ -43,6 +45,7 @@ public class Municipio implements Serializable {
 
   @Id
   @Include
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer codigo;
   
   private String descricao;
@@ -52,7 +55,7 @@ public class Municipio implements Serializable {
 
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
   @JoinColumn(name = "microregiao_id", updatable = false, nullable = false)
-  private Microregiao microregiao;
+  private MicroRegiao microregiao;
   
   @OneToMany(mappedBy = "municipio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private final List<Distrito> distritos = new ArrayList<>();

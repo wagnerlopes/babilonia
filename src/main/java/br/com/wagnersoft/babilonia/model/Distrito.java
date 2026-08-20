@@ -54,6 +54,7 @@ public class Distrito implements Serializable {
   @JoinColumn(name = "municipio_id", updatable = false, nullable = false)
   private Municipio municipio;
 
+  @Exclude
   @OneToMany(mappedBy = "distrito", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private List<Localidade> localidades = new ArrayList<>();
   

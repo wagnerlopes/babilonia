@@ -10,7 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import br.com.wagnersoft.babilonia.dto.WSResultDTO;
+import br.com.wagnersoft.babilonia.dto.ErrorResultDTO;
 import br.com.wagnersoft.babilonia.model.TipoSituacao;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -30,34 +30,34 @@ public class GlobalExceptionHandler {
   private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
   @ExceptionHandler(Exception.class)
-  public ResponseEntity<WSResultDTO> handleGeneralException(Exception e, HttpServletRequest request) {
+  public ResponseEntity<ErrorResultDTO> handleGeneralException(Exception e, HttpServletRequest request) {
     LOGGER.debug("Erro interno no servidor: ", e);
-    String cpf = request.getParameter("cpf");
-    return buildErrorResponse(cpf, TipoSituacao.FORA_AR, HttpStatus.INTERNAL_SERVER_ERROR);
+    String id = request.getParameter("id");
+    return buildErrorResponse(id, TipoSituacao.FORA_AR, HttpStatus.INTERNAL_SERVER_ERROR);
   }
   
   @ExceptionHandler(BabiloniaException.class)
-  public ResponseEntity<WSResultDTO> handleBabilonia(BabiloniaException e, HttpServletRequest request) {
+  public ResponseEntity<ErrorResultDTO> handleBabilonia(BabiloniaException e, HttpServletRequest request) {
     LOGGER.debug("Erro na API Babilonia: {}", e.getMessage());
-    String cpf = request.getParameter("cpf");
-    return buildErrorResponse(cpf, TipoSituacao.REQUISICAO_INVALIDA, HttpStatus.BAD_REQUEST);
+    String id = request.getParameter("id");
+    return buildErrorResponse(id, TipoSituacao.REQUISICAO_INVALIDA, HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<WSResultDTO> handleValidationException(MethodArgumentNotValidException e, HttpServletRequest request) {
+  public ResponseEntity<ErrorResultDTO> handleValidationException(MethodArgumentNotValidException e, HttpServletRequest request) {
     LOGGER.debug("Falha na validação dos campos da requisição: {}", e.getMessage());
-    String cpf = request.getParameter("cpf");
+    String id = request.getParameter("id");
     
     // Se preferir tentar pegar o CPF de dentro do DTO que falhou (opcional):
     // if (e.getBindingResult().getTarget() instanceof CidadaoConsultDTO) {
     //     cpf = ((CidadaoConsultDTO) e.getBindingResult().getTarget()).getCpf();
     // }
 
-    return buildErrorResponse(cpf, TipoSituacao.REQUISICAO_INVALIDA, HttpStatus.BAD_REQUEST);
+    return buildErrorResponse(id, TipoSituacao.REQUISICAO_INVALIDA, HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler(NoDataFoundException.class)
-  public ResponseEntity<WSResultDTO> handleNoDataFound(NoDataFoundException e, HttpServletRequest request) {
+  public ResponseEntity<ErrorResultDTO> handleNoDataFound(NoDataFoundException e, HttpServletRequest request) {
     LOGGER.debug("Cidadão não encontrado: {}", e.getMessage());
     String cpf = request.getParameter("cpf"); 
     return buildErrorResponse(cpf, TipoSituacao.NAO_ENCONTRADO, HttpStatus.NOT_FOUND);
@@ -66,10 +66,10 @@ public class GlobalExceptionHandler {
   /** Captura especificamente tokens que passaram da validade.
    * @param e @link ExpiredJwtException}
    * @param request @code HttpServletRequest}
-   * @return {@code ResponseEntity<WSResultDTO>}
+   * @return {@code ResponseEntity<ErrorResultDTO>}
    */
   @ExceptionHandler(ExpiredJwtException.class)
-  public ResponseEntity<WSResultDTO> handleExpiredJwt(ExpiredJwtException e, HttpServletRequest request) {
+  public ResponseEntity<ErrorResultDTO> handleExpiredJwt(ExpiredJwtException e, HttpServletRequest request) {
     LOGGER.error("Token JWT expirado: {}", e.getMessage());
     String cpf = request.getParameter("cpf");
     return buildErrorResponse(cpf, TipoSituacao.TOKEN_EXPIRADO, HttpStatus.UNAUTHORIZED);
@@ -78,18 +78,18 @@ public class GlobalExceptionHandler {
   /** Captura tokens adulterados, assinaturas erradas ou malformados.
    * @param e {@link Exception}
    * @param request {@link HttpServletRequest}
-   * @return {@code ResponseEntity<WSResultDTO>}
+   * @return {@code ResponseEntity<ErrorResultDTO>}
    */
   @ExceptionHandler({MalformedJwtException.class, SignatureException.class, IllegalArgumentException.class})
-  public ResponseEntity<WSResultDTO> handleInvalidJwt(Exception e, HttpServletRequest request) {
+  public ResponseEntity<ErrorResultDTO> handleInvalidJwt(Exception e, HttpServletRequest request) {
     LOGGER.error("Tentativa de acesso com Token JWT inválido: {}", e.getMessage());
     String cpf = request.getParameter("cpf");
     return buildErrorResponse(cpf, TipoSituacao.TOKEN_INVALIDO, HttpStatus.UNAUTHORIZED);
   }
 
-  private ResponseEntity<WSResultDTO> buildErrorResponse(String cpf, TipoSituacao situacao, HttpStatus status) {
-    WSResultDTO result = WSResultDTO.builder()
-        .cpf(cpf)
+  private ResponseEntity<ErrorResultDTO> buildErrorResponse(String descricao, TipoSituacao situacao, HttpStatus status) {
+    ErrorResultDTO result = ErrorResultDTO.builder()
+        .descricao(descricao)
         .consultaData(LocalDate.now())
         .situacaoCodigo(situacao.getCodigo())
         .situacaoDescricao(situacao.getDescricao())

@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Include;
@@ -37,7 +38,8 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 @Entity
-public class Mesoregiao implements Serializable {
+@Table(name = "mesoregiao")
+public class MesoRegiao implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -56,6 +58,6 @@ public class Mesoregiao implements Serializable {
 
   @Exclude
   @OneToMany(mappedBy = "mesoregiao", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-  private List<Microregiao> microregioes = new ArrayList<>();
+  private List<MicroRegiao> microregioes = new ArrayList<>();
 
 }
