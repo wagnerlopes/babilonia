@@ -3,7 +3,7 @@ package br.com.wagnersoft.babilonia.model;
 import lombok.Getter;
 
 /**
- * Situacao do cidadão no cadastro ou status de erro na pesquisa.
+ * Status da pesquisa de informações.
  * 
  * @since 1.0
  * @version 1.0

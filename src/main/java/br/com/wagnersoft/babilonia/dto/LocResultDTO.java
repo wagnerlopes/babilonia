@@ -36,6 +36,9 @@ public class LocResultDTO implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
+  @Schema(description = "ID da localidade", example = "1, 2 , 3 ...")
+  private Integer id;
+  
   @Schema(description = "Nome da localidade", example = "Rio de Janeiro")
   private String descricao;
 

@@ -51,10 +51,12 @@ public class Babilonia implements CommandLineRunner {
     final DataSource ds = dataSource;
     LOGGER.info("DB: {}", ds.getConnection());
     LOGGER.info("Timeout = {}", ds.getLoginTimeout());
+    excelSvc.readCategoria();
     excelSvc.readMesoregiao();
     excelSvc.readMicroregiao();
     excelSvc.readMunicipio();
     excelSvc.readDistrito();
+    excelSvc.readLocalidade();
   }
 
   /*

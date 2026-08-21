@@ -54,6 +54,7 @@ public class LocalidadeService {
 
     // 3. Montagem da resposta para o caminho feliz (Localidade existe)
     return LocResultDTO.builder()
+        .id(loc.getId())
         .descricao(loc.getDescricao())
         .tipo(loc.getTipo())
         .nivel(loc.getNivel().toString())
@@ -92,6 +93,7 @@ public class LocalidadeService {
 
     for (Localidade loc : lista) {
       result.add(LocResultDTO.builder()
+          .id(loc.getId())
           .descricao(loc.getDescricao())
           .tipo(loc.getTipo())
           .nivel(loc.getNivel().toString())
