@@ -57,7 +57,7 @@ public class ExcelResourceService {
 
   private final DataFormatter dataFormatter = new DataFormatter();
 
-  @Value("classpath:ibge-localidades-2010.xls")
+  @Value("classpath:IBGE-localidades-2010.xls")
   private Resource excelResource;
 
   @Autowired
