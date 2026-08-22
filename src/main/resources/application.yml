@@ -1,41 +1,43 @@
 debug: false
 
 logging:
+    
     level:
         org.springframework: WARN
         br.com.wagnersoft.babilonia: INFO
 
+management:
+    
+    endpoints:
+        web:
+            exposure:
+                include: health, info, mappings
+                
+    endpoint:
+        health:
+            show-details: always        
+        mappings:
+            enabled: true
+        
 server:
 
     port: 80
 
-    servlet:
-      context-path: /babilonia/api
-
-    compression:
-        enabled: true
-        min-response-size: 1KB
-        
     http2:
         enabled: true
         
+    servlet:
+        context-path: /babilonia/api
+        compression:
+            enabled: true
+            min-response-size: 1KB
+        
     ssl:
         enabled: false
-        key-store: "" #keystore.p12
+        key-store: ""          #keystore.p12
         key-store-password: "" #123
         #keyStoreType: PKCS12
         #keyAlias: babilonia
-
-    #undertow:
-    #    io-threads: 16
-    #    worker-threads: 200
-    #    accesslog:
-    #        enabled: true
-    #        pattern: "%t %a %r %s"
-    #        dir: ./logs
-    #        rotate: true
-    #        prefix: access_log
-    #        suffix: .log 
 
 spring:
 
@@ -50,7 +52,14 @@ spring:
         driver-class-name: org.h2.Driver
         username: sa
         password: 123
-        initial-size: 1
+        hikari:
+          minimum-idle: 1
+          maximum-pool-size: 10
+          idle-timeout: 600000       # ms (10 min)
+          max-lifetime: 1800000      # ms (30 min)
+          connection-timeout: 30000  # ms (30 s)
+          pool-name: BabiloniaHikariPool
+          initialization-fail-timeout: 1
 
     jpa:
         show-sql: false
@@ -65,13 +74,14 @@ spring:
                 jdbc:
                     batch_size: 500
                 order_inserts: true
+                
     jdbc:
         template:
             query-timeout: 30
 
     mvc:
         pathmatch:
-            matching-strategy: ant_path_matcher
+            matching-strategy: path-pattern-parser #ant_path_matcher
 
     h2:
         console:
@@ -80,32 +90,3 @@ spring:
 springdoc:
     packagesToScan: br.com.wagnersoft.babilonia.controller
     pathsToMatch: /v1/**
-
-##########################################################
-# Utilizar quando classe OracleConfiguration estiver ativa
-# (HikariCP está oferecendo melhor performance)
-#    oracle:
-#        url: jdbc:oracle:thin:@//teste.com/xyz
-#        username: ????
-#        password: ????
-#        factoryClassName: oracle.jdbc.pool.OracleDataSource 
-############################################################
-
-#datasource: 
-#    url: jdbc:oracle:thin:@//wagnersoft.com.br:1521/BD_PRODUCAO
-#    username: babilonia 
-#    password: xyz
-#    hikari:
-#        poolName: DB_POOL 
-#        readOnly: true
-#        connectionTimeout: 15000
-#        maxLifetime: 600000
-#        maximumPoolSize: 30
-#        minimumIdle: 5
-#        idleTimeout: 120000
-#        
-#jpa:
-#  database-platform: org.hibernate.dialect.Oracle10gDialect
-#  show-sql: false
-#  hibernate:
-#      format_sql: true

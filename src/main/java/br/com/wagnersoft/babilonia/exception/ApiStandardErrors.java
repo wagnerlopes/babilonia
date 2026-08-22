@@ -5,11 +5,13 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import br.com.wagnersoft.babilonia.dto.ErrorResultDTO;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+
+import br.com.wagnersoft.babilonia.model.dto.ErrorResultDTO;
 
 /**
  * Container com a descrição dos status de erro retornados pela API para apresentação na {@code OpenAPI}.

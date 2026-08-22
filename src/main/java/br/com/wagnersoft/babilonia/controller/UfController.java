@@ -39,9 +39,9 @@ public class UfController {
 
   protected static final Logger LOGGER = LoggerFactory.getLogger(UfController.class);
 
-  public record MesoRegiaoDTO(Integer id, String descricao) {};
+  public record MesoRegiaoDTO(Integer id, String descricao) { };
 
-  public record UfDTO(String uf, String descricao, List<MesoRegiaoDTO> mesorregiao) {};
+  public record UfDTO(String uf, String descricao, List<MesoRegiaoDTO> mesorregiao) { };
 
   @Autowired
   private UfService ufSvc;

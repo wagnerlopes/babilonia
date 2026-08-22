@@ -1,4 +1,4 @@
-package br.com.wagnersoft.babilonia.dto;
+package br.com.wagnersoft.babilonia.model.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;

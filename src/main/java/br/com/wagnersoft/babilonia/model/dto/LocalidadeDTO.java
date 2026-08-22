@@ -1,4 +1,4 @@
-package br.com.wagnersoft.babilonia.dto;
+package br.com.wagnersoft.babilonia.model.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -32,7 +32,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @JsonInclude(Include.NON_NULL)
 @Schema(description = "Objeto de resposta das informações de localidade")
-public class LocResultDTO implements Serializable {
+public class LocalidadeDTO implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -85,8 +85,8 @@ public class LocResultDTO implements Serializable {
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "pt-BR", timezone = "Brazil/East")
   private LocalDate consultaData;
 
-  public static LocResultDTO empty() {
-    return LocResultDTO.builder().build();
+  public static LocalidadeDTO empty() {
+    return LocalidadeDTO.builder().build();
   }
   
 }

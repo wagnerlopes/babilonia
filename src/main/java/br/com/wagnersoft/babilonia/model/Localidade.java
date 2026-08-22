@@ -42,8 +42,8 @@ import lombok.ToString.Exclude;
 @Entity
 @Table(name = "localidade", 
        check = {
-         @CheckConstraint(name = "chk_latitude_range", constraint = "latitude >= -90.0 AND latitude <= 90.0"),
-         @CheckConstraint(name = "chk_longitude_range", constraint = "longitude >= -180.0 AND longitude <= 180.0")
+           @CheckConstraint(name = "chk_latitude_range", constraint = "latitude >= -90.0 AND latitude <= 90.0"),
+           @CheckConstraint(name = "chk_longitude_range", constraint = "longitude >= -180.0 AND longitude <= 180.0")
        }
 )
 public class Localidade implements Serializable {
