@@ -3,6 +3,7 @@ package br.com.wagnersoft.babilonia.service;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -108,8 +109,7 @@ public class ExcelResourceService {
           return id.isEmpty() ? null : id.toUpperCase();
         },
         catRep,
-        "Categoria"
-        );
+        "Categoria");
   }
 
   /**
@@ -148,8 +148,7 @@ public class ExcelResourceService {
         // extrairChaveUnica
         row -> (getCellValue(row, 7) + "|" + getCellValue(row, 8)).toUpperCase(),
         mesoRep,
-        "Mesorregião"
-        );
+        "Mesorregião");
   }
 
   /**
@@ -188,8 +187,7 @@ public class ExcelResourceService {
         // extrairChaveUnica
         row -> (getCellValue(row, 6) + "|" + getCellValue(row, 7)).toUpperCase(),
         microRep,
-        "Microrregião"
-        );
+        "Microrregião");
   }
 
   /**
@@ -229,8 +227,7 @@ public class ExcelResourceService {
         // extrairChaveUnica
         row -> (getCellValue(row, 5) + "|" + getCellValue(row, 6)).toUpperCase(),
         munRep,
-        "Município"
-        );
+        "Município");
   }
 
   /**
@@ -268,8 +265,7 @@ public class ExcelResourceService {
         // extrairChaveUnica
         row -> (getCellValue(row, 4) + "|" + getCellValue(row, 5)).toUpperCase(),
         disRep,
-        "Distrito"
-        );
+        "Distrito");
   }
 
   /**
@@ -316,7 +312,7 @@ public class ExcelResourceService {
           coor.setLatitude(Double.valueOf(latitude));
           coor.setAltitude(Double.valueOf(altitude));
 
-          Integer nivel =Integer.valueOf(this.getCellValue(row, 9));
+          Integer nivel = Integer.valueOf(this.getCellValue(row, 9));
 
           Categoria catObj = catMap.get(catId);
 
@@ -334,8 +330,7 @@ public class ExcelResourceService {
         // extrairChaveUnica
         row -> (getCellValue(row, 4) + "|" + getCellValue(row, 12)).toUpperCase(),
         locRep,
-        "Localidade"
-        );
+        "Localidade");
   }
 
   /**
@@ -398,6 +393,10 @@ public class ExcelResourceService {
     if (cell == null) return "";
 
     return dataFormatter.formatCellValue(cell).trim();
+  }
+
+  public String getResourceName() {
+    return Objects.requireNonNull(excelResource.getFilename());
   }
 
 }

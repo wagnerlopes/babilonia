@@ -39,9 +39,9 @@ public class MesoRegiaoController {
 
   protected static final Logger LOGGER = LoggerFactory.getLogger(MesoRegiaoController.class);
 
-  public record MicroRegiaoDTO(Integer id, String descricao) {};
+  public record MicroRegiaoDTO(Integer id, String descricao) { };
 
-  public record MesoRegiaoDTO(Integer id, String descricao, List<MicroRegiaoDTO> microrregiao) {};
+  public record MesoRegiaoDTO(Integer id, String descricao, List<MicroRegiaoDTO> microrregiao) { };
 
   @Autowired
   private MesoRegiaoService mesoSvc;

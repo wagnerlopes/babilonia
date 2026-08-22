@@ -39,9 +39,9 @@ public class MunicipioController {
 
   protected static final Logger LOGGER = LoggerFactory.getLogger(MunicipioController.class);
 
-  public record DistritoDTO(Integer id, String descricao) {};
+  public record DistritoDTO(Integer id, String descricao) { };
 
-  public record MunicipioDTO(Integer id, String descricao, List<DistritoDTO> distritos) {};
+  public record MunicipioDTO(Integer id, String descricao, List<DistritoDTO> distritos) { };
 
   @Autowired
   private MunicipioService munSvc;

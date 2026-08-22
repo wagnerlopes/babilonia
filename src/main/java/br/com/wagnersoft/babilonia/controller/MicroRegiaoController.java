@@ -39,9 +39,9 @@ public class MicroRegiaoController {
 
   protected static final Logger LOGGER = LoggerFactory.getLogger(MicroRegiaoController.class);
 
-  public record MunicipioDTO(Integer id, String descricao) {};
+  public record MunicipioDTO(Integer id, String descricao) { };
 
-  public record MicroRegiaoDTO(Integer id, String descricao, List<MunicipioDTO> municipios) {};
+  public record MicroRegiaoDTO(Integer id, String descricao, List<MunicipioDTO> municipios) { };
 
   @Autowired
   private MicroRegiaoService microSvc;

@@ -10,8 +10,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import br.com.wagnersoft.babilonia.dto.ErrorResultDTO;
 import br.com.wagnersoft.babilonia.model.TipoSituacao;
+import br.com.wagnersoft.babilonia.model.dto.ErrorResultDTO;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;

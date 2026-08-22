@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.wagnersoft.babilonia.dto.LocResultDTO;
 import br.com.wagnersoft.babilonia.exception.ApiStandardErrors;
+import br.com.wagnersoft.babilonia.model.dto.LocalidadeDTO;
 import br.com.wagnersoft.babilonia.service.LocalidadeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -38,7 +38,7 @@ public class LocalidadeController {
 
   protected static final Logger LOGGER = LoggerFactory.getLogger(LocalidadeController.class);
 
-  public record DistanciaDTO(String origem, String destino, Double distancia, String unidade) {};
+  public record DistanciaDTO(String origem, String destino, Double distancia, String unidade) { };
   
   @Autowired
   private LocalidadeService locSvc;
@@ -47,10 +47,10 @@ public class LocalidadeController {
   @Operation(summary = "Consulta a localidade por ID.", description = "Deverá ser informado o ID da localidade.")
   @ApiResponse(responseCode = "200", description = "Informação de localidade.")
   @ApiStandardErrors  
-  public ResponseEntity<LocResultDTO> consultarLocalidade(
+  public ResponseEntity<LocalidadeDTO> consultarLocalidade(
       @Parameter(description = "ID", example = "1")
       @RequestParam final Integer id) {
-    final LocResultDTO result = this.locSvc.consultById(id);
+    final LocalidadeDTO result = this.locSvc.consultById(id);
     LOGGER.debug("{}", result);
     return ResponseEntity.ok(result);
   }
@@ -59,10 +59,10 @@ public class LocalidadeController {
   @Operation(summary = "Consulta a localidade por nome.", description = "Deverá ser informado o nome da localidade.")
   @ApiResponse(responseCode = "200", description = "Informação de localidade.")
   @ApiStandardErrors  
-  public ResponseEntity<List<LocResultDTO>> consultarLocalidade(
+  public ResponseEntity<List<LocalidadeDTO>> consultarLocalidade(
       @Parameter(description = "descricao", example = "Maracá")
       @RequestParam String descricao) {
-    final List<LocResultDTO> result = this.locSvc.consultByDescricao(descricao);
+    final List<LocalidadeDTO> result = this.locSvc.consultByDescricao(descricao);
     LOGGER.debug("{}", result);
     return ResponseEntity.ok(result);
   }
@@ -74,8 +74,8 @@ public class LocalidadeController {
   public ResponseEntity<Object> consultarDistancia(
       @Parameter(description = "ID da origem", example = "1") @RequestParam Integer origem,
       @Parameter(description = "ID do destino", example = "2") @RequestParam Integer destino) {
-    LocResultDTO local1 = this.locSvc.consultById(origem);
-    LocResultDTO local2 = this.locSvc.consultById(destino);
+    LocalidadeDTO local1 = this.locSvc.consultById(origem);
+    LocalidadeDTO local2 = this.locSvc.consultById(destino);
     double dkm = Math.round(this.locSvc.distancia(origem, destino) / 1000.0);
     LOGGER.debug("{}", dkm);
     return ResponseEntity.ok(new DistanciaDTO(local1.getDescricao(), local2.getDescricao(), dkm, "Km"));

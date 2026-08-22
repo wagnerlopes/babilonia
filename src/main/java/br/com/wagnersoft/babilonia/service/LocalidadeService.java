@@ -13,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.wagnersoft.babilonia.dto.LocResultDTO;
 import br.com.wagnersoft.babilonia.exception.NoDataFoundException;
 import br.com.wagnersoft.babilonia.model.Localidade;
+import br.com.wagnersoft.babilonia.model.dto.LocalidadeDTO;
 import br.com.wagnersoft.babilonia.repository.LocalidadeRepository;
 
 /** 
@@ -38,11 +38,11 @@ public class LocalidadeService {
   @Autowired
   private LocalidadeRepository locRep;
 
-  public LocResultDTO consultById(final Integer id) {
+  public LocalidadeDTO consultById(final Integer id) {
 
     // 1. Busca da Localidade
     if (id == null) {
-      return LocResultDTO.empty();
+      return LocalidadeDTO.empty();
     }
 
     Optional<Localidade> locOpt = this.locRep.findById(id);
@@ -53,7 +53,7 @@ public class LocalidadeService {
     LOGGER.debug("Localidade = {}", loc);
 
     // 3. Montagem da resposta para o caminho feliz (Localidade existe)
-    return LocResultDTO.builder()
+    return LocalidadeDTO.builder()
         .id(loc.getId())
         .descricao(loc.getDescricao())
         .tipo(loc.getTipo())
@@ -72,7 +72,7 @@ public class LocalidadeService {
         .build();
   }
 
-  public List<LocResultDTO> consultByDescricao(String descricao) {
+  public List<LocalidadeDTO> consultByDescricao(String descricao) {
 
     // 1. Busca da Localidade
     if (StringUtils.isBlank(descricao)) {
@@ -89,10 +89,10 @@ public class LocalidadeService {
     LOGGER.debug("Localidade = {}", lista);
 
     // 3. Montagem da resposta para o caminho feliz (Localidade existe)
-    final List<LocResultDTO> result = new ArrayList<>(lista.size());
+    final List<LocalidadeDTO> result = new ArrayList<>(lista.size());
 
     for (Localidade loc : lista) {
-      result.add(LocResultDTO.builder()
+      result.add(LocalidadeDTO.builder()
           .id(loc.getId())
           .descricao(loc.getDescricao())
           .tipo(loc.getTipo())
