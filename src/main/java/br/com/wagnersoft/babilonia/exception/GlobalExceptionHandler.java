@@ -31,38 +31,36 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorResultDTO> handleGeneralException(Exception e, HttpServletRequest request) {
-    LOGGER.debug("Erro interno no servidor: ", e);
-    String id = request.getParameter("id");
-    return buildErrorResponse(id, TipoSituacao.FORA_AR, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    String errorMessage = this.buildErrorMessage("Erro inesperado no servidor (HTTP 500)", e);
+
+    return buildErrorResponse(errorMessage, TipoSituacao.ERRO_INTERNO, HttpStatus.INTERNAL_SERVER_ERROR);
   }
-  
+
   @ExceptionHandler(BabiloniaException.class)
   public ResponseEntity<ErrorResultDTO> handleBabilonia(BabiloniaException e, HttpServletRequest request) {
-    LOGGER.debug("Erro na API Babilonia: {}", e.getMessage());
-    String id = request.getParameter("id");
-    return buildErrorResponse(id, TipoSituacao.REQUISICAO_INVALIDA, HttpStatus.BAD_REQUEST);
-  }
 
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<ErrorResultDTO> handleValidationException(MethodArgumentNotValidException e, HttpServletRequest request) {
-    LOGGER.debug("Falha na validação dos campos da requisição: {}", e.getMessage());
-    String id = request.getParameter("id");
-    
-    // Se preferir tentar pegar o CPF de dentro do DTO que falhou (opcional):
-    // if (e.getBindingResult().getTarget() instanceof CidadaoConsultDTO) {
-    //     cpf = ((CidadaoConsultDTO) e.getBindingResult().getTarget()).getCpf();
-    // }
+    String errorMessage = this.buildErrorMessage("Requisição inválida (HTTP 400)", e);
 
-    return buildErrorResponse(id, TipoSituacao.REQUISICAO_INVALIDA, HttpStatus.BAD_REQUEST);
+    return buildErrorResponse(errorMessage, TipoSituacao.REQUISICAO_INVALIDA, HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler(NoDataFoundException.class)
   public ResponseEntity<ErrorResultDTO> handleNoDataFound(NoDataFoundException e, HttpServletRequest request) {
-    LOGGER.debug("Cidadão não encontrado: {}", e.getMessage());
-    String cpf = request.getParameter("cpf"); 
-    return buildErrorResponse(cpf, TipoSituacao.NAO_ENCONTRADO, HttpStatus.NOT_FOUND);
+
+    String errorMessage = this.buildErrorMessage("Informação não encontrada (HTTP 404)", e);
+
+    return buildErrorResponse(errorMessage, TipoSituacao.NAO_ENCONTRADO, HttpStatus.NOT_FOUND);
   }
-  
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<ErrorResultDTO> handleValidationException(MethodArgumentNotValidException e, HttpServletRequest request) {
+
+    String errorMessage = this.buildErrorMessage("Erro de validação de parâmetro (HTTP 406)", e);
+
+    return buildErrorResponse(errorMessage , TipoSituacao.ERRO_VALIDACAO, HttpStatus.NOT_ACCEPTABLE);
+  }
+
   /** Captura especificamente tokens que passaram da validade.
    * @param e @link ExpiredJwtException}
    * @param request @code HttpServletRequest}
@@ -70,9 +68,10 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler(ExpiredJwtException.class)
   public ResponseEntity<ErrorResultDTO> handleExpiredJwt(ExpiredJwtException e, HttpServletRequest request) {
-    LOGGER.error("Token JWT expirado: {}", e.getMessage());
-    String cpf = request.getParameter("cpf");
-    return buildErrorResponse(cpf, TipoSituacao.TOKEN_EXPIRADO, HttpStatus.UNAUTHORIZED);
+
+    String errorMessage = this.buildErrorMessage("Token JWT expirado (HTTP 401)", e);
+
+    return buildErrorResponse(errorMessage, TipoSituacao.TOKEN_EXPIRADO, HttpStatus.UNAUTHORIZED);
   }
 
   /** Captura tokens adulterados, assinaturas erradas ou malformados.
@@ -82,12 +81,27 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler({MalformedJwtException.class, SignatureException.class, IllegalArgumentException.class})
   public ResponseEntity<ErrorResultDTO> handleInvalidJwt(Exception e, HttpServletRequest request) {
-    LOGGER.error("Tentativa de acesso com Token JWT inválido: {}", e.getMessage());
-    String cpf = request.getParameter("cpf");
-    return buildErrorResponse(cpf, TipoSituacao.TOKEN_INVALIDO, HttpStatus.UNAUTHORIZED);
+
+    String errorMessage = this.buildErrorMessage("Tentativa de acesso com Token JWT inválido (HTTP 401): {}", e);
+
+    return buildErrorResponse(errorMessage, TipoSituacao.TOKEN_INVALIDO, HttpStatus.UNAUTHORIZED);
+  }
+
+  private String buildErrorMessage(String mensagem, Exception e) {
+
+    String mensagemErro = (e.getCause() != null && e.getCause().getMessage() != null) ? e.getCause().getMessage() : e.getMessage();
+
+    if (mensagemErro == null) {
+      mensagemErro = mensagem;
+    }
+
+    LOGGER.debug("{}", e);
+
+    return mensagemErro;
   }
 
   private ResponseEntity<ErrorResultDTO> buildErrorResponse(String descricao, TipoSituacao situacao, HttpStatus status) {
+
     ErrorResultDTO result = ErrorResultDTO.builder()
         .descricao(descricao)
         .consultaData(LocalDate.now())

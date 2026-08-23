@@ -28,10 +28,10 @@ public interface MesoRegiaoRepository extends JpaRepository<MesoRegiao, Integer>
    * @param descricao O prefixo ou termo para filtragem (ex: "Mar" busca "maranhao", "Maranhão", etc.).
    * @return Lista de mesoregiões correspondentes ao filtro.
    */
-  @Query("SELECT g FROM MesoRegiao g WHERE LOWER(g.descricao) LIKE LOWER(CONCAT(:descricao, '%'))")
+  @Query("SELECT g FROM MesoRegiao g WHERE LOWER(g.descricao) LIKE LOWER(CONCAT(:descricao, '%')) ORDER BY g.descricao ASC")
   List<MesoRegiao> findByDescricao(@Param("descricao") String descricao);
 
-  @Query("SELECT m FROM MesoRegiao m LEFT JOIN FETCH m.microregioes WHERE m.id = :id")
+  @Query("SELECT m FROM MesoRegiao m LEFT JOIN FETCH m.microregioes r WHERE m.id = :id ORDER BY r.descricao ASC")
   Optional<MesoRegiao> findByIdWithMicroregioes(@Param("id") Integer id);
 
 }

@@ -11,9 +11,9 @@
   <version>1.0.0-alpha</version>
 
   <name>br.com.wagnersoft.babilonia</name>
-  <description>Open API Rest Web Service</description>
+  <description>Rest Web Service for Brazilian InfoGeo</description>
   <inceptionYear>2026</inceptionYear>
-  <url>https://wagnerlopes.github.io/</url>
+  <url>https://wagnerlopes.github.io/babilonia/index.html</url>
 
   <parent>
     <groupId>org.springframework.boot</groupId>

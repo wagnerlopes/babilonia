@@ -31,7 +31,7 @@ public interface DistritoRepository extends JpaRepository<Distrito, Integer> {
   @Query("SELECT g FROM Distrito g WHERE LOWER(g.descricao) LIKE LOWER(CONCAT(:descricao, '%'))")
   List<Distrito> findByDescricao(@Param("descricao") String descricao);
 
-  @Query("SELECT g FROM Distrito g LEFT JOIN FETCH g.localidades WHERE g.id = :id")
+  @Query("SELECT g FROM Distrito g LEFT JOIN FETCH g.localidades l WHERE g.id = :id ORDER BY l.descricao ASC")
   Optional<Distrito> findByIdWithLocalidades(@Param("id") Integer id);
-  
+
 }

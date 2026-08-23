@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,24 +33,34 @@ public class LocalidadeService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(LocalidadeService.class);
 
-  @Autowired
-  private LocalidadeRepository locRep;
+  private final LocalidadeRepository rep;
 
+  /**
+   *  Injeção automática do repositório via construtor.
+   *  
+   * @param rep {@link LocalidadeRepository}
+   */
+  public LocalidadeService(LocalidadeRepository rep) {
+    this.rep = rep;
+  }  
+
+  /** 
+   * Realiza a consulta de {@link Localidade} por ID.
+   * 
+   * @param id ID da localidade
+   * @return Informações do {@link LocalidadeDTO localidade}
+   */
   public LocalidadeDTO consultById(final Integer id) {
 
-    // 1. Busca da Localidade
     if (id == null) {
-      return LocalidadeDTO.empty();
+      throw new IllegalArgumentException("O ID da localidade não pode ser nulo.");
     }
 
-    Optional<Localidade> locOpt = this.locRep.findById(id);
-
-    // 2. SE NÃO ENCONTRAR, ESTOURE A EXCEÇÃO! (O GlobalExceptionHandler vai capturar isso e gerar o 404)
-    final Localidade loc = locOpt.orElseThrow(() -> new NoDataFoundException("Localidade não localizada com os dados informados."));
+    Localidade loc = this.rep.findById(id)
+        .orElseThrow(() -> new NoDataFoundException("Localidade não localizada com os dados informados."));
 
     LOGGER.debug("Localidade = {}", loc);
 
-    // 3. Montagem da resposta para o caminho feliz (Localidade existe)
     return LocalidadeDTO.builder()
         .id(loc.getId())
         .descricao(loc.getDescricao())
@@ -79,7 +87,7 @@ public class LocalidadeService {
       return Collections.emptyList();
     }
 
-    List<Localidade> lista = this.locRep.findByDescricao(descricao);
+    List<Localidade> lista = this.rep.findByDescricao(descricao);
 
     // 2. SE NÃO ENCONTRAR, ESTOURE A EXCEÇÃO! (O GlobalExceptionHandler vai capturar isso e gerar o 404)
     if (lista.isEmpty()) {
@@ -114,13 +122,13 @@ public class LocalidadeService {
   }
 
   public double distancia(final Integer localId, final Integer remoteid) {
-    
-    Localidade origem = locRep.findById(localId).orElseThrow(() -> new NoDataFoundException("Origem não encontrada"));
 
-    Localidade destino = locRep.findById(remoteid).orElseThrow(() -> new NoDataFoundException("Destino não encontrado"));
-    
+    Localidade origem = rep.findById(localId).orElseThrow(() -> new NoDataFoundException("Origem não encontrada"));
+
+    Localidade destino = rep.findById(remoteid).orElseThrow(() -> new NoDataFoundException("Destino não encontrado"));
+
     return origem.getCoordenada().distancia(destino.getCoordenada());
-    
+
   }
 
 }

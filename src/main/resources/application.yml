@@ -88,5 +88,20 @@ spring:
             enabled: true
 
 springdoc:
+    
     packagesToScan: br.com.wagnersoft.babilonia.controller
+    
     pathsToMatch: /v1/**
+
+    api-docs:
+        enabled: true
+    
+    swagger-ui:
+        enabled: true
+        tags-sorter: alpha
+        operations-sorter: alpha
+        persist-authorization: true
+        doc-expansion: none
+        default-models-expand-depth: 1
+        filter: true
+        # try-it-out-enabled: false

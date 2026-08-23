@@ -28,10 +28,10 @@ public interface MicroRegiaoRepository extends JpaRepository<MicroRegiao, Intege
    * @param descricao O prefixo ou termo para filtragem (ex: "Mar" busca "maranhao", "Maranhão", etc.).
    * @return Lista de microregiões correspondentes ao filtro.
    */
-  @Query("SELECT g FROM MicroRegiao g WHERE LOWER(g.descricao) LIKE LOWER(CONCAT(:descricao, '%'))")
+  @Query("SELECT g FROM MicroRegiao g WHERE LOWER(g.descricao) LIKE LOWER(CONCAT(:descricao, '%')) ORDER BY g.descricao ASC")
   List<MicroRegiao> findByDescricao(@Param("descricao") String descricao);
 
-  @Query("SELECT m FROM MicroRegiao m LEFT JOIN FETCH m.municipios WHERE m.id = :id")
+  @Query("SELECT m FROM MicroRegiao m LEFT JOIN FETCH m.municipios u WHERE m.id = :id ORDER BY u.descricao ASC")
   Optional<MicroRegiao> findByIdWithMunicipios(@Param("id") Integer id);
   
 }
