@@ -28,10 +28,10 @@ public interface MunicipioRepository extends JpaRepository<Municipio, Integer> {
    * @param descricao O prefixo ou termo para filtragem (ex: "Mar" busca "maranhao", "Maranhão", etc.).
    * @return Lista de municípios correspondentes ao filtro.
    */
-  @Query("SELECT g FROM Municipio g WHERE LOWER(g.descricao) LIKE LOWER(CONCAT(:descricao, '%'))")
+  @Query("SELECT g FROM Municipio g WHERE LOWER(g.descricao) LIKE LOWER(CONCAT(:descricao, '%')) ORDER BY g.descricao ASC")
   List<Municipio> findByDescricao(@Param("descricao") String descricao);
 
-  @Query("SELECT m FROM Municipio m LEFT JOIN FETCH m.distritos WHERE m.codigo = :id")
+  @Query("SELECT m FROM Municipio m LEFT JOIN FETCH m.distritos d WHERE m.codigo = :id ORDER BY d.descricao ASC")
   Optional<Municipio> findByIdWithDistritos(@Param("id") Integer id);
   
 }

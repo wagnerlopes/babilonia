@@ -27,7 +27,7 @@ public interface LocalidadeRepository extends JpaRepository<Localidade, Integer>
    * @param descricao O prefixo ou termo para filtragem (ex: "Mar" busca "maranhao", "Maranhão", etc.).
    * @return Lista de localidades correspondentes ao filtro.
    */
-  @Query("SELECT g FROM Localidade g WHERE LOWER(g.descricao) LIKE LOWER(CONCAT(:descricao, '%'))")
+  @Query("SELECT g FROM Localidade g WHERE LOWER(g.descricao) LIKE LOWER(CONCAT(:descricao, '%')) ORDER BY g.descricao ASC")
   List<Localidade> findByDescricao(@Param("descricao") String descricao);
 
 }

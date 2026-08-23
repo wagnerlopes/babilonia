@@ -28,10 +28,10 @@ public interface UfRepository extends JpaRepository<Uf, String> {
    * @param descricao O prefixo ou termo para filtragem (ex: "Mar" busca "maranhao", "Maranhão", etc.).
    * @return Lista de municípios correspondentes ao filtro.
    */
-  @Query("SELECT u FROM Uf u WHERE LOWER(u.descricao) LIKE LOWER(CONCAT(:descricao, '%'))")
+  @Query("SELECT u FROM Uf u WHERE LOWER(u.descricao) LIKE LOWER(CONCAT(:descricao, '%')) ORDER BY u.sigla ASC")
   List<Uf> findByDescricao(@Param("descricao") String descricao);
 
-  @Query("SELECT u FROM Uf u LEFT JOIN FETCH u.mesoregioes WHERE u.sigla = :sigla")
+  @Query("SELECT u FROM Uf u LEFT JOIN FETCH u.mesoregioes m WHERE u.sigla = :sigla ORDER BY m.descricao ASC")
   Optional<Uf> findBySiglaWithMesoRegiao(@Param("sigla") String sigla);
   
 }
