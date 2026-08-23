@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,9 +39,17 @@ public class LocalidadeController {
 
   public record DistanciaDTO(String origem, String destino, Double distancia, String unidade) { };
   
-  @Autowired
-  private LocalidadeService locSvc;
+  private final LocalidadeService svc;
 
+  /**
+   *  Injeção automática do service via construtor.
+   *  
+   * @param svc {@link LocalidadeService}
+   */
+  public LocalidadeController(LocalidadeService svc) {
+    this.svc = svc;
+  }
+  
   @GetMapping("/id")
   @Operation(summary = "Consulta a localidade por ID.", description = "Deverá ser informado o ID da localidade.")
   @ApiResponse(responseCode = "200", description = "Informação de localidade.")
@@ -50,7 +57,7 @@ public class LocalidadeController {
   public ResponseEntity<LocalidadeDTO> consultarLocalidade(
       @Parameter(description = "ID", example = "1")
       @RequestParam final Integer id) {
-    final LocalidadeDTO result = this.locSvc.consultById(id);
+    final LocalidadeDTO result = this.svc.consultById(id);
     LOGGER.debug("{}", result);
     return ResponseEntity.ok(result);
   }
@@ -62,7 +69,7 @@ public class LocalidadeController {
   public ResponseEntity<List<LocalidadeDTO>> consultarLocalidade(
       @Parameter(description = "descricao", example = "Maracá")
       @RequestParam String descricao) {
-    final List<LocalidadeDTO> result = this.locSvc.consultByDescricao(descricao);
+    final List<LocalidadeDTO> result = this.svc.consultByDescricao(descricao);
     LOGGER.debug("{}", result);
     return ResponseEntity.ok(result);
   }
@@ -74,9 +81,9 @@ public class LocalidadeController {
   public ResponseEntity<Object> consultarDistancia(
       @Parameter(description = "ID da origem", example = "1") @RequestParam Integer origem,
       @Parameter(description = "ID do destino", example = "2") @RequestParam Integer destino) {
-    LocalidadeDTO local1 = this.locSvc.consultById(origem);
-    LocalidadeDTO local2 = this.locSvc.consultById(destino);
-    double dkm = Math.round(this.locSvc.distancia(origem, destino) / 1000.0);
+    LocalidadeDTO local1 = this.svc.consultById(origem);
+    LocalidadeDTO local2 = this.svc.consultById(destino);
+    double dkm = Math.round(this.svc.distancia(origem, destino) / 1000.0);
     LOGGER.debug("{}", dkm);
     return ResponseEntity.ok(new DistanciaDTO(local1.getDescricao(), local2.getDescricao(), dkm, "Km"));
   }
