@@ -27,8 +27,8 @@ public class Babilonia implements ApplicationRunner {
         return;
       }
     } catch (Exception e) {
-      LOGGER.error("Erro na inicialização da aplicação", e);
-    }    
+      LOGGER.error("Erro na inicialização da aplicação: {}", e);
+    }
   }
 
   public static void main(String[] args) {

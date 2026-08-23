@@ -48,6 +48,7 @@ public class DataInitializer implements CommandLineRunner {
     tasks.forEach(Runnable::run);
 
     healthIndicator.markInitialized();
+    LOGGER.info("Carregamento da planilha finalizado");
   }
 
 }
