@@ -10,6 +10,15 @@ import org.springframework.stereotype.Component;
 import br.com.wagnersoft.babilonia.health.DataInitializerHealthIndicator;
 import br.com.wagnersoft.babilonia.service.ExcelResourceService;
 
+/**
+ * Implementação de {@link CommandLineRunner} para carga de dados de planilha.
+ * 
+ * <p>Realiza a carga de: messorregião, microrregião, município, distrito e localidade.</p>
+ *
+ * @author Wagner Lopes
+ * @since 1.0
+ * @version 1.0
+ */
 @Component
 public class DataInitializer implements CommandLineRunner {
 

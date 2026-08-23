@@ -8,6 +8,13 @@ import org.springframework.context.annotation.Configuration;
 
 import jakarta.servlet.Servlet;
 
+/** 
+ * Responsável por configurar e registrar o servlet do H2 Database.
+ * 
+ * @author Wagner Lopes
+ * @since 1.0
+ * @version 1.0
+ */
 @Configuration
 public class H2ConsoleConfig {
 
