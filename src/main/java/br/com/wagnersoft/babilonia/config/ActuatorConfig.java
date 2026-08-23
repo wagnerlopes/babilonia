@@ -20,7 +20,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
 
 /** 
- * Responsável por configurar os endpoints de monitoramento do Actuator.
+ * Responsável por configurar os endpoints de monitoramento do {@link Actuator}.
  * 
  * @author Wagner Lopes
  * @since 1.0
@@ -30,7 +30,7 @@ import org.springframework.util.StringUtils;
 public class ActuatorConfig {
 
   @Bean
-  public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(
+  public WebMvcEndpointHandlerMapping webMvcEndpointHandlerMapping(
       WebEndpointsSupplier webEndpointsSupplier,
       EndpointMediaTypes endpointMediaTypes,
       CorsEndpointProperties corsProperties,
@@ -38,7 +38,7 @@ public class ActuatorConfig {
       Environment environment) {
 
     String basePath = webEndpointProperties.getBasePath();
-    
+
     List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
     Collection<ExposableWebEndpoint> webEndpoints = webEndpointsSupplier.getEndpoints();
     allEndpoints.addAll(webEndpoints);
@@ -46,7 +46,7 @@ public class ActuatorConfig {
     EndpointMapping endpointMapping = new EndpointMapping(basePath);
 
     EndpointLinksResolver endpointLinksResolver = new EndpointLinksResolver(allEndpoints, basePath);
-    
+
     boolean shouldRegisterLinksMapping = shouldRegisterLinksMapping(webEndpointProperties, environment, basePath);
 
     return new WebMvcEndpointHandlerMapping(
