@@ -80,23 +80,26 @@ public class LocalidadeService {
         .build();
   }
 
+  /** 
+   * Realiza a consulta de {@link Localidade} pela descrição.
+   * 
+   * @param descricao nome da localidade
+   * @return Informações da {@link LocalidadeDTO localidade}
+   */
   public List<LocalidadeDTO> consultByDescricao(String descricao) {
 
-    // 1. Busca da Localidade
     if (StringUtils.isBlank(descricao)) {
       return Collections.emptyList();
     }
 
     List<Localidade> lista = this.rep.findByDescricao(descricao);
 
-    // 2. SE NÃO ENCONTRAR, ESTOURE A EXCEÇÃO! (O GlobalExceptionHandler vai capturar isso e gerar o 404)
     if (lista.isEmpty()) {
       throw new NoDataFoundException("Localidade não localizada com os dados informados.");
     }
 
     LOGGER.debug("Localidade = {}", lista);
 
-    // 3. Montagem da resposta para o caminho feliz (Localidade existe)
     final List<LocalidadeDTO> result = new ArrayList<>(lista.size());
 
     for (Localidade loc : lista) {
@@ -121,6 +124,13 @@ public class LocalidadeService {
     return result;
   }
 
+  /**
+   * Calcula a distância entre duas localidades
+   * 
+   * @param localId ID da origem
+   * @param remoteid Id do destino
+   * @return distância em Km
+   */
   public double distancia(final Integer localId, final Integer remoteid) {
 
     Localidade origem = rep.findById(localId).orElseThrow(() -> new NoDataFoundException("Origem não encontrada"));

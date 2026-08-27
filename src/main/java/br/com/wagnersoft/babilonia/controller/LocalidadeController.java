@@ -38,7 +38,7 @@ public class LocalidadeController {
   protected static final Logger LOGGER = LoggerFactory.getLogger(LocalidadeController.class);
 
   public record DistanciaDTO(String origem, String destino, Double distancia, String unidade) { };
-  
+
   private final LocalidadeService svc;
 
   /**
@@ -49,7 +49,7 @@ public class LocalidadeController {
   public LocalidadeController(LocalidadeService svc) {
     this.svc = svc;
   }
-  
+
   @GetMapping("/id")
   @Operation(summary = "Consulta a localidade por ID.", description = "Deverá ser informado o ID da localidade.")
   @ApiResponse(responseCode = "200", description = "Informação de localidade.")
@@ -87,5 +87,5 @@ public class LocalidadeController {
     LOGGER.debug("{}", dkm);
     return ResponseEntity.ok(new DistanciaDTO(local1.getDescricao(), local2.getDescricao(), dkm, "Km"));
   }
-  
+
 }
