@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import br.com.wagnersoft.babilonia.health.DataInitializerHealthIndicator;
 import br.com.wagnersoft.babilonia.init.DataInitializer;
-import br.com.wagnersoft.babilonia.service.ExcelResourceService;
+import br.com.wagnersoft.babilonia.service.SpreadSheetResourceService;
 
 class DataInitializerTest {
 
@@ -16,26 +16,21 @@ class DataInitializerTest {
   void testRunExecutesAllExcelTasks() throws Exception {
     
     // Mocks necessarios
-    ExcelResourceService mockExcelSvc = mock(ExcelResourceService.class);
+    SpreadSheetResourceService mockSpreadSvc = mock(SpreadSheetResourceService.class);
     DataInitializerHealthIndicator mockhealthIndicator = mock(DataInitializerHealthIndicator.class);
 
     // Instancia DataInitializer com os mocks
-    DataInitializer initializer = new DataInitializer(mockExcelSvc, mockhealthIndicator);
+    DataInitializer initializer = new DataInitializer(mockSpreadSvc, mockhealthIndicator);
 
     // Executa o método run
     initializer.run();
 
     // Verifica se todos os métodos foram chamados
-    verify(mockExcelSvc).getResourceName();
-    verify(mockExcelSvc).readCategoria();
-    verify(mockExcelSvc).readMesoregiao();
-    verify(mockExcelSvc).readMicroregiao();
-    verify(mockExcelSvc).readMunicipio();
-    verify(mockExcelSvc).readDistrito();
-    verify(mockExcelSvc).readLocalidade();
+    verify(mockSpreadSvc).getResourceName();
+    verify(mockSpreadSvc).processarTodasEntidades();
 
     // Garante que não houve chamadas inesperadas
-    verifyNoMoreInteractions(mockExcelSvc);
+    verifyNoMoreInteractions(mockSpreadSvc);
   }
 
 }
