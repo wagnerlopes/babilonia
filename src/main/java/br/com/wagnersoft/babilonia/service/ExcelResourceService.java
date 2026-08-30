@@ -50,6 +50,7 @@ import br.com.wagnersoft.babilonia.repository.UfRepository;
  * @since 1.0
  * @version 1.0
  */
+@Deprecated
 @Service
 @Transactional(readOnly = true)
 public class ExcelResourceService {

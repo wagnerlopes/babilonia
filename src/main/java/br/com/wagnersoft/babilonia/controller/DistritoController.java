@@ -1,5 +1,7 @@
 package br.com.wagnersoft.babilonia.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -46,7 +48,7 @@ public class DistritoController {
   public DistritoController(DistritoService svc) {
     this.svc = svc;
   }
-  
+
   @GetMapping("/id")
   @Operation(summary = "Consulta de distrito por ID.", description = "Deverá ser informado o ID do distrito.")
   @ApiResponse(responseCode = "200", description = "Informação de distrito.")
@@ -57,6 +59,18 @@ public class DistritoController {
 
     LOGGER.debug("{}", result);
 
+    return ResponseEntity.ok(result);
+  }
+
+  @GetMapping("/descricao")
+  @Operation(summary = "Consulta o distrito por nome.", description = "Deverá ser informado o nome do distrito.")
+  @ApiResponse(responseCode = "200", description = "Informação de distrito.")
+  @ApiStandardErrors  
+  public ResponseEntity<List<DistritoDTO>> consultarDistrito(
+      @Parameter(description = "descricao", example = "Maracá")
+      @RequestParam String descricao) {
+    final List<DistritoDTO> result = this.svc.consultByDescricao(descricao);
+    LOGGER.debug("{}", result);
     return ResponseEntity.ok(result);
   }
 

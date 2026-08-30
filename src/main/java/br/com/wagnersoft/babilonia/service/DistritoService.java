@@ -1,7 +1,10 @@
 package br.com.wagnersoft.babilonia.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -65,6 +68,35 @@ public class DistritoService {
         .toList();
 
     return new DistritoDTO(distrito.getId(), distrito.getDescricao(), localidades);
+  }
+
+  /** 
+   * Realiza a consulta de {@link Distrito} pela descrição.
+   * 
+   * @param descricao nome do distrito
+   * @return Informações do {@link DistritoDTO distrito}
+   */
+  public List<DistritoDTO> consultByDescricao(String descricao) {
+
+    if (StringUtils.isBlank(descricao)) {
+      return Collections.emptyList();
+    }
+
+    List<Distrito> lista = this.rep.findByDescricao(descricao);
+
+    if (lista.isEmpty()) {
+      throw new NoDataFoundException("Distrito não localizado com os dados informados.");
+    }
+
+    LOGGER.debug("Distritos = {}", lista);
+
+    final List<DistritoDTO> result = new ArrayList<>(lista.size());
+
+    for (Distrito d : lista) {
+      result.add(new DistritoDTO(d.getId(), d.getDescricao(),
+          d.getLocalidades().stream().map(l -> new LocalidadeDTO(l.getId(), l.getDescricao())).toList()));
+    }
+    return result;
   }
 
 }
