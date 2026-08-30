@@ -1,14 +1,12 @@
 package br.com.wagnersoft.babilonia.init;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import br.com.wagnersoft.babilonia.health.DataInitializerHealthIndicator;
-import br.com.wagnersoft.babilonia.service.ExcelResourceService;
+import br.com.wagnersoft.babilonia.service.SpreadSheetResourceService;
 
 /**
  * Implementação de {@link CommandLineRunner} para carga de dados de planilha.
@@ -26,17 +24,19 @@ public class DataInitializer implements CommandLineRunner {
 
   private final DataInitializerHealthIndicator healthIndicator;
 
-  private final ExcelResourceService excelSvc;
+  //private final ExcelResourceService excelSvc;
 
-  public DataInitializer(ExcelResourceService excelSvc, DataInitializerHealthIndicator healthIndicator) {
+  private final SpreadSheetResourceService spreadSheetSvc;
+  
+  public DataInitializer(SpreadSheetResourceService excelSvc, DataInitializerHealthIndicator healthIndicator) {
     LOGGER.info("Iniciando carregamento da planilha de dados: {}", excelSvc.getResourceName());
-    this.excelSvc = excelSvc;
+    this.spreadSheetSvc = excelSvc;
     this.healthIndicator = healthIndicator;
   }
 
   @Override
   public void run(String... args) throws Exception {
-
+/*
     List<Runnable> tasks = List.of(
         excelSvc::readCategoria,
         excelSvc::readMesoregiao,
@@ -46,7 +46,8 @@ public class DataInitializer implements CommandLineRunner {
         excelSvc::readLocalidade);
 
     tasks.forEach(Runnable::run);
-
+*/
+    spreadSheetSvc.processarTodasEntidades();
     healthIndicator.markInitialized();
     LOGGER.info("Carregamento da planilha finalizado");
   }
