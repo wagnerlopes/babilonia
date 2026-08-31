@@ -1,4 +1,4 @@
-package br.com.wagnersoft.babilonia.spredSheetReader;
+package br.com.wagnersoft.babilonia.data;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,7 +17,7 @@ import br.com.wagnersoft.babilonia.repository.MunicipioRepository;
 
 @Service
 @Order(4)
-public class MunicipioReader implements SpredSheetEntityReader<Municipio> {
+public class MunicipioReader implements EntityReader<Municipio> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MunicipioReader.class);
 

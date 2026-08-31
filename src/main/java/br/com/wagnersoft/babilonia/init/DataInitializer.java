@@ -13,6 +13,14 @@ import br.com.wagnersoft.babilonia.service.SpreadSheetResourceService;
  * 
  * <p>Realiza a carga de: messorregião, microrregião, município, distrito e localidade.</p>
  *
+ * <p>Para executar várias tarefas pode-se criar uma lista Runnable:<br/>
+
+ *  <code>
+ *   List<Runnable> tasks = List.of(svc::readCategoria, svc::readMesoregiao, svc::readMicroregiao);
+ *   tasks.forEach(Runnable::run);
+ *  </code>
+ *  
+ * </p>
  * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
@@ -24,8 +32,6 @@ public class DataInitializer implements CommandLineRunner {
 
   private final DataInitializerHealthIndicator healthIndicator;
 
-  //private final ExcelResourceService excelSvc;
-
   private final SpreadSheetResourceService spreadSheetSvc;
   
   public DataInitializer(SpreadSheetResourceService excelSvc, DataInitializerHealthIndicator healthIndicator) {
@@ -36,17 +42,6 @@ public class DataInitializer implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-/*
-    List<Runnable> tasks = List.of(
-        excelSvc::readCategoria,
-        excelSvc::readMesoregiao,
-        excelSvc::readMicroregiao,
-        excelSvc::readMunicipio,
-        excelSvc::readDistrito,
-        excelSvc::readLocalidade);
-
-    tasks.forEach(Runnable::run);
-*/
     spreadSheetSvc.processarTodasEntidades();
     healthIndicator.markInitialized();
     LOGGER.info("Carregamento da planilha finalizado");

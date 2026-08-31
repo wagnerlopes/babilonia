@@ -1,4 +1,4 @@
-package br.com.wagnersoft.babilonia.spredSheetReader;
+package br.com.wagnersoft.babilonia.data;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.slf4j.Logger;
@@ -13,7 +13,7 @@ import br.com.wagnersoft.babilonia.repository.CategoriaRepository;
 
 @Service
 @Order(1)
-public class CategoriaReader implements SpredSheetEntityReader<Categoria> {
+public class CategoriaReader implements EntityReader<Categoria> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CategoriaReader.class);
 
