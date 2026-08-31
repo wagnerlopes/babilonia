@@ -1,5 +1,7 @@
 package br.com.wagnersoft.babilonia.model;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.io.Serializable;
 import java.util.Set;
 
@@ -9,8 +11,11 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.reflections.Reflections;
 
+import br.com.wagnersoft.babilonia.model.dto.ErrorResultDTO;
+import br.com.wagnersoft.babilonia.model.dto.LocalidadeDTO;
+
 @TestInstance(Lifecycle.PER_CLASS)
-class DTOTest {
+class DtoTest {
 
   private Set<Class<? extends Serializable>> allClasses;
 
@@ -27,4 +32,10 @@ class DTOTest {
     this.allClasses.forEach(a -> this.tester.testClass(a));
   }
 
+  @Test
+  void testDtoEmpty() {
+    assertNotNull(ErrorResultDTO.empty());
+    assertNotNull(LocalidadeDTO.empty());
+  }
+  
 }
