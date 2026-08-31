@@ -1,4 +1,4 @@
-package br.com.wagnersoft.babilonia.dto;
+package br.com.wagnersoft.babilonia.model;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.reflections.Reflections;
-
-import br.com.wagnersoft.babilonia.model.GetterAndSetterTester;
 
 @TestInstance(Lifecycle.PER_CLASS)
 class DTOTest {
@@ -21,7 +19,7 @@ class DTOTest {
   @BeforeAll
   public void setUp() {
     this.tester = new GetterAndSetterTester();
-    this.allClasses = new Reflections("br.com.wagnersoft.babilonia.dto").getSubTypesOf(Serializable.class);
+    this.allClasses = new Reflections("br.com.wagnersoft.babilonia.model.dto").getSubTypesOf(Serializable.class);
   }
 
   @Test

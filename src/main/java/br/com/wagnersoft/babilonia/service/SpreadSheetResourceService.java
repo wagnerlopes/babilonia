@@ -18,7 +18,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.wagnersoft.babilonia.spredSheetReader.SpredSheetEntityReader;
+import br.com.wagnersoft.babilonia.data.EntityReader;
 
 /** 
  * Serviço responsável pela leitura de dados de planilha e salvamento das informações nas entidades do modelo.
@@ -40,10 +40,10 @@ public class SpreadSheetResourceService {
   @Value("classpath:IBGE-localidades-2010.xls")
   private Resource excelResource;
 
-  private final List<SpredSheetEntityReader<?>> readers;
+  private final List<EntityReader<?>> readers;
 
   @Autowired
-  public SpreadSheetResourceService(List<SpredSheetEntityReader<?>> readers) {
+  public SpreadSheetResourceService(List<EntityReader<?>> readers) {
     this.readers = readers;
   }
 
@@ -57,7 +57,7 @@ public class SpreadSheetResourceService {
    * @param <T> Entidade do modelo retorna após a leitura da coluna
    * @param reader leitor de entidade
    */
-  private <T> void processarPlanilha(SpredSheetEntityReader<T> reader) {
+  private <T> void processarPlanilha(EntityReader<T> reader) {
     Map<String, T> entidadesUnicas = new LinkedHashMap<>();
 
     try (InputStream is = excelResource.getInputStream(); Workbook workbook = WorkbookFactory.create(is)) {

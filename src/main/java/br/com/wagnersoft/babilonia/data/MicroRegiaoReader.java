@@ -1,4 +1,4 @@
-package br.com.wagnersoft.babilonia.spredSheetReader;
+package br.com.wagnersoft.babilonia.data;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,7 +17,7 @@ import br.com.wagnersoft.babilonia.repository.MicroRegiaoRepository;
 
 @Service
 @Order(3)
-public class MicroRegiaoReader implements SpredSheetEntityReader<MicroRegiao> {
+public class MicroRegiaoReader implements EntityReader<MicroRegiao> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MicroRegiaoReader.class);
 

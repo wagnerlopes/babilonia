@@ -1,11 +1,11 @@
-package br.com.wagnersoft.babilonia.spredSheetReader;
+package br.com.wagnersoft.babilonia.data;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SpredSheetEntityReader<T> {
+public interface EntityReader<T> {
 
   // Constantes simbólicas para colunas da planilha
   int COL_TIPO = 1;
