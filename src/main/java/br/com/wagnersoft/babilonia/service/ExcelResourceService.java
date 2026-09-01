@@ -83,6 +83,7 @@ public class ExcelResourceService {
   @Autowired
   private CategoriaRepository catRep;
 
+  @Deprecated
   @Transactional
   public void readCategoria() {
     processarPlanilha(
@@ -116,6 +117,7 @@ public class ExcelResourceService {
   /**
    * Leitura de Mesorregião associada a UF. (Col 7 = meso - Col 8 = UF)
    */
+  @Deprecated
   public void readMesoregiao() {
 
     // Mapa de entidades Uf (Descrição, Uf)
@@ -155,6 +157,7 @@ public class ExcelResourceService {
   /**
    * Leitura de Microrregião associada a uma Mesorregião. (col 6 = micro - col 7 = meso)
    */
+  @Deprecated
   public void readMicroregiao() {
 
     Map<String, MesoRegiao> mesoMap = mesoRep.findAll().stream()
@@ -194,6 +197,7 @@ public class ExcelResourceService {
   /**
    * Leitura de Município associado a uma Microrregião. (col 5 = mun - col 6 = micro)
    */
+  @Deprecated
   public void readMunicipio() {
 
     Map<String, MicroRegiao> microMap = microRep.findAll().stream()
@@ -234,6 +238,7 @@ public class ExcelResourceService {
   /**
    * Leitura de Distrito associado a um Município. (col 4 = dis - col 5 = mun)
    */
+  @Deprecated
   public void readDistrito() {
 
     Map<String, Municipio> munMap = munRep.findAll().stream()
@@ -272,6 +277,7 @@ public class ExcelResourceService {
   /**
    * Leitura de Distrito associado a um Localidade.
    */
+  @Deprecated
   public void readLocalidade() {
 
     Map<String, Categoria> catMap = catRep.findAll().stream()
@@ -396,6 +402,7 @@ public class ExcelResourceService {
     return dataFormatter.formatCellValue(cell).trim();
   }
 
+  @Deprecated
   public String getResourceName() {
     return Objects.requireNonNull(excelResource.getFilename());
   }

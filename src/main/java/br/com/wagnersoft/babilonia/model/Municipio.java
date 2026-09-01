@@ -15,8 +15,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Include;
 import lombok.Getter;
@@ -32,11 +30,9 @@ import lombok.Setter;
  * @since 1.0
  * @version 1.0
  */
-@Builder
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class Municipio implements Serializable {
@@ -47,7 +43,7 @@ public class Municipio implements Serializable {
   @Include
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer codigo;
-  
+
   private String descricao;
 
   @Column(name = "UF_SIGLA")
@@ -56,15 +52,15 @@ public class Municipio implements Serializable {
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
   @JoinColumn(name = "microregiao_id", updatable = false, nullable = false)
   private MicroRegiao microregiao;
-  
+
   @OneToMany(mappedBy = "municipio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-  private final List<Distrito> distritos = new ArrayList<>();
-  
+  private List<Distrito> distritos = new ArrayList<>();
+
   @Override
   public String toString() {
     return Optional.ofNullable(descricao)
         .map(desc -> desc + Optional.ofNullable(uf).map(u -> " - " + u).orElse(""))
         .orElse("N/D");
   }
-  
+
 }
