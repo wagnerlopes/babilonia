@@ -48,11 +48,15 @@ public class LocalidadeReader implements EntityReader<Localidade> {
           .collect(Collectors.toMap(Categoria::getId, c -> c, (existente, novo) -> existente));
     }
 
+    // Desambiguição usando nome do distrito + nome do município para evitar duplicidade
     if (distritoMap == null || distritoMap.isEmpty()) {
       this.distritoMap =  disRep.findAll().stream()
-          .collect(Collectors.toMap(dis -> dis.getDescricao().trim().toUpperCase(), dis -> dis, (existente, novo) -> existente));
+          .collect(Collectors.toMap(dis -> dis.getDescricao().trim().toUpperCase() + dis.getMunicipio().getDescricao().trim().toUpperCase(),
+                   dis -> dis,
+                   (existente, novo) -> existente));
     }
 
+    String munDesc = getCellValue(row, COL_MUNICIPIO);
     String disDesc = getCellValue(row, COL_DISTRITO);
     String locDesc = getCellValue(row, COL_LOCALIDADE);
     String catId = getCellValue(row, COL_CATEGORIA_ID);
@@ -61,7 +65,7 @@ public class LocalidadeReader implements EntityReader<Localidade> {
       return null;
     }
 
-    Distrito disObj = this.distritoMap.get(disDesc.toUpperCase());
+    Distrito disObj = this.distritoMap.get(disDesc.toUpperCase() + munDesc.toUpperCase());
     if (disObj == null) {
       LOGGER.warn("Distrito não encontrado no banco: {}", disDesc);
       return null;

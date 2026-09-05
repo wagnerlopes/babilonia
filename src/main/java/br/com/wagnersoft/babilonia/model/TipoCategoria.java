@@ -1,7 +1,5 @@
 package br.com.wagnersoft.babilonia.model;
 
-import lombok.Getter;
-
 /**
  * Categoria da localidade.
  * 
@@ -9,7 +7,6 @@ import lombok.Getter;
  * @version 1.0
  * @author Wagner Lopes
  */
-@Getter
 public enum TipoCategoria {
 
   CIDADE(1,"Cidade"),
@@ -20,7 +17,7 @@ public enum TipoCategoria {
   AREA_URBANA_INTERVENCAO(6,"Área Urbana de Intervenção");
 
   private final Integer id;
-  
+
   private final String descricao;
 
   TipoCategoria(Integer id, String descricao) {
@@ -28,17 +25,25 @@ public enum TipoCategoria {
     this.descricao = descricao;
   }
 
+  public Integer getId() {
+    return id;
+  }
+
+  public String getDescricao() {
+    return descricao;
+  }
+
   public static TipoCategoria getById(Integer id) {
     if (id == null) {
       return null;
     }
-    
+
     for (TipoCategoria tipo : values()) {
       if (tipo.getId().equals(id)) {
         return tipo;
       }
     }
-    
+
     throw new IllegalArgumentException("ID de categoria inválido: " + id);
   }  
 

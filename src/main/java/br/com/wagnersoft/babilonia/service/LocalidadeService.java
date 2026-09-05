@@ -13,6 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.wagnersoft.babilonia.exception.NoDataFoundException;
 import br.com.wagnersoft.babilonia.model.Localidade;
+import br.com.wagnersoft.babilonia.model.dto.GeoJsonDTO;
+import br.com.wagnersoft.babilonia.model.dto.GeoJsonDTO.Properties;
+import br.com.wagnersoft.babilonia.model.dto.GeoJsonDTO.Coordinate;
+import br.com.wagnersoft.babilonia.model.dto.GeoJsonDTO.Geometry;
 import br.com.wagnersoft.babilonia.model.dto.LocalidadeDTO;
 import br.com.wagnersoft.babilonia.repository.LocalidadeRepository;
 
@@ -139,6 +143,33 @@ public class LocalidadeService {
 
     return origem.getCoordenada().distancia(destino.getCoordenada());
 
+  }
+
+  public GeoJsonDTO buildGeoJsonDTO(Integer id) {
+    
+    Localidade loc = this.rep.findById(id)
+        .orElseThrow(() -> new NoDataFoundException("Localidade não localizada com os dados informados."));
+
+    Properties prop = new Properties(loc.getTipo(), loc.getNivel().toString(), loc.getCategoria().getDescricao().toString(),
+        loc.getDescricao(), loc.getBairro(), loc.getSubdistrito(),
+        loc.getDistrito().getDescricao(),
+        loc.getDistrito().getMunicipio().getDescricao(),
+        loc.getDistrito().getMunicipio().getMicroregiao().getDescricao(),
+        loc.getDistrito().getMunicipio().getMicroregiao().getMesoregiao().getDescricao(),
+        loc.getDistrito().getMunicipio().getMicroregiao().getMesoregiao().getUf().getSigla()
+        );
+    
+    Coordinate coor = new Coordinate(loc.getCoordenada().getLatitude(), loc.getCoordenada().getLongitude());
+    
+    Geometry geo = new Geometry("Point", List.of(coor.latitude(), coor.longitude()));
+    
+    GeoJsonDTO geoJsonDTO = GeoJsonDTO.builder()
+      .type("Feature")
+      .properties(prop)
+      .geometry(geo)
+      .build();
+    
+    return geoJsonDTO;
   }
 
 }
