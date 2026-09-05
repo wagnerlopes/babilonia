@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.wagnersoft.babilonia.exception.ApiStandardErrors;
+import br.com.wagnersoft.babilonia.model.dto.GeoJsonDTO;
 import br.com.wagnersoft.babilonia.model.dto.LocalidadeDTO;
 import br.com.wagnersoft.babilonia.service.LocalidadeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -54,12 +57,19 @@ public class LocalidadeController {
   @Operation(summary = "Consulta a localidade por ID.", description = "Deverá ser informado o ID da localidade.")
   @ApiResponse(responseCode = "200", description = "Informação de localidade.")
   @ApiStandardErrors  
-  public ResponseEntity<LocalidadeDTO> consultarLocalidade(
+  public ResponseEntity<GeoJsonDTO> consultarLocalidade(
       @Parameter(description = "ID", example = "1")
       @RequestParam final Integer id) {
-    final LocalidadeDTO result = this.svc.consultById(id);
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("Access-Control-Allow-Origin", "*");
+    headers.add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    
+    //final LocalidadeDTO result = this.svc.consultById(id);
+    GeoJsonDTO result = this.svc.buildGeoJsonDTO(id);
     LOGGER.debug("{}", result);
-    return ResponseEntity.ok(result);
+    return new ResponseEntity<>(result, headers, HttpStatus.OK);
   }
 
   @GetMapping("/descricao")
