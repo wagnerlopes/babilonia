@@ -164,10 +164,10 @@ public class LocalidadeService {
     Geometry geo = new Geometry("Point", List.of(coor.latitude(), coor.longitude()));
     
     GeoJsonDTO geoJsonDTO = GeoJsonDTO.builder()
-      .type("Feature")
-      .properties(prop)
-      .geometry(geo)
-      .build();
+        .type("Feature")
+        .properties(prop)
+        .geometry(geo)
+        .build();
     
     return geoJsonDTO;
   }
