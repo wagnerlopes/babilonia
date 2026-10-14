@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Base64;
 import java.util.Locale;
+import java.util.UUID;
 
 /**
  * Utilitários da API.
@@ -60,6 +61,13 @@ public class ApplicationUtilities {
     String clean = Normalizer.normalize(dirty, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     LOGGER.debug("{} => {}", dirty, clean);
     return clean.trim().toUpperCase(Locale.getDefault());
+  }
+
+  /** Gera nova x-api-key de acesso.
+   * @return X-API-KEY
+   */
+  public static String newApiKey() {
+    return UUID.randomUUID().toString(); 
   }
 
 }

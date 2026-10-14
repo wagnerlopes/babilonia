@@ -25,7 +25,7 @@ public class OpenAPIConfig {
 
   private static final String APP_NAME = "Projeto Babilônia";
   private static final String APP_VERSION = "v1.0.0-alpha";
-  private static final String API_KEY_HEADER = "x-api-key";
+  private static final String API_KEY_HEADER = "X-API-KEY";
   private static final String GROUP_NAME = "babilonia-public";
   private static final String GITHUB_URL = "https://github.com/wagnerlopes";
 
