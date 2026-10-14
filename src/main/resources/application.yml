@@ -21,7 +21,7 @@ management:
         
 server:
 
-    port: 80
+    port: 443
 
     http2:
         enabled: true
@@ -33,11 +33,11 @@ server:
             min-response-size: 1KB
         
     ssl:
-        enabled: false
-        key-store: ""          #keystore.p12
-        key-store-password: "" #123
-        #keyStoreType: PKCS12
-        #keyAlias: babilonia
+        enabled: true
+        key-store: classpath:wagnersoft.p12
+        key-store-password: wl1234
+        keyStoreType: PKCS12
+        keyAlias: wagnersoft
 
 spring:
 
@@ -105,3 +105,7 @@ springdoc:
         default-models-expand-depth: 1
         filter: true
         # try-it-out-enabled: false
+
+security:
+    jwt:
+        token: "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJiYWJpbG9uaWEiLCJpc3MiOiJXYWduZXJTb2Z0IiwiaWF0IjoxNzkxODkxODEzLCJleHAiOjE3OTIyMDcxNzMsInJvbGVzIjpbIkFETUlOIiwiVVNFUiJdfQ.GZoK9XcQ0Szd8RbgIBDUX9JKesM3j3PZdbNi6l5UWNzNt4rl6bTZ8lqO0JLkdEkqM1BbzZr6KHJQmL75nCoXSDtwio7Qipyrtryg7Dv4Tm8y5uVDnD3AIn2xgvi8B6tDoa5vtkx4k9-X6si_inUNtur0RpHfw4cGK52jyxjpzwo9cWDkDTd7S1Y7VRga7aDcxJi8oINCPJMfpM7X6KUaLNnxdMy0ko074JxW1_n-pi7bhD7MO0D0vK5orKbs3d8lJxGf20FzhkEtf2TVhUMUxh_LlVWX-U_iqqXUssipJquf5kOI7-cPj80QIGvc1UT6BDBX_QMJkzBDjqdgb568Uw"
