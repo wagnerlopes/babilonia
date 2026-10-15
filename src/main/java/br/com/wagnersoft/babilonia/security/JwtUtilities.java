@@ -34,6 +34,8 @@ public class JwtUtilities {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(JwtUtilities.class);
 
+  private final PrivateKey parsedPrivateKey;
+  
   private final PublicKey parsedPublicKey;
 
   private final String token;
@@ -41,29 +43,25 @@ public class JwtUtilities {
   public JwtUtilities(JwtProperties props) {
     this.token = props.getToken();
     this.parsedPublicKey = loadPublicKey();
+    this.parsedPrivateKey = loadPrivateKey();
     LOGGER.info("{}", token);
-    LOGGER.info("{}", parsedPublicKey);
+    LOGGER.info("Private = {} {} {}", parsedPrivateKey.getAlgorithm(), parsedPrivateKey.getFormat(), parsedPrivateKey.getEncoded());
+    LOGGER.info("Public = {}", parsedPublicKey);
   }
 
   public boolean isValid(String token) {
     return token != null && token.equals(this.token);
   }
 
-  public String parseToken(String token) {
-    try {
+  public Claims parseToken(String token) {
 
       Jws<Claims> jws = Jwts.parser()
           .verifyWith(loadPublicKey())
           .build()
           .parseSignedClaims(token);
 
-      return jws.getPayload().getSubject();
+      return jws.getPayload();
 
-    } catch (Exception e) {
-      LOGGER.error(e.getMessage());
-    }
-
-    return null;
   }
 
   public String newToken() {
@@ -79,7 +77,7 @@ public class JwtUtilities {
           .signWith(privateKey)
           .compact();
     } catch (Exception e) {
-      LOGGER.error(e.getMessage());
+      LOGGER.error("Erro gerando token JWT", e);
     }
     return jwt;
   }
