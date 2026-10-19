@@ -35,7 +35,7 @@ public class JwtUtilities {
   private static final Logger LOGGER = LoggerFactory.getLogger(JwtUtilities.class);
 
   private final PrivateKey parsedPrivateKey;
-  
+
   private final PublicKey parsedPublicKey;
 
   private final String token;
@@ -55,12 +55,12 @@ public class JwtUtilities {
 
   public Claims parseToken(String token) {
 
-      Jws<Claims> jws = Jwts.parser()
-          .verifyWith(loadPublicKey())
-          .build()
-          .parseSignedClaims(token);
+    Jws<Claims> jws = Jwts.parser()
+        .verifyWith(loadPublicKey())
+        .build()
+        .parseSignedClaims(token);
 
-      return jws.getPayload();
+    return jws.getPayload();
 
   }
 

@@ -12,6 +12,13 @@ import java.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/** 
+ * Gera o par de chaves, privada e pública, de criptografia RSA.
+ * 
+ * @author Wagner Lopes
+ * @since 1.0
+ * @version 1.0
+ */
 public class KeyGeneratorUtility {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(KeyGeneratorUtility.class);
