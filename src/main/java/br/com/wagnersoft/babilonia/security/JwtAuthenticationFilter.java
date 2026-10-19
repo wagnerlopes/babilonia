@@ -14,11 +14,18 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/** 
+ * Filtro de autenticação através do JWT.
+ * 
+ * @author Wagner Lopes
+ * @since 1.0
+ * @version 1.0
+ */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
-  
+
   private final JwtUtilities jwtUtilities;
 
   public JwtAuthenticationFilter(JwtUtilities jwtUtilities) {
@@ -37,11 +44,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       Claims claims = jwtUtilities.parseToken(token);
 
       LOGGER.info("Token Subject: {}", claims.getSubject());
-      
+
       List<String> roles = claims.get("roles", List.class);
 
       LOGGER.info("Token Roles: {}", roles);
-      
+
       // Se chegou até aqui, o token é válido
       // Você pode popular o contexto de segurança com o usuário
       //UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(subject, null, List.of());

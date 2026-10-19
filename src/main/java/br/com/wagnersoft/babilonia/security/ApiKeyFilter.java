@@ -10,15 +10,24 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/** 
+ * Filtro de verificação da API Key de segurança.
+ * 
+ * @author Wagner Lopes
+ * @since 1.0
+ * @version 1.0
+ */
 @Component
 public class ApiKeyFilter extends OncePerRequestFilter {
 
   private static final String API_KEY_HEADER = "x-api-key";
-  
+
   private static final String EXPECTED_API_KEY = "3f6988fd-feff-477a-9772-c2ceefda3b39";
 
   @Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+  protected void doFilterInternal(HttpServletRequest request,
+                                  HttpServletResponse response,
+                                  FilterChain filterChain) throws ServletException, IOException {
 
     String apiKey = request.getHeader(API_KEY_HEADER);
 
@@ -28,7 +37,7 @@ public class ApiKeyFilter extends OncePerRequestFilter {
       response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
       response.getWriter().write("API Key inválida ou ausente");
     }
-    
+
   }
 
 }
