@@ -109,6 +109,8 @@ springdoc:
 security:
     jwt:
         token: "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJiYWJpbG9uaWEiLCJpc3MiOiJXYWduZXJTb2Z0IiwiaWF0IjoxNzkxODkxODEzLCJleHAiOjE3OTIyMDcxNzMsInJvbGVzIjpbIkFETUlOIiwiVVNFUiJdfQ.GZoK9XcQ0Szd8RbgIBDUX9JKesM3j3PZdbNi6l5UWNzNt4rl6bTZ8lqO0JLkdEkqM1BbzZr6KHJQmL75nCoXSDtwio7Qipyrtryg7Dv4Tm8y5uVDnD3AIn2xgvi8B6tDoa5vtkx4k9-X6si_inUNtur0RpHfw4cGK52jyxjpzwo9cWDkDTd7S1Y7VRga7aDcxJi8oINCPJMfpM7X6KUaLNnxdMy0ko074JxW1_n-pi7bhD7MO0D0vK5orKbs3d8lJxGf20FzhkEtf2TVhUMUxh_LlVWX-U_iqqXUssipJquf5kOI7-cPj80QIGvc1UT6BDBX_QMJkzBDjqdgb568Uw"
+    apikey:
+        x-api-key: "3f6988fd-feff-477a-9772-c2ceefda3b39"
 
 app:
     cors:
