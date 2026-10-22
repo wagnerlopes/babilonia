@@ -2,6 +2,7 @@ package br.com.wagnersoft.babilonia.security;
 
 import java.io.IOException;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -18,20 +19,23 @@ import jakarta.servlet.http.HttpServletResponse;
  * @version 1.0
  */
 @Component
+@ConfigurationProperties(prefix = "security.apikey")
 public class ApiKeyFilter extends OncePerRequestFilter {
 
   private static final String API_KEY_HEADER = "x-api-key";
 
-  private static final String EXPECTED_API_KEY = "3f6988fd-feff-477a-9772-c2ceefda3b39";
+  //private static final String EXPECTED_API_KEY = "3f6988fd-feff-477a-9772-c2ceefda3b39";
 
+  private String xApiKey;
+  
   @Override
   protected void doFilterInternal(HttpServletRequest request,
                                   HttpServletResponse response,
                                   FilterChain filterChain) throws ServletException, IOException {
 
-    String apiKey = request.getHeader(API_KEY_HEADER);
+    String userKey = request.getHeader(API_KEY_HEADER);
 
-    if (EXPECTED_API_KEY.equals(apiKey)) {
+    if (xApiKey.equals(userKey)) {
       filterChain.doFilter(request, response);
     } else {
       response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -40,4 +44,12 @@ public class ApiKeyFilter extends OncePerRequestFilter {
 
   }
 
+  public String getxApiKey() {
+    return xApiKey;
+  }
+
+  public void setxApiKey(String xApiKey) {
+    this.xApiKey = xApiKey;
+  }
+  
 }
