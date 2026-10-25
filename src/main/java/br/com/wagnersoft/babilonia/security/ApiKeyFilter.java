@@ -24,8 +24,6 @@ public class ApiKeyFilter extends OncePerRequestFilter {
 
   private static final String API_KEY_HEADER = "x-api-key";
 
-  //private static final String EXPECTED_API_KEY = "3f6988fd-feff-477a-9772-c2ceefda3b39";
-
   private String xApiKey;
   
   @Override
@@ -33,6 +31,11 @@ public class ApiKeyFilter extends OncePerRequestFilter {
                                   HttpServletResponse response,
                                   FilterChain filterChain) throws ServletException, IOException {
 
+    if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+      filterChain.doFilter(request, response);
+      return;
+    }
+	  
     String userKey = request.getHeader(API_KEY_HEADER);
 
     if (xApiKey.equals(userKey)) {
