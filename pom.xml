@@ -8,7 +8,7 @@
     
   <groupId>br.com.wagnersoft</groupId>
   <artifactId>babilonia</artifactId>
-  <version>1.0.3-beta</version>
+  <version>1.0.4-beta</version>
 
   <name>br.com.wagnersoft.babilonia</name>
   <description>Rest Web Service for Brazilian InfoGeo</description>
