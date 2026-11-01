@@ -79,7 +79,7 @@ public class SpreadSheetResourceService {
       }
 
       reader.getRepository().saveAll(entidadesUnicas.values());
-      LOGGER.info("Entidades {} processadas e salvas = {}", reader.getEntityName(), entidadesUnicas.size());
+      LOGGER.info("{} processadas e salvas = {}", reader.getEntityName(), entidadesUnicas.size());
 
     } catch (Exception e) {
       throw new RuntimeException("Erro ao carregar o arquivo xls do resources", e);
