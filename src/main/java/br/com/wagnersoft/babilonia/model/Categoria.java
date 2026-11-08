@@ -15,7 +15,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /** 
- * Categoria (urbana/rural).
+ * Categoria da Localidade (cidade, vila, povoado, ...).
  * 
  * <p>Categoria de uma {@link Localidade localidade}.
  * 
@@ -39,6 +39,6 @@ public class Categoria implements Serializable {
   private String id;
 
   @Enumerated(EnumType.STRING)
-  private TipoCategoria descricao;
-  
+  private NivelLocalidade nivelLocalidade;
+
 }

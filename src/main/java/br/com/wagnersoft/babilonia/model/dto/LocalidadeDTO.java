@@ -19,9 +19,9 @@ import lombok.ToString;
 /**
  *  Resultado da consulta de informações de localidade.
  *
- * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
+ * @author Wagner Lopes
  */
 @Builder
 @Getter
@@ -38,19 +38,19 @@ public class LocalidadeDTO implements Serializable {
 
   @Schema(description = "ID da localidade", example = "1, 2 , 3 ...")
   private Integer id;
-  
+
   @Schema(description = "Nome da localidade", example = "Rio de Janeiro")
   private String descricao;
 
-  @Schema(description = "Tipo", example = "URBANO ou RURAL")
-  private String tipo;
+  @Schema(description = "Tipo de área da localidade", example = "Urbana ou Rural")
+  private String areaTipo;
 
-  @Schema(description = "Nível", example = "1, 2, 3, ...")
+  @Schema(description = "Nível", example = "1, 2, 3, 4, 5 ou 6")
   private String nivel;
 
-  @Schema(description = "Categoria", example = "Cidade, Vila, Povoado")
+  @Schema(description = "Categoria", example = "Cidade, Vila, Povoado, ...")
   private String categoria;
-  
+
   @Schema(description = "Bairro", example = "Jardim Alegria")
   private String bairro;
 
@@ -62,7 +62,7 @@ public class LocalidadeDTO implements Serializable {
 
   @Schema(description = "Município", example = "Rio de Janeiro")
   private String municipio;
-  
+
   @Schema(description = "Microrregião", example = "Centro-Leste")
   private String microregiao;
 
@@ -80,7 +80,7 @@ public class LocalidadeDTO implements Serializable {
 
   @Schema(description = "Altitude", example = "138.2345")
   private String altitude;
-  
+
   @Schema(description = "Data em que a consulta atual foi gerada", example = "2026-07-18")
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "pt-BR", timezone = "Brazil/East")
   private LocalDate consultaData;
@@ -88,5 +88,5 @@ public class LocalidadeDTO implements Serializable {
   public static LocalidadeDTO empty() {
     return LocalidadeDTO.builder().build();
   }
-  
+
 }

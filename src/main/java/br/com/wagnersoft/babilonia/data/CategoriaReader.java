@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import br.com.wagnersoft.babilonia.model.Categoria;
-import br.com.wagnersoft.babilonia.model.TipoCategoria;
+import br.com.wagnersoft.babilonia.model.NivelLocalidade;
 import br.com.wagnersoft.babilonia.repository.CategoriaRepository;
 
 @Service
@@ -26,22 +26,25 @@ public class CategoriaReader implements EntityReader<Categoria> {
   @Override
   public Categoria makeEntity(Row row) {
 
+    // Informações lidas da planilha
     String idStr = getCellValue(row, COL_CATEGORIA_ID);
     String descStr = getCellValue(row, COL_CATEGORIA_DESC);
     String nivelStr = getCellValue(row, COL_NIVEL);
 
     if (idStr.isEmpty() || descStr.isEmpty()) {
-      LOGGER.warn("Categoria não encontrada no banco: {}", descStr);
+      LOGGER.warn("Categoria não encontrada na planilha: {}", descStr);
       return null;
     }
 
     // Garante a conversão segura do nível se a coluna não estiver vazia
-    Integer nivel = nivelStr.isEmpty() ? null : Integer.valueOf(nivelStr);
-    TipoCategoria tipo = TipoCategoria.getById(nivel);
-
+    Integer nivelId = nivelStr.isEmpty() ? null : Integer.valueOf(nivelStr);
+    NivelLocalidade nivelLocalidade = NivelLocalidade.getById(nivelId);
+    LOGGER.debug("{}", nivelLocalidade);
+    
+    // Definição da categoria com base no nível
     Categoria categoria = new Categoria();
     categoria.setId(idStr);
-    categoria.setDescricao(tipo);
+    categoria.setNivelLocalidade(nivelLocalidade);
 
     return categoria;
   }

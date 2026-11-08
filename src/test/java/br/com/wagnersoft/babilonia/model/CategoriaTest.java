@@ -16,14 +16,14 @@ class CategoriaTest {
   @BeforeEach
   void setUp() {
     categoria.setId("1234");
-    categoria.setDescricao(TipoCategoria.ALDEIA_INDIGENA);
+    categoria.setNivelLocalidade(NivelLocalidade.ALDEIA_INDIGENA);
   }
 
   @Test
   @DisplayName("Deve gerar getter e setter corretamente")
   void testGettersAndSetters() {
     assertEquals("1234", categoria.getId());
-    assertEquals(TipoCategoria.ALDEIA_INDIGENA, categoria.getDescricao());
+    assertEquals(NivelLocalidade.ALDEIA_INDIGENA, categoria.getNivelLocalidade());
   }
 
   @Test
