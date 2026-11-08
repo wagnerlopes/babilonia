@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 class CoordenadaTest {
 
-  Coordenada c = new Coordenada();
+  CoordenadaGeografica c = new CoordenadaGeografica();
 
   @BeforeEach
   void setUp() {
@@ -33,12 +33,12 @@ class CoordenadaTest {
   void testEqualsAndHashCode() {
 
     // Arrange
-    Coordenada igual = new Coordenada();
+    CoordenadaGeografica igual = new CoordenadaGeografica();
     igual.setAltitude(20.3453);
     igual.setLatitude(-12.3124);
     igual.setLongitude(43.8923);
 
-    Coordenada diferente = new Coordenada();
+    CoordenadaGeografica diferente = new CoordenadaGeografica();
     diferente.setAltitude(1.3);
     diferente.setLatitude(1.3);
     diferente.setLongitude(1.3);
@@ -61,7 +61,7 @@ class CoordenadaTest {
   @Test
   @DisplayName("Deve calcular distancia corretamente")
   void testDistancia() {
-    Coordenada igual = new Coordenada();
+    CoordenadaGeografica igual = new CoordenadaGeografica();
     igual.setAltitude(20.3453);
     igual.setLatitude(-12.3124);
     igual.setLongitude(43.8923);
