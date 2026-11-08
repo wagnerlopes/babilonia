@@ -25,7 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Embeddable
-public class Coordenada {
+public class CoordenadaGeografica {
 
   @DecimalMin(value = "-90.0", message = "A latitude deve ser maior ou igual a -90.0")
   @DecimalMax(value = "90.0", message = "A latitude deve ser menor ou igual a 90.0")
@@ -42,7 +42,7 @@ public class Coordenada {
    * @param outra Coordenada destino
    * @return distância em metros
    */
-  public double distancia(Coordenada outra) {
+  public double distancia(CoordenadaGeografica outra) {
 
     final int RAIO_TERRA = 6371000; // em metros
 

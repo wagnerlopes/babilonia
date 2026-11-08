@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import br.com.wagnersoft.babilonia.model.Categoria;
-import br.com.wagnersoft.babilonia.model.Coordenada;
+import br.com.wagnersoft.babilonia.model.CoordenadaGeografica;
 import br.com.wagnersoft.babilonia.model.Distrito;
 import br.com.wagnersoft.babilonia.model.Localidade;
 import br.com.wagnersoft.babilonia.repository.CategoriaRepository;
@@ -77,7 +77,7 @@ public class LocalidadeReader implements EntityReader<Localidade> {
     String latitude = this.getCellValue(row, COL_LATITUDE).replace(",", ".");
     String altitude = this.getCellValue(row, COL_ALTITUDE).replace(",", ".");
 
-    Coordenada coor = new Coordenada();
+    CoordenadaGeografica coor = new CoordenadaGeografica();
     coor.setLongitude(Double.valueOf(longitude));
     coor.setLatitude(Double.valueOf(latitude));
     coor.setAltitude(Double.valueOf(altitude));
@@ -86,7 +86,7 @@ public class LocalidadeReader implements EntityReader<Localidade> {
 
     Localidade loc = new Localidade();
     loc.setDescricao(locDesc);
-    loc.setTipo(this.getCellValue(row, COL_TIPO));
+    loc.setAreaTipo(this.getCellValue(row, COL_TIPO));
     loc.setBairro(this.getCellValue(row, COL_BAIRRO));
     loc.setSubdistrito(getCellValue(row, COL_SUBDISTRITO));
     loc.setDistrito(disObj);

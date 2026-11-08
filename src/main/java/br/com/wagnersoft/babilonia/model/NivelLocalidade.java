@@ -1,13 +1,15 @@
 package br.com.wagnersoft.babilonia.model;
 
 /**
- * Categoria da localidade.
+ * Nível da localidade.
+ * 
+ * <p>Nível varia de 1 a 6 de acordo com o tamanho da localidade.</p>.
  * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
  */
-public enum TipoCategoria {
+public enum NivelLocalidade {
 
   CIDADE(1,"Cidade"),
   VILA(2,"Vila"),
@@ -20,7 +22,7 @@ public enum TipoCategoria {
 
   private final String descricao;
 
-  TipoCategoria(Integer id, String descricao) {
+  NivelLocalidade(Integer id, String descricao) {
     this.id = id;
     this.descricao = descricao;
   }
@@ -33,12 +35,12 @@ public enum TipoCategoria {
     return descricao;
   }
 
-  public static TipoCategoria getById(Integer id) {
+  public static NivelLocalidade getById(Integer id) {
     if (id == null) {
       return null;
     }
 
-    for (TipoCategoria tipo : values()) {
+    for (NivelLocalidade tipo : values()) {
       if (tipo.getId().equals(id)) {
         return tipo;
       }

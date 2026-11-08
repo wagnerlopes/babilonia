@@ -10,7 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import br.com.wagnersoft.babilonia.model.TipoSituacao;
+import br.com.wagnersoft.babilonia.model.StatusRequisicao;
 import br.com.wagnersoft.babilonia.model.dto.ErrorResultDTO;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
 
     String errorMessage = this.buildErrorMessage("Erro inesperado no servidor (HTTP 500)", e);
 
-    return buildErrorResponse(errorMessage, TipoSituacao.ERRO_INTERNO, HttpStatus.INTERNAL_SERVER_ERROR);
+    return buildErrorResponse(errorMessage, StatusRequisicao.ERRO_INTERNO, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
   @ExceptionHandler(BabiloniaException.class)
@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
 
     String errorMessage = this.buildErrorMessage("Requisição inválida (HTTP 400)", e);
 
-    return buildErrorResponse(errorMessage, TipoSituacao.REQUISICAO_INVALIDA, HttpStatus.BAD_REQUEST);
+    return buildErrorResponse(errorMessage, StatusRequisicao.REQUISICAO_INVALIDA, HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler(NoDataFoundException.class)
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler {
 
     String errorMessage = this.buildErrorMessage("Informação não encontrada (HTTP 404)", e);
 
-    return buildErrorResponse(errorMessage, TipoSituacao.NAO_ENCONTRADO, HttpStatus.NOT_FOUND);
+    return buildErrorResponse(errorMessage, StatusRequisicao.NAO_ENCONTRADO, HttpStatus.NOT_FOUND);
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -58,7 +58,7 @@ public class GlobalExceptionHandler {
 
     String errorMessage = this.buildErrorMessage("Erro de validação de parâmetro (HTTP 406)", e);
 
-    return buildErrorResponse(errorMessage , TipoSituacao.ERRO_VALIDACAO, HttpStatus.NOT_ACCEPTABLE);
+    return buildErrorResponse(errorMessage , StatusRequisicao.ERRO_VALIDACAO, HttpStatus.NOT_ACCEPTABLE);
   }
 
   /** Captura especificamente tokens que passaram da validade.
@@ -71,7 +71,7 @@ public class GlobalExceptionHandler {
 
     String errorMessage = this.buildErrorMessage("Token JWT expirado (HTTP 401)", e);
 
-    return buildErrorResponse(errorMessage, TipoSituacao.TOKEN_EXPIRADO, HttpStatus.UNAUTHORIZED);
+    return buildErrorResponse(errorMessage, StatusRequisicao.TOKEN_EXPIRADO, HttpStatus.UNAUTHORIZED);
   }
 
   /** Captura tokens adulterados, assinaturas erradas ou malformados.
@@ -84,7 +84,7 @@ public class GlobalExceptionHandler {
 
     String errorMessage = this.buildErrorMessage("Tentativa de acesso com Token JWT inválido (HTTP 401): {}", e);
 
-    return buildErrorResponse(errorMessage, TipoSituacao.TOKEN_INVALIDO, HttpStatus.UNAUTHORIZED);
+    return buildErrorResponse(errorMessage, StatusRequisicao.TOKEN_INVALIDO, HttpStatus.UNAUTHORIZED);
   }
 
   private String buildErrorMessage(String mensagem, Exception e) {
@@ -100,7 +100,7 @@ public class GlobalExceptionHandler {
     return mensagemErro;
   }
 
-  private ResponseEntity<ErrorResultDTO> buildErrorResponse(String descricao, TipoSituacao situacao, HttpStatus status) {
+  private ResponseEntity<ErrorResultDTO> buildErrorResponse(String descricao, StatusRequisicao situacao, HttpStatus status) {
 
     ErrorResultDTO result = ErrorResultDTO.builder()
         .descricao(descricao)

@@ -68,9 +68,9 @@ public class LocalidadeService {
     return LocalidadeDTO.builder()
         .id(loc.getId())
         .descricao(loc.getDescricao())
-        .tipo(loc.getTipo())
+        .areaTipo(loc.getAreaTipo())
         .nivel(loc.getNivel().toString())
-        .categoria(loc.getCategoria().getDescricao().getDescricao())
+        .categoria(loc.getCategoria().getNivelLocalidade().getDescricao())
         .bairro(loc.getBairro())
         .subdistrito(loc.getSubdistrito())
         .distrito(loc.getDistrito().getDescricao())
@@ -110,9 +110,9 @@ public class LocalidadeService {
       result.add(LocalidadeDTO.builder()
           .id(loc.getId())
           .descricao(loc.getDescricao())
-          .tipo(loc.getTipo())
+          .areaTipo(loc.getAreaTipo())
           .nivel(loc.getNivel().toString())
-          .categoria(loc.getCategoria().getDescricao().getDescricao())
+          .categoria(loc.getCategoria().getNivelLocalidade().getDescricao())
           .bairro(loc.getBairro())
           .subdistrito(loc.getSubdistrito())
           .distrito(loc.getDistrito().getDescricao())
@@ -146,11 +146,11 @@ public class LocalidadeService {
   }
 
   public GeoJsonDTO buildGeoJsonDTO(Integer id) {
-    
+
     Localidade loc = this.rep.findById(id)
         .orElseThrow(() -> new NoDataFoundException("Localidade não localizada com os dados informados."));
 
-    Properties prop = new Properties(loc.getTipo(), loc.getNivel().toString(), loc.getCategoria().getDescricao().toString(),
+    Properties prop = new Properties(loc.getAreaTipo(), loc.getNivel().toString(), loc.getCategoria().getNivelLocalidade().toString(),
         loc.getDescricao(), loc.getBairro(), loc.getSubdistrito(),
         loc.getDistrito().getDescricao(),
         loc.getDistrito().getMunicipio().getDescricao(),
@@ -158,17 +158,17 @@ public class LocalidadeService {
         loc.getDistrito().getMunicipio().getMicroregiao().getMesoregiao().getDescricao(),
         loc.getDistrito().getMunicipio().getMicroregiao().getMesoregiao().getUf().getSigla()
         );
-    
+
     Coordinate coor = new Coordinate(loc.getCoordenada().getLatitude(), loc.getCoordenada().getLongitude());
-    
+
     Geometry geo = new Geometry("Point", List.of(coor.latitude(), coor.longitude()));
-    
+
     GeoJsonDTO geoJsonDTO = GeoJsonDTO.builder()
         .type("Feature")
         .properties(prop)
         .geometry(geo)
         .build();
-    
+
     return geoJsonDTO;
   }
 

@@ -61,7 +61,7 @@ public class Localidade implements Serializable {
 
   @NotNull
   @NonNull
-  private String tipo;
+  private String areaTipo;
 
   @NotNull
   @NonNull
@@ -72,7 +72,7 @@ public class Localidade implements Serializable {
   private String subdistrito;
 
   @Embedded
-  private Coordenada coordenada;
+  private CoordenadaGeografica coordenada;
   
   @NotNull
   @Exclude

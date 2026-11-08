@@ -3,14 +3,14 @@ package br.com.wagnersoft.babilonia.model;
 import lombok.Getter;
 
 /**
- * Status da pesquisa de informações.
+ * Status da requisição de informações na API.
  * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
  */
 @Getter
-public enum TipoSituacao {
+public enum StatusRequisicao {
 
   ERRO_INTERNO("Erro interno na aplicação.", 0),
   REQUESICAO_VALIDA("Requisição válida.", 1),
@@ -24,7 +24,7 @@ public enum TipoSituacao {
 
   private String descricao;
 
-  TipoSituacao(String descricao, Integer codigo) {
+  StatusRequisicao(String descricao, Integer codigo) {
     this.descricao = descricao;
     this.codigo = codigo;
   }

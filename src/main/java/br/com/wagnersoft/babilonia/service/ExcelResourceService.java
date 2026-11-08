@@ -23,13 +23,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.wagnersoft.babilonia.model.Categoria;
-import br.com.wagnersoft.babilonia.model.Coordenada;
+import br.com.wagnersoft.babilonia.model.CoordenadaGeografica;
 import br.com.wagnersoft.babilonia.model.Distrito;
 import br.com.wagnersoft.babilonia.model.Localidade;
 import br.com.wagnersoft.babilonia.model.MesoRegiao;
 import br.com.wagnersoft.babilonia.model.MicroRegiao;
 import br.com.wagnersoft.babilonia.model.Municipio;
-import br.com.wagnersoft.babilonia.model.TipoCategoria;
+import br.com.wagnersoft.babilonia.model.NivelLocalidade;
 import br.com.wagnersoft.babilonia.model.Uf;
 import br.com.wagnersoft.babilonia.repository.CategoriaRepository;
 import br.com.wagnersoft.babilonia.repository.DistritoRepository;
@@ -97,12 +97,12 @@ public class ExcelResourceService {
           }
 
           // Garante a conversão segura do nível se a coluna não estiver vazia
-          Integer nivel = nivelStr.isEmpty() ? null : Integer.valueOf(nivelStr);
-          TipoCategoria tipo = TipoCategoria.getById(nivel);
+          Integer nivelId = nivelStr.isEmpty() ? null : Integer.valueOf(nivelStr);
+          NivelLocalidade nivelLocalidade = NivelLocalidade.getById(nivelId);
 
           Categoria categoria = new Categoria();
           categoria.setId(idStr);
-          categoria.setDescricao(tipo);
+          categoria.setNivelLocalidade(nivelLocalidade);
           return categoria;
         },
         // Se a coluna 10 estiver vazia, ignora a geração de chave para não "bloquear" o Map
@@ -314,7 +314,7 @@ public class ExcelResourceService {
           String latitude = this.getCellValue(row, 14).replace(",", ".");
           String altitude = this.getCellValue(row, 15).replace(",", ".");
 
-          Coordenada coor = new Coordenada();
+          CoordenadaGeografica coor = new CoordenadaGeografica();
           coor.setLongitude(Double.valueOf(longitude));
           coor.setLatitude(Double.valueOf(latitude));
           coor.setAltitude(Double.valueOf(altitude));
@@ -325,7 +325,7 @@ public class ExcelResourceService {
 
           Localidade loc = new Localidade();
           loc.setDescricao(locDesc);
-          loc.setTipo(this.getCellValue(row, 1));
+          loc.setAreaTipo(this.getCellValue(row, 1));
           loc.setBairro(this.getCellValue(row, 2));
           loc.setSubdistrito(getCellValue(row, 3));
           loc.setDistrito(disObj);

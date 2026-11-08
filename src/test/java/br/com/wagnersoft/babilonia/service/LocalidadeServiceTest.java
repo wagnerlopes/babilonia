@@ -19,13 +19,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import br.com.wagnersoft.babilonia.exception.NoDataFoundException;
 import br.com.wagnersoft.babilonia.model.Categoria;
-import br.com.wagnersoft.babilonia.model.Coordenada;
+import br.com.wagnersoft.babilonia.model.CoordenadaGeografica;
 import br.com.wagnersoft.babilonia.model.Distrito;
 import br.com.wagnersoft.babilonia.model.Localidade;
 import br.com.wagnersoft.babilonia.model.MesoRegiao;
 import br.com.wagnersoft.babilonia.model.MicroRegiao;
 import br.com.wagnersoft.babilonia.model.Municipio;
-import br.com.wagnersoft.babilonia.model.TipoCategoria;
+import br.com.wagnersoft.babilonia.model.NivelLocalidade;
 import br.com.wagnersoft.babilonia.model.Uf;
 import br.com.wagnersoft.babilonia.model.dto.LocalidadeDTO;
 import br.com.wagnersoft.babilonia.repository.LocalidadeRepository;
@@ -64,9 +64,9 @@ class LocalidadeServiceTest {
     distrito.setMunicipio(municipio);
 
     Categoria categoria = new Categoria();
-    categoria.setDescricao(TipoCategoria.CIDADE);
+    categoria.setNivelLocalidade(NivelLocalidade.CIDADE);
 
-    Coordenada coordenada = new Coordenada();
+    CoordenadaGeografica coordenada = new CoordenadaGeografica();
     coordenada.setLatitude(-23.1534);
     coordenada.setLongitude(-47.0578);
     coordenada.setAltitude(675.0);
@@ -74,7 +74,7 @@ class LocalidadeServiceTest {
     loc = new Localidade();
     loc.setId(1);
     loc.setDescricao("Centro");
-    loc.setTipo("Cidade");
+    loc.setAreaTipo("Urbana");
     loc.setNivel(1); // Supondo tipo primitivo ou objeto cujo toString() seja chamado
     loc.setCategoria(categoria);
     loc.setBairro("Bairro Central");
@@ -97,7 +97,7 @@ class LocalidadeServiceTest {
     assertThat(result).isNotNull();
     assertThat(result.getId()).isEqualTo(1);
     assertThat(result.getDescricao()).isEqualTo("Centro");
-    assertThat(result.getTipo()).isEqualTo("Cidade");
+    assertThat(result.getAreaTipo()).isEqualTo("Urbana");
     assertThat(result.getBairro()).isEqualTo("Bairro Central");
     assertThat(result.getDistrito()).isEqualTo("Distrito Sede");
     assertThat(result.getMunicipio()).isEqualTo("Itupeva");
@@ -174,7 +174,7 @@ class LocalidadeServiceTest {
   @Test
   void distancia_deveCalcularDistanciaQuandoOrigemEDestinoExistem() {
     // Arrange
-    Coordenada coordDestino = new Coordenada();
+    CoordenadaGeografica coordDestino = new CoordenadaGeografica();
     coordDestino.setAltitude(0.0);
     coordDestino.setLatitude(-23.5505);
     coordDestino.setLongitude(-46.6333);
