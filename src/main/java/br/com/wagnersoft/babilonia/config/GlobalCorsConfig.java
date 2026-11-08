@@ -16,25 +16,25 @@ import lombok.Data;
 @ConfigurationProperties(prefix = "app.cors")
 public class GlobalCorsConfig {
 
-	private List<String> allowedOrigins;
-	
-    private List<String> allowedMethods;
-    
-    private List<String> allowedHeaders;
-    
-    private boolean allowCredentials;
-    
-    @Bean
-    public CorsFilter corsFilter() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(allowCredentials);
-        config.setAllowedOrigins(allowedOrigins);
-        config.setAllowedMethods(allowedMethods);
-        config.setAllowedHeaders(allowedHeaders);
+  private List<String> allowedOrigins;
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
+  private List<String> allowedMethods;
 
-        return new CorsFilter(source);
-    }
+  private List<String> allowedHeaders;
+
+  private boolean allowCredentials;
+
+  @Bean
+  public CorsFilter corsFilter() {
+    CorsConfiguration config = new CorsConfiguration();
+    config.setAllowCredentials(allowCredentials);
+    config.setAllowedOrigins(allowedOrigins);
+    config.setAllowedMethods(allowedMethods);
+    config.setAllowedHeaders(allowedHeaders);
+
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
+
+    return new CorsFilter(source);
+  }
 }
