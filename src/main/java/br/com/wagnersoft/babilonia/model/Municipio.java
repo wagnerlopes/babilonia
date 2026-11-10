@@ -56,6 +56,9 @@ public class Municipio implements Serializable {
   @OneToMany(mappedBy = "municipio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private List<Distrito> distritos = new ArrayList<>();
 
+  @Column(name = "IBGE_ID")
+  private Long ibgeId;
+  
   @Override
   public String toString() {
     return Optional.ofNullable(descricao)

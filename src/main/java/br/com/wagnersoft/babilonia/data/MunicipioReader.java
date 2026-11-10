@@ -14,6 +14,7 @@ import br.com.wagnersoft.babilonia.model.MicroRegiao;
 import br.com.wagnersoft.babilonia.model.Municipio;
 import br.com.wagnersoft.babilonia.repository.MicroRegiaoRepository;
 import br.com.wagnersoft.babilonia.repository.MunicipioRepository;
+import br.com.wagnersoft.babilonia.service.IbgeService;
 
 @Service
 @Order(4)
@@ -25,11 +26,14 @@ public class MunicipioReader implements EntityReader<Municipio> {
 
   private MunicipioRepository munRep;
 
+  private IbgeService ibgeSvc;
+
   private Map<String, MicroRegiao> microRegiaoMap;
 
-  public MunicipioReader(MicroRegiaoRepository microRep, MunicipioRepository munRep) {
+  public MunicipioReader(MicroRegiaoRepository microRep, MunicipioRepository munRep, IbgeService ibgeSvc) {
     this.microRep = microRep;
     this.munRep = munRep;
+    this.ibgeSvc = ibgeSvc;
   }
 
   @Override
@@ -57,7 +61,9 @@ public class MunicipioReader implements EntityReader<Municipio> {
     m.setDescricao(munDesc);
     m.setMicroregiao(microObj);
     m.setUf(microObj.getMesoregiao().getUf().getSigla());
-
+    if (ibgeSvc.isAtivo()) {
+      m.setIbgeId(ibgeSvc.obterId(m.getDescricao(), m.getUf()));
+    }
     return m;
   }
 
