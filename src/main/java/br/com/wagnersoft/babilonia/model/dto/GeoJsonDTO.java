@@ -5,6 +5,13 @@ import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * GeoJsonDTO.
+ * 
+ * @since 1.0.0
+ * @version 1.0.0
+ * @author Wagner Lopes
+ */
 @Data
 @Builder
 public class GeoJsonDTO {

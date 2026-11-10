@@ -17,10 +17,19 @@ import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
 /**
- * IbgeService.
+ * Serviço responsável por ler da API do IBGE os códigos de municípios.
  * 
- * @since 1.0.5
- * @version 1.0.5
+ * <p>Os códigos são armazenados em um cache do tipo {@code Map<String, Long>}</code>
+ * onde a chave é o nome do município e a UF.</p>
+ * 
+ * <p>O método {@code obterID(nome, uf)} permite ler o cache e obter o
+ * código IBGE do município.</p>
+ * 
+ * <p>O método {@code isAtivo()} informa se o cache está carregado com os
+ * valores esperados.</p>
+ * 
+ * @since 1.0
+ * @version 1.0
  * @author Wagner Lopes
  */
 @Service
@@ -28,7 +37,7 @@ public class IbgeService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(IbgeService.class);
 
-  private final Map<String, Long> municipios = new HashMap<>();
+  private final Map<String, Long> municipios = HashMap.newHashMap(5571);
 
   private final HttpClient httpClient;
 
@@ -37,10 +46,10 @@ public class IbgeService {
   public IbgeService() {
     this.httpClient = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build();
     this.mapper = new ObjectMapper();
-    loadMunicipios();
+    this.initCache();
   }
 
-  private void loadMunicipios() {
+  private void initCache() {
 
     try {
 
@@ -88,12 +97,6 @@ public class IbgeService {
 
   public boolean isAtivo() {
     return !this.municipios.isEmpty();
-  }
-  
-  // Teste 
-  public static void main(String[] args) {
-    IbgeService svc = new IbgeService();
-    LOGGER.info("{}", svc.obterId("São Paulo", "SP"));
   }
 
 }
