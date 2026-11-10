@@ -30,7 +30,7 @@ public class MunicipioService {
 
   public record DistritoDTO(Integer id, String descricao) { };
 
-  public record MunicipioDTO(Integer id, String descricao, List<DistritoDTO> distritos) { };
+  public record MunicipioDTO(Integer id, String descricao, Long ibgeId, List<DistritoDTO> distritos) { };
 
   private final MunicipioRepository rep;
 
@@ -64,7 +64,7 @@ public class MunicipioService {
         .map(m -> new DistritoDTO(m.getId(), m.getDescricao()))
         .toList();
     
-    return new MunicipioDTO(municipio.getCodigo(), municipio.getDescricao(), distritos);
+    return new MunicipioDTO(municipio.getCodigo(), municipio.getDescricao(), municipio.getIbgeId(), distritos);
   }
 
 }
