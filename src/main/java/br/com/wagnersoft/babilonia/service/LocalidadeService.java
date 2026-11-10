@@ -154,6 +154,7 @@ public class LocalidadeService {
         loc.getDescricao(), loc.getBairro(), loc.getSubdistrito(),
         loc.getDistrito().getDescricao(),
         loc.getDistrito().getMunicipio().getDescricao(),
+        loc.getDistrito().getMunicipio().getIbgeId(),
         loc.getDistrito().getMunicipio().getMicroregiao().getDescricao(),
         loc.getDistrito().getMunicipio().getMicroregiao().getMesoregiao().getDescricao(),
         loc.getDistrito().getMunicipio().getMicroregiao().getMesoregiao().getUf().getSigla()

@@ -11,7 +11,7 @@ public class GeoJsonDTO {
 
   public record Coordinate(Double latitude, Double longitude) { };
   
-  public record Properties(String tipo, String nivel, String categoria, String localidade, String bairro, String subdistrito, String distrito, String municipio, String microrregiao, String mesorregiao, String uf) { };
+  public record Properties(String tipo, String nivel, String categoria, String localidade, String bairro, String subdistrito, String distrito, String municipio, Long munIbgeID, String microrregiao, String mesorregiao, String uf) { };
 
   public record Geometry(String type, List<Double> coordinates) { };
 
