@@ -118,6 +118,7 @@ app:
             - "https://localhost:8443"
             - "http://127.0.0.1:*"
             - "https://127.0.0.1:*"
+            - "https://patagonia.local:8443"
         allowed-methods:
             - GET
             - POST
