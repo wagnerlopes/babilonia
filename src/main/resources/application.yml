@@ -27,7 +27,7 @@ server:
         enabled: true
         
     servlet:
-        context-path: /babilonia/api
+        context-path: /api
         compression:
             enabled: true
             min-response-size: 1KB
