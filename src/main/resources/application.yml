@@ -27,18 +27,17 @@ server:
         enabled: true
         
     servlet:
-        context-path: /babilonia/api
+        context-path: /api
         compression:
             enabled: true
             min-response-size: 1KB
         
     ssl:
         enabled: true
-        key-store: classpath:wagnersoft.p12
+        key-store: classpath:babilonia.p12
         key-store-password: wl1234
-        keyStoreType: PKCS12
-        keyAlias: wagnersoft
-
+        key-store-type: PKCS12
+        key-alias: babilonia
 spring:
 
     profiles:
@@ -119,6 +118,7 @@ app:
             - "https://localhost:8443"
             - "http://127.0.0.1:*"
             - "https://127.0.0.1:*"
+            - "https://patagonia.local:8443"
         allowed-methods:
             - GET
             - POST
