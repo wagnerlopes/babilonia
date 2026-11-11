@@ -34,11 +34,10 @@ server:
         
     ssl:
         enabled: true
-        key-store: classpath:wagnersoft.p12
+        key-store: classpath:babilonia.p12
         key-store-password: wl1234
-        keyStoreType: PKCS12
-        keyAlias: wagnersoft
-
+        key-store-type: PKCS12
+        key-alias: babilonia
 spring:
 
     profiles:

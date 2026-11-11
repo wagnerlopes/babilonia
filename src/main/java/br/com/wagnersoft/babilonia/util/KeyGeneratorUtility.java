@@ -2,11 +2,19 @@ package br.com.wagnersoft.babilonia.util;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.KeyStore;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateFactory;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
 
 import org.slf4j.Logger;
@@ -23,7 +31,7 @@ public class KeyGeneratorUtility {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(KeyGeneratorUtility.class);
 
-  private static void keyParGenerator() throws IOException {
+  public static void keyParGenerator() throws IOException {
 
     KeyPairGenerator keyGen = null;
 
@@ -64,10 +72,50 @@ public class KeyGeneratorUtility {
 
   }
 
+  public static void p12Generator(String privatekey, String certFile, String alias) throws Exception {
+
+    // Carrega chave privada
+    String pathFile = Path.of(privatekey).getParent().toString();
+    String privatePem = Files.readString(Path.of(privatekey))
+        .replace("-----BEGIN PRIVATE KEY-----", "")
+        .replace("-----END PRIVATE KEY-----", "")
+        .replaceAll("\\s+", "");
+
+    byte[] privateBytes = Base64.getDecoder().decode(privatePem);
+
+    PrivateKey privateKey = KeyFactory.getInstance("RSA")
+        .generatePrivate(new PKCS8EncodedKeySpec(privateBytes));
+
+    // Carrega certificado
+    CertificateFactory cf = CertificateFactory.getInstance("X.509");
+    Certificate certificate;
+
+    try (var in = Files.newInputStream(Path.of(certFile))) {
+      certificate = cf.generateCertificate(in);
+    }
+
+    // Cria PKCS12
+    KeyStore ks = KeyStore.getInstance("PKCS12");
+    ks.load(null, null);
+
+    ks.setKeyEntry(
+        alias,
+        privateKey,
+        "wl1234".toCharArray(),
+        new Certificate[]{certificate}
+        );
+
+    try (FileOutputStream fos = new FileOutputStream(pathFile + alias + ".p12")) {
+      ks.store(fos, "wl1234".toCharArray());
+    }
+
+    System.out.println("Arquivo PKCS12 criado com sucesso.");
+  }
+
   public static void main(String[] args) {
     try {
-      KeyGeneratorUtility.keyParGenerator();
-    } catch (IOException e) {
+      KeyGeneratorUtility.p12Generator("C:/Users/USUARIO/.keys/patagonia.local-key.pem","C:/Users/USUARIO/.keys/patagonia.local.pem", "patagonia");
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }

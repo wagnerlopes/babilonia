@@ -83,11 +83,11 @@ public class JwtUtilities {
   }
 
   private PrivateKey loadPrivateKey() {
-    ClassPathResource resource = new ClassPathResource("wagnersoft.p12");
+    ClassPathResource resource = new ClassPathResource("babilonia.p12");
     try (InputStream is = resource.getInputStream()) {
       KeyStore ks = KeyStore.getInstance("PKCS12");
       ks.load(is, "wl1234".toCharArray());
-      String alias = "wagnersoft";
+      String alias = "babilonia";
       return (PrivateKey) ks.getKey(alias, "wl1234".toCharArray());
     } catch (Exception e) {
       LOGGER.error("Erro ao carregar chave privada do keystore", e);
@@ -96,11 +96,11 @@ public class JwtUtilities {
   }
 
   private PublicKey loadPublicKey() {
-    ClassPathResource resource = new ClassPathResource("wagnersoft.p12");
+    ClassPathResource resource = new ClassPathResource("babilonia.p12");
     try (InputStream is = resource.getInputStream()) {
       KeyStore ks = KeyStore.getInstance("PKCS12");
       ks.load(is, "wl1234".toCharArray());
-      String alias = "wagnersoft";
+      String alias = "babilonia";
       Certificate cert = ks.getCertificate(alias);
       if (cert == null) {
         throw new RuntimeException("Certificado não encontrado para alias: " + alias);
