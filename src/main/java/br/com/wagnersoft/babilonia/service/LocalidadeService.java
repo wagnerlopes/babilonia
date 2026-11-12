@@ -2,8 +2,11 @@ package br.com.wagnersoft.babilonia.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -14,9 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.wagnersoft.babilonia.exception.NoDataFoundException;
 import br.com.wagnersoft.babilonia.model.Localidade;
 import br.com.wagnersoft.babilonia.model.dto.GeoJsonDTO;
-import br.com.wagnersoft.babilonia.model.dto.GeoJsonDTO.Properties;
 import br.com.wagnersoft.babilonia.model.dto.GeoJsonDTO.Coordinate;
 import br.com.wagnersoft.babilonia.model.dto.GeoJsonDTO.Geometry;
+import br.com.wagnersoft.babilonia.model.dto.GeoJsonDTO.Properties;
 import br.com.wagnersoft.babilonia.model.dto.LocalidadeDTO;
 import br.com.wagnersoft.babilonia.repository.LocalidadeRepository;
 
@@ -48,6 +51,12 @@ public class LocalidadeService {
     this.rep = rep;
   }  
 
+  public Map<Integer, String> listAll() {
+    return rep.findAll().stream()
+        .collect(Collectors.toMap(Localidade::getId, Localidade::getDescricao, (existing, replacement) -> existing, LinkedHashMap::new));
+  }
+
+  
   /** 
    * Realiza a consulta de {@link Localidade} por ID.
    * 

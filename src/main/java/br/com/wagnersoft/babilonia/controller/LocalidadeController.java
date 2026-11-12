@@ -1,6 +1,7 @@
 package br.com.wagnersoft.babilonia.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +43,8 @@ public class LocalidadeController {
 
   public record DistanciaDTO(String origem, String destino, Double distancia, String unidade) { };
 
+  public record LocalidadesDTO(Integer id, String descricao) { };
+  
   private final LocalidadeService svc;
 
   /**
@@ -53,6 +56,16 @@ public class LocalidadeController {
     this.svc = svc;
   }
 
+  @GetMapping
+  @Operation(summary = "Consulta todas as localidade.", description = "gera somente o id e a descricao.")
+  @ApiResponse(responseCode = "200", description = "Informação de localidade.")
+  @ApiStandardErrors  
+  public ResponseEntity<Map<Integer, String>> allLocalidades() {
+    final Map<Integer, String> result = this.svc.listAll();
+    LOGGER.debug("{}", result);
+    return ResponseEntity.ok(result);
+  }
+  
   @GetMapping("/id")
   @Operation(summary = "Consulta a localidade por ID.", description = "Deverá ser informado o ID da localidade.")
   @ApiResponse(responseCode = "200", description = "Informação de localidade.")
