@@ -31,7 +31,7 @@ public class KeyGeneratorUtility {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(KeyGeneratorUtility.class);
 
-  public static void keyParGenerator() throws IOException {
+  public static void keyParGenerator(String alias) throws IOException {
 
     KeyPairGenerator keyGen = null;
 
@@ -47,24 +47,23 @@ public class KeyGeneratorUtility {
     RSAPrivateKey privateKey = (RSAPrivateKey) pair.getPrivate();
     RSAPublicKey publicKey = (RSAPublicKey) pair.getPublic();
 
-    writePemFile("private.pem", "PRIVATE KEY", privateKey.getEncoded());
-    writePemFile("public.pem", "PUBLIC KEY", publicKey.getEncoded());
+    writePemFile(alias + "-private.pem", "PRIVATE KEY", privateKey.getEncoded());
+    writePemFile(alias + "-public.pem", "PUBLIC KEY", publicKey.getEncoded());
 
     // Converter para Base64
     String publicKeyBase64 = Base64.getEncoder().encodeToString(publicKey.getEncoded());
     String privateKeyBase64 = Base64.getEncoder().encodeToString(privateKey.getEncoded());
 
-    System.out.println("Public Key: " + publicKeyBase64);
-    System.out.println("Private Key: " + privateKeyBase64);
+    LOGGER.info("Public Key: {}", publicKeyBase64);
+    LOGGER.info("Private Key: {}", privateKeyBase64);
   }
 
   private static void writePemFile(String filename, String type, byte[] encoded) throws IOException {
 
-    String base64 = Base64.getEncoder().encodeToString(encoded);
+    // String formato Base64 com linhas de 64 chars
+    String stringBase64 = Base64.getEncoder().encodeToString(encoded).replaceAll("(.{64})", "$1\n");
 
-    String pem = "-----BEGIN " + type + "-----\n"
-        + base64.replaceAll("(.{64})", "$1\n") // quebra em linhas de 64 chars
-        + "\n-----END " + type + "-----\n";
+    String pem = "-----BEGIN " + type + "-----\n" + stringBase64 + "\n-----END " + type + "-----\n";
 
     try (FileOutputStream fos = new FileOutputStream(filename)) {
       fos.write(pem.getBytes());
@@ -72,25 +71,33 @@ public class KeyGeneratorUtility {
 
   }
 
-  public static void p12Generator(String privatekey, String certFile, String alias) throws Exception {
+  public static void p12Generator(String privatekeyFile, String certificateFile, String alias, String password) throws Exception {
+
+    // Captura path do arquivo de entrada
+    Path privatePath = Path.of(privatekeyFile);
+    Path parentDir = privatePath.getParent();
+
+    LOGGER.info("Local do arquivo de saída: {}", parentDir);
+
+    if (parentDir == null) {
+      parentDir = Path.of(".");
+    }
 
     // Carrega chave privada
-    String pathFile = Path.of(privatekey).getParent().toString();
-    String privatePem = Files.readString(Path.of(privatekey))
+    String privatePem = Files.readString(Path.of(privatekeyFile))
         .replace("-----BEGIN PRIVATE KEY-----", "")
         .replace("-----END PRIVATE KEY-----", "")
         .replaceAll("\\s+", "");
 
     byte[] privateBytes = Base64.getDecoder().decode(privatePem);
 
-    PrivateKey privateKey = KeyFactory.getInstance("RSA")
-        .generatePrivate(new PKCS8EncodedKeySpec(privateBytes));
+    PrivateKey privateKey = KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(privateBytes));
 
     // Carrega certificado
     CertificateFactory cf = CertificateFactory.getInstance("X.509");
-    Certificate certificate;
 
-    try (var in = Files.newInputStream(Path.of(certFile))) {
+    Certificate certificate;
+    try (var in = Files.newInputStream(Path.of(certificateFile))) {
       certificate = cf.generateCertificate(in);
     }
 
@@ -98,23 +105,22 @@ public class KeyGeneratorUtility {
     KeyStore ks = KeyStore.getInstance("PKCS12");
     ks.load(null, null);
 
-    ks.setKeyEntry(
-        alias,
-        privateKey,
-        "wl1234".toCharArray(),
-        new Certificate[]{certificate}
-        );
+    ks.setKeyEntry(alias, privateKey, password.toCharArray(), new Certificate[]{certificate});
 
-    try (FileOutputStream fos = new FileOutputStream(pathFile + alias + ".p12")) {
-      ks.store(fos, "wl1234".toCharArray());
+    // Gera o caminho de saída na mesma pasta do arquivo de entrada de forma segura
+    Path outputP12Path = parentDir.resolve(alias + ".p12");
+
+    try (FileOutputStream fos = new FileOutputStream(outputP12Path.toFile())) {
+      ks.store(fos, password.toCharArray());
     }
 
-    System.out.println("Arquivo PKCS12 criado com sucesso.");
+    LOGGER.info("Arquivo {} criado com sucesso.", outputP12Path.getFileName());
   }
 
   public static void main(String[] args) {
     try {
-      KeyGeneratorUtility.p12Generator("C:/Users/USUARIO/.keys/patagonia.local-key.pem","C:/Users/USUARIO/.keys/patagonia.local.pem", "patagonia");
+      KeyGeneratorUtility.keyParGenerator("wagnersoft");
+      //KeyGeneratorUtility.p12Generator("C:/Users/USUARIO/.keys/macedonia.local-key.pem","C:/Users/USUARIO/.keys/macedonia.local.pem", "macedonia", "wl1234");
     } catch (Exception e) {
       e.printStackTrace();
     }
