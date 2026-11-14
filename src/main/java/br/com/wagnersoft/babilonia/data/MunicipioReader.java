@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 
 import br.com.wagnersoft.babilonia.model.MicroRegiao;
 import br.com.wagnersoft.babilonia.model.Municipio;
+import br.com.wagnersoft.babilonia.model.Uf;
 import br.com.wagnersoft.babilonia.repository.MicroRegiaoRepository;
 import br.com.wagnersoft.babilonia.repository.MunicipioRepository;
+import br.com.wagnersoft.babilonia.repository.UfRepository;
 import br.com.wagnersoft.babilonia.service.IbgeService;
 
 @Service
@@ -26,13 +28,16 @@ public class MunicipioReader implements EntityReader<Municipio> {
 
   private MunicipioRepository munRep;
 
+  private UfRepository ufRep;
+
   private IbgeService ibgeSvc;
 
   private Map<String, MicroRegiao> microRegiaoMap;
 
-  public MunicipioReader(MicroRegiaoRepository microRep, MunicipioRepository munRep, IbgeService ibgeSvc) {
+  public MunicipioReader(UfRepository ufRep, MicroRegiaoRepository microRep, MunicipioRepository munRep, IbgeService ibgeSvc) {
     this.microRep = microRep;
     this.munRep = munRep;
+    this.ufRep = ufRep;
     this.ibgeSvc = ibgeSvc;
   }
 
@@ -46,6 +51,9 @@ public class MunicipioReader implements EntityReader<Municipio> {
 
     String munDesc = getCellValue(row, COL_MUNICIPIO);
     String microDesc = getCellValue(row, COL_MICRORREGIAO);
+    String ufDesc = getCellValue(row, COL_UF);
+
+    Uf uf = this.ufRep.findByDescricaoExata(ufDesc).get();
 
     if (munDesc.isEmpty() || microDesc.isEmpty()) {
       return null;
@@ -60,7 +68,7 @@ public class MunicipioReader implements EntityReader<Municipio> {
     Municipio m = new Municipio();
     m.setDescricao(munDesc);
     m.setMicroregiao(microObj);
-    m.setUf(microObj.getMesoregiao().getUf().getSigla());
+    m.setUf(uf.getSigla());
     if (ibgeSvc.isAtivo()) {
       m.setIbgeId(ibgeSvc.obterId(m.getDescricao(), m.getUf()));
     }
@@ -69,7 +77,7 @@ public class MunicipioReader implements EntityReader<Municipio> {
 
   @Override
   public String extractUniqueKey(Row row) {
-    return (getCellValue(row, COL_MUNICIPIO) + "|" + getCellValue(row, COL_MICRORREGIAO)).toUpperCase();
+    return (getCellValue(row, COL_MUNICIPIO) + "|" + getCellValue(row, COL_MICRORREGIAO) + "|" + getCellValue(row, COL_UF)).toUpperCase();
   }
 
   @Override
