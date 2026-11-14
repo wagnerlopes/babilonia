@@ -27,16 +27,3 @@ insert into uf(sigla,descricao) values('SC', 'Santa Catarina');
 insert into uf(sigla,descricao) values('SE', 'Sergipe');
 insert into uf(sigla,descricao) values('SP', 'São Paulo');
 insert into uf(sigla,descricao) values('TO', 'Tocantins');
-
---insert into mesoregiao(descricao, uf_id) values('MESO TESTE', 1);
-
---insert into microregiao(descricao, mesoregiao_id) values('MICRO TESTE', 1);
-
---insert into municipio(codigo, descricao, uf_sigla, microregiao_id) values(1, 'MUNICIPIO TESTE', 'AC', 1); 
-
---insert into distrito(descricao, municipio_id) values('DISTRITO TESTE',1);
-
---insert into localidade(descricao, tipo, bairro, subdistrito, nivel, categoria_id, distrito_id, latitude, longitude, altitude) values('PONTE NOVA', 'URBANA', 'Centro Histórico', '1 SUBDISTRITO', 1, '05', 1, -20.41664342, -42.90968427, 422.561737);
---insert into localidade(descricao, tipo, bairro, subdistrito, nivel, categoria_id, distrito_id, latitude, longitude, altitude) values('ALTA FLORESTA D''OESTE', 'URBANA', 'Redondo', null, 1, '05', 1, -11.9355403, -61.9998239, 337.735719);
---insert into localidade(descricao, tipo, bairro, subdistrito, nivel, categoria_id, distrito_id, latitude, longitude, altitude) values('BRASÌLIA', 'URBANA', null, 'BRASÌLIA', 1, '05', 1, -15.79408736, -47.88790548, 1115.248357);
---insert into localidade(descricao, tipo, bairro, subdistrito, nivel, categoria_id, distrito_id, latitude, longitude, altitude) values('SÃO PAULO', 'URBANA', null, null, 1, '05', 1, -23.5673865, -46.57038318, 783.615127);

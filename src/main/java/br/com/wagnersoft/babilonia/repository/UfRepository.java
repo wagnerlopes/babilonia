@@ -33,5 +33,8 @@ public interface UfRepository extends JpaRepository<Uf, String> {
 
   @Query("SELECT u FROM Uf u LEFT JOIN FETCH u.mesoregioes m WHERE u.sigla = :sigla ORDER BY m.descricao ASC")
   Optional<Uf> findBySiglaWithMesoRegiao(@Param("sigla") String sigla);
-  
+
+  @Query("SELECT u FROM Uf u WHERE LOWER(u.descricao) = LOWER(:descricao) ORDER BY u.sigla ASC")
+  Optional<Uf> findByDescricaoExata(@Param("descricao") String descricao);
+
 }

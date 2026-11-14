@@ -62,7 +62,7 @@ public class MicroRegiaoReader implements EntityReader<MicroRegiao> {
 
   @Override
   public String extractUniqueKey(Row row) {
-    return (getCellValue(row, COL_MICRORREGIAO) + "|" + getCellValue(row, COL_MESORREGIAO)).toUpperCase();
+    return (getCellValue(row, COL_MICRORREGIAO) + "|" + getCellValue(row, COL_MESORREGIAO) + "|" + getCellValue(row, COL_UF)).toUpperCase();
   }
 
   @Override

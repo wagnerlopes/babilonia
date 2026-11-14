@@ -14,7 +14,7 @@ import br.com.wagnersoft.babilonia.service.SpreadSheetResourceService;
  * <p>Realiza a carga de: messorregião, microrregião, município, distrito e localidade.</p>
  *
  * <p>Para executar várias tarefas pode-se criar uma lista Runnable:<br/>
-
+ *
  *  <code>
  *   List<Runnable> tasks = List.of(svc::readCategoria, svc::readMesoregiao, svc::readMicroregiao);
  *   tasks.forEach(Runnable::run);
