@@ -26,6 +26,7 @@ import br.com.wagnersoft.babilonia.data.EntityReader;
  * Centraliza as operações de leitura, filtragem, consolidação e salvamento 
  * das informações das entidades do modelo ornecidas pela planilha de dados externa.
  * </p>
+ * <p>A planilha do IBGE foi atualizada com os 5.571 municípios criados até 2025.<p>
  * 
  * @author Wagner Lopes
  * @since 1.0
@@ -37,7 +38,7 @@ public class SpreadSheetResourceService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SpreadSheetResourceService.class);
 
-  @Value("classpath:IBGE-localidades-2010.xls")
+  @Value("classpath:IBGE-localidades-2025.xls")
   private Resource excelResource;
 
   private final List<EntityReader<?>> readers;
