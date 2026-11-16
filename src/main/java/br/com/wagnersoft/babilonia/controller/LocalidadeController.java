@@ -57,11 +57,21 @@ public class LocalidadeController {
   }
 
   @GetMapping
-  @Operation(summary = "Consulta todas as localidade.", description = "gera somente o id e a descricao.")
+  @Operation(summary = "Consulta todas as localidade.", description = "mapa com id e a descricao.")
   @ApiResponse(responseCode = "200", description = "Informação de localidade.")
   @ApiStandardErrors  
   public ResponseEntity<Map<Integer, String>> allLocalidades() {
     final Map<Integer, String> result = this.svc.listAll();
+    LOGGER.debug("{}", result);
+    return ResponseEntity.ok(result);
+  }
+
+  @GetMapping("/municipio")
+  @Operation(summary = "Consulta localidades de um município.", description = "mapa com o id e a descricao.")
+  @ApiResponse(responseCode = "200", description = "Informação de localidade.")
+  @ApiStandardErrors  
+  public ResponseEntity<Map<Integer, String>> municipioLocalidades(@Parameter(description = "Código IBGE", example = "3524006") @RequestParam final Long ibgeId) {
+    final Map<Integer, String> result = this.svc.listByMunicipio(ibgeId);
     LOGGER.debug("{}", result);
     return ResponseEntity.ok(result);
   }
@@ -70,9 +80,7 @@ public class LocalidadeController {
   @Operation(summary = "Consulta a localidade por ID.", description = "Deverá ser informado o ID da localidade.")
   @ApiResponse(responseCode = "200", description = "Informação de localidade.")
   @ApiStandardErrors  
-  public ResponseEntity<GeoJsonDTO> consultarLocalidade(
-      @Parameter(description = "ID", example = "1")
-      @RequestParam final Integer id) {
+  public ResponseEntity<GeoJsonDTO> consultarLocalidade(@Parameter(description = "ID", example = "1") @RequestParam final Integer id) {
 
     HttpHeaders headers = new HttpHeaders();
     headers.add("Access-Control-Allow-Origin", "*");
