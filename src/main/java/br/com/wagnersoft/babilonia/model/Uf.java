@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -41,11 +42,18 @@ public class Uf implements Serializable {
   private Integer id;
 
   @Include
+  @Column(name = "IBGE_ID")
+  private Long ibgeId;
+  
+  @Include
   private String descricao;
 
   @Include
   private String sigla;
 
+  @Include
+  private String regiao;
+  
   @OneToMany(mappedBy = "uf", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private List<MesoRegiao> mesoregioes = new ArrayList<>();
 

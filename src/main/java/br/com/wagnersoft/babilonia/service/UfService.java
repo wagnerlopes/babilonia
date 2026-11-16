@@ -30,7 +30,7 @@ public class UfService {
 
   public record MesoRegiaoDTO(Integer id, String descricao) { };
 
-  public record UfDTO(String uf, String descricao, List<MesoRegiaoDTO> mesorregiao) { };
+  public record UfDTO(Long ibgeId, String uf, String descricao, String regiao, List<MesoRegiaoDTO> mesorregiao) { };
 
   private final UfRepository rep;
 
@@ -64,7 +64,7 @@ public class UfService {
         .map(m -> new MesoRegiaoDTO(m.getId(), m.getDescricao()))
         .toList();
 
-    return new UfDTO(uf.getSigla(), uf.getDescricao(), mesorregioes);
+    return new UfDTO(uf.getIbgeId(), uf.getSigla(), uf.getDescricao(), uf.getRegiao(), mesorregioes);
   }
 
 }
