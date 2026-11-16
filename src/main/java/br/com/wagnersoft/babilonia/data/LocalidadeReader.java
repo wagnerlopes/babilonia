@@ -98,7 +98,7 @@ public class LocalidadeReader implements EntityReader<Localidade> {
 
   @Override
   public String extractUniqueKey(Row row) {
-    return (getCellValue(row, COL_DISTRITO) + "|" + getCellValue(row, COL_LOCALIDADE)).toUpperCase();
+    return (getCellValue(row, COL_DISTRITO) + "|" + getCellValue(row, COL_LOCALIDADE) + "|" + getCellValue(row, COL_UF)).toUpperCase();
   }
 
   @Override
