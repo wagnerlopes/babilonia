@@ -67,4 +67,22 @@ public class MunicipioService {
     return new MunicipioDTO(municipio.getCodigo(), municipio.getDescricao(), municipio.getIbgeId(), distritos);
   }
 
+  public MunicipioDTO consultByIdIbge(final Integer id) {
+
+    if (id == null) {
+      throw new IllegalArgumentException("O código IBGE do município não pode ser nulo.");
+    }
+
+    Municipio municipio = this.rep.findByIdIbge(id)
+        .orElseThrow(() -> new NoDataFoundException("Município não localizado com os dados informados."));
+
+    LOGGER.debug("Município localizado: {}", municipio);
+
+    List<DistritoDTO> distritos = municipio.getDistritos().stream()
+        .map(m -> new DistritoDTO(m.getId(), m.getDescricao()))
+        .toList();
+    
+    return new MunicipioDTO(municipio.getCodigo(), municipio.getDescricao(), municipio.getIbgeId(), distritos);
+  }
+  
 }
