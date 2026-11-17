@@ -30,4 +30,13 @@ public interface LocalidadeRepository extends JpaRepository<Localidade, Integer>
   @Query("SELECT g FROM Localidade g WHERE LOWER(g.descricao) LIKE LOWER(CONCAT(:descricao, '%')) ORDER BY g.descricao ASC")
   List<Localidade> findByDescricao(@Param("descricao") String descricao);
 
+  /**
+   * Busca lista de localidades de um município informando o código IBGE.
+   *
+   * @param ibgeId código IBGE do município (ex: 3524006).
+   * @return Lista de localidades do município
+   */
+  @Query("SELECT g FROM Localidade g WHERE g.distrito.municipio.ibgeId = :id ORDER BY g.descricao ASC")
+  List<Localidade> findByMunicipio(@Param("id") Long ibgeId);
+
 }

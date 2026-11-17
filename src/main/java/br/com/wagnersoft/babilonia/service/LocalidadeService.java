@@ -51,12 +51,23 @@ public class LocalidadeService {
     this.rep = rep;
   }  
 
+  /** Lista de todas as localidades.
+   * @return {@code Map<Integer, String>} lista de localidades
+   */
   public Map<Integer, String> listAll() {
     return rep.findAll().stream()
         .collect(Collectors.toMap(Localidade::getId, Localidade::getDescricao, (existing, replacement) -> existing, LinkedHashMap::new));
   }
 
-  
+  /** Lista de localidades do município.
+   * @param ibgeId código IBGE do município
+   * @return {@code Map<Integer, String>} lista de localidades
+   */
+  public Map<Integer, String> listByMunicipio(Long ibgeId) {
+    return rep.findByMunicipio(ibgeId) .stream()
+        .collect(Collectors.toMap(Localidade::getId, Localidade::getDescricao, (existing, replacement) -> existing, LinkedHashMap::new));
+  }
+
   /** 
    * Realiza a consulta de {@link Localidade} por ID.
    * 

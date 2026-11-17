@@ -60,4 +60,17 @@ public class MunicipioController {
     return ResponseEntity.ok(result);
   }
 
+  @GetMapping("/ibge")
+  @Operation(summary = "Consulta de município por código IBGE.", description = "Deverá ser informado o códgigo IBGE do município.")
+  @ApiResponse(responseCode = "200", description = "Informação de município.")
+  @ApiStandardErrors
+  public ResponseEntity<MunicipioDTO> consultarPorIdIbge(@Parameter(description = "id", example = "2513653") @RequestParam final Integer id) {
+
+    MunicipioDTO result = svc.consultByIdIbge(id);
+
+    LOGGER.debug("Municipío localizado: {}", result);
+
+    return ResponseEntity.ok(result);
+  }
+  
 }

@@ -33,5 +33,8 @@ public interface MunicipioRepository extends JpaRepository<Municipio, Integer> {
 
   @Query("SELECT m FROM Municipio m LEFT JOIN FETCH m.distritos d WHERE m.codigo = :id ORDER BY d.descricao ASC")
   Optional<Municipio> findByIdWithDistritos(@Param("id") Integer id);
-  
+
+  @Query("SELECT m FROM Municipio m LEFT JOIN FETCH m.distritos d WHERE m.ibgeId = :id")
+  Optional<Municipio> findByIdIbge(@Param("id") Integer id);
+
 }

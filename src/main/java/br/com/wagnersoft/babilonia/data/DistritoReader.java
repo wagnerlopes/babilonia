@@ -42,7 +42,7 @@ public class DistritoReader implements EntityReader<Distrito> {
 
     String disDesc = getCellValue(row, COL_DISTRITO);
     String munDesc = getCellValue(row, COL_MUNICIPIO);
-
+    
     if (munDesc.isEmpty() || disDesc.isEmpty()) {
       return null;
     }
@@ -63,7 +63,7 @@ public class DistritoReader implements EntityReader<Distrito> {
 
   @Override
   public String extractUniqueKey(Row row) {
-    return (getCellValue(row, COL_DISTRITO) + "|" + getCellValue(row, COL_MUNICIPIO)).toUpperCase();
+    return (getCellValue(row, COL_DISTRITO) + "|" + getCellValue(row, COL_MUNICIPIO) + "|" + getCellValue(row, COL_UF)).toUpperCase();
   }
 
   @Override
