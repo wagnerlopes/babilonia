@@ -22,9 +22,10 @@ import java.util.UUID;
 /**
  * Utilitários da API.
  * 
- * @author Wagner Lopes
+ * <p>Gerador de PDF, limpador de acentos e gerador de API Key.</p>
  * @since 1.0
  * @version 1.0
+ * @author Wagner Lopes
  */
 public class ApplicationUtilities {
 
