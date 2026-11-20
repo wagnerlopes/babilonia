@@ -21,11 +21,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** 
- * Gera o par de chaves, privada e pública, de criptografia RSA.
+ * Gerador de par de chaves pública/privada com algoritmo de criptografia RSA 2048.
  * 
- * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
+ * @author Wagner Lopes
  */
 public class KeyGeneratorUtility {
 
