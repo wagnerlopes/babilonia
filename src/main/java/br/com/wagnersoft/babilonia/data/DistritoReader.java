@@ -15,6 +15,12 @@ import br.com.wagnersoft.babilonia.model.Municipio;
 import br.com.wagnersoft.babilonia.repository.DistritoRepository;
 import br.com.wagnersoft.babilonia.repository.MunicipioRepository;
 
+/**
+ * DistritoReader.
+ * @since 1.0.7
+ * @version 1.0.7
+ * @author Wagner Lopes
+ */
 @Service
 @Order(5)
 public class DistritoReader implements EntityReader<Distrito> {
@@ -42,7 +48,7 @@ public class DistritoReader implements EntityReader<Distrito> {
 
     String disDesc = getCellValue(row, COL_DISTRITO);
     String munDesc = getCellValue(row, COL_MUNICIPIO);
-    
+
     if (munDesc.isEmpty() || disDesc.isEmpty()) {
       return null;
     }

@@ -5,6 +5,13 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+/**
+ * EntityReader.
+ * @param <T> tipo de entidade do modelo
+ * @since 1.0.7
+ * @version 1.0.7
+ * @author Wagner Lopes
+ */
 public interface EntityReader<T> {
 
   // Constantes simbólicas para colunas da planilha

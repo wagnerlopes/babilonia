@@ -15,6 +15,12 @@ import br.com.wagnersoft.babilonia.model.Uf;
 import br.com.wagnersoft.babilonia.repository.MesoRegiaoRepository;
 import br.com.wagnersoft.babilonia.repository.UfRepository;
 
+/**
+ * MesoRegiaoReader.
+ * @since 1.0.7
+ * @version 1.0.7
+ * @author Wagner Lopes
+ */
 @Service
 @Order(2)
 public class MesoRegiaoReader implements EntityReader<MesoRegiao> {
