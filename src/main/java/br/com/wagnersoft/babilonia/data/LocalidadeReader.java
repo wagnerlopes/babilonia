@@ -52,8 +52,8 @@ public class LocalidadeReader implements EntityReader<Localidade> {
     if (distritoMap == null || distritoMap.isEmpty()) {
       this.distritoMap =  disRep.findAll().stream()
           .collect(Collectors.toMap(dis -> dis.getDescricao().trim().toUpperCase() + dis.getMunicipio().getDescricao().trim().toUpperCase(),
-                   dis -> dis,
-                   (existente, novo) -> existente));
+              dis -> dis,
+              (existente, novo) -> existente));
     }
 
     String munDesc = getCellValue(row, COL_MUNICIPIO);
@@ -67,7 +67,7 @@ public class LocalidadeReader implements EntityReader<Localidade> {
 
     Distrito disObj = this.distritoMap.get(disDesc.toUpperCase() + munDesc.toUpperCase());
     if (disObj == null) {
-      LOGGER.warn("Distrito não encontrado no banco: {}", disDesc);
+      LOGGER.info("Distrito não encontrado no banco: {}", disDesc);
       return null;
     }
 

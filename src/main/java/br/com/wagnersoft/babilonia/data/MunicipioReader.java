@@ -18,6 +18,12 @@ import br.com.wagnersoft.babilonia.repository.MunicipioRepository;
 import br.com.wagnersoft.babilonia.repository.UfRepository;
 import br.com.wagnersoft.babilonia.service.IbgeService;
 
+/**
+ * MunicipioReader.
+ * @since 1.0.7
+ * @version 1.0.7
+ * @author Wagner Lopes
+ */
 @Service
 @Order(4)
 public class MunicipioReader implements EntityReader<Municipio> {

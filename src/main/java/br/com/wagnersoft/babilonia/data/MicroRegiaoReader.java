@@ -15,6 +15,12 @@ import br.com.wagnersoft.babilonia.model.MicroRegiao;
 import br.com.wagnersoft.babilonia.repository.MesoRegiaoRepository;
 import br.com.wagnersoft.babilonia.repository.MicroRegiaoRepository;
 
+/**
+ * MicroRegiaoReader.
+ * @since 1.0.7
+ * @version 1.0.7
+ * @author Wagner Lopes
+ */
 @Service
 @Order(3)
 public class MicroRegiaoReader implements EntityReader<MicroRegiao> {

@@ -11,6 +11,12 @@ import br.com.wagnersoft.babilonia.model.Categoria;
 import br.com.wagnersoft.babilonia.model.NivelLocalidade;
 import br.com.wagnersoft.babilonia.repository.CategoriaRepository;
 
+/**
+ * CategoriaReader.
+ * @since 1.0.7
+ * @version 1.0.7
+ * @author Wagner Lopes
+ */
 @Service
 @Order(1)
 public class CategoriaReader implements EntityReader<Categoria> {
@@ -40,7 +46,7 @@ public class CategoriaReader implements EntityReader<Categoria> {
     Integer nivelId = nivelStr.isEmpty() ? null : Integer.valueOf(nivelStr);
     NivelLocalidade nivelLocalidade = NivelLocalidade.getById(nivelId);
     LOGGER.debug("{}", nivelLocalidade);
-    
+
     // Definição da categoria com base no nível
     Categoria categoria = new Categoria();
     categoria.setId(idStr);
