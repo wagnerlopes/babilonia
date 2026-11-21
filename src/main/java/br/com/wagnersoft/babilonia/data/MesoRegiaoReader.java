@@ -46,8 +46,8 @@ public class MesoRegiaoReader implements EntityReader<MesoRegiao> {
           .collect(Collectors.toMap(uf -> uf.getDescricao().trim().toUpperCase(), uf -> uf, (existente, novo) -> existente));
     }
 
-    String mesoDesc = getCellValue(row, COL_MESORREGIAO);
     String ufDesc = getCellValue(row, COL_UF);
+    String mesoDesc = getCellValue(row, COL_MESORREGIAO);
 
     if (mesoDesc.isEmpty() || ufDesc.isEmpty()) {
       return null;
@@ -55,7 +55,7 @@ public class MesoRegiaoReader implements EntityReader<MesoRegiao> {
 
     Uf ufObj = ufMap.get(ufDesc.toUpperCase());
     if (ufObj == null) {
-      LOGGER.warn("UF não encontrada no banco: {}", ufDesc);
+      LOGGER.info("UF não encontrada no banco: {}", ufDesc);
       return null;
     }
 

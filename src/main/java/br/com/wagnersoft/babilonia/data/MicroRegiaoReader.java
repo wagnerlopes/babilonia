@@ -43,19 +43,20 @@ public class MicroRegiaoReader implements EntityReader<MicroRegiao> {
 
     if (mesoRegiaoMap == null || mesoRegiaoMap.isEmpty()) {
       this.mesoRegiaoMap =  mesoRep.findAll().stream()
-          .collect(Collectors.toMap(m -> m.getDescricao().trim().toUpperCase(), m -> m, (existente, novo) -> existente));
+          .collect(Collectors.toMap(m -> m.getDescricao().trim().toUpperCase() + m.getUf().getDescricao().trim().toUpperCase(), m -> m, (existente, novo) -> existente));
     }
 
-    String microDesc = getCellValue(row, COL_MICRORREGIAO);
+    String ufDesc = getCellValue(row, COL_UF);
     String mesoDesc = getCellValue(row, COL_MESORREGIAO);
+    String microDesc = getCellValue(row, COL_MICRORREGIAO);
 
-    if (mesoDesc.isEmpty() || microDesc.isEmpty()) {
+    if (ufDesc.isEmpty() || mesoDesc.isEmpty() || microDesc.isEmpty()) {
       return null;
     }
 
-    MesoRegiao mesoObj = mesoRegiaoMap.get(mesoDesc.toUpperCase());
+    MesoRegiao mesoObj = mesoRegiaoMap.get(mesoDesc.toUpperCase() + ufDesc.toUpperCase());
     if (mesoObj == null) {
-      LOGGER.warn("Mesorregião não encontrada no banco: {}", mesoDesc);
+      LOGGER.info("Mesorregião não encontrada no banco: {}", mesoDesc);
       return null;
     }
 

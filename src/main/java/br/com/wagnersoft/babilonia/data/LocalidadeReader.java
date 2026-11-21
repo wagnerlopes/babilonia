@@ -51,23 +51,30 @@ public class LocalidadeReader implements EntityReader<Localidade> {
     // Desambiguição usando nome do distrito + nome do município para evitar duplicidade
     if (distritoMap == null || distritoMap.isEmpty()) {
       this.distritoMap =  disRep.findAll().stream()
-          .collect(Collectors.toMap(dis -> dis.getDescricao().trim().toUpperCase() + dis.getMunicipio().getDescricao().trim().toUpperCase(),
+          .collect(Collectors.toMap(dis -> dis.getDescricao().trim().toUpperCase()
+              + dis.getMunicipio().getDescricao().trim().toUpperCase()
+              + dis.getMunicipio().getMicroregiao().getDescricao().trim().toUpperCase()
+              + dis.getMunicipio().getMicroregiao().getMesoregiao().getDescricao().trim().toUpperCase()
+              + dis.getMunicipio().getMicroregiao().getMesoregiao().getUf().getDescricao().trim().toUpperCase(),
               dis -> dis,
               (existente, novo) -> existente));
     }
 
+    String ufDesc = getCellValue(row, COL_UF);
+    String mesoDesc = getCellValue(row, COL_MESORREGIAO);
+    String microDesc = getCellValue(row, COL_MICRORREGIAO);
     String munDesc = getCellValue(row, COL_MUNICIPIO);
     String disDesc = getCellValue(row, COL_DISTRITO);
     String locDesc = getCellValue(row, COL_LOCALIDADE);
     String catId = getCellValue(row, COL_CATEGORIA_ID);
 
-    if (locDesc.isEmpty() || disDesc.isEmpty()) {
+    if (ufDesc.isEmpty() || mesoDesc.isEmpty() || microDesc.isEmpty() || munDesc.isEmpty() || locDesc.isEmpty() || disDesc.isEmpty()) {
       return null;
     }
 
-    Distrito disObj = this.distritoMap.get(disDesc.toUpperCase() + munDesc.toUpperCase());
+    Distrito disObj = this.distritoMap.get(disDesc.toUpperCase() + munDesc.toUpperCase() + microDesc.toUpperCase() + mesoDesc.toUpperCase() + ufDesc.toUpperCase());
     if (disObj == null) {
-      LOGGER.info("Distrito não encontrado no banco: {}", disDesc);
+      LOGGER.info("Distrito não encontrado no banco: {} {}", disDesc, munDesc);
       return null;
     }
 
@@ -98,7 +105,7 @@ public class LocalidadeReader implements EntityReader<Localidade> {
 
   @Override
   public String extractUniqueKey(Row row) {
-    return (getCellValue(row, COL_DISTRITO) + "|" + getCellValue(row, COL_LOCALIDADE) + "|" + getCellValue(row, COL_UF)).toUpperCase();
+    return (getCellValue(row, COL_LOCALIDADE) + "|" + getCellValue(row, COL_DISTRITO) + "|" + getCellValue(row, COL_MUNICIPIO) + "|" + getCellValue(row, COL_MICRORREGIAO) + "|" + getCellValue(row, COL_MESORREGIAO) + "|" + getCellValue(row, COL_UF)).toUpperCase();
   }
 
   @Override

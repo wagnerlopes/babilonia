@@ -43,19 +43,26 @@ public class DistritoReader implements EntityReader<Distrito> {
 
     if (municipioMap == null || municipioMap.isEmpty()) {
       this.municipioMap =  munRep.findAll().stream()
-          .collect(Collectors.toMap(dis -> dis.getDescricao().trim().toUpperCase(), dis -> dis, (existente, novo) -> existente));
+          .collect(Collectors.toMap(m -> m.getDescricao().trim().toUpperCase() +
+              m.getMicroregiao().getDescricao().trim().toUpperCase() +
+              m.getMicroregiao().getMesoregiao().getDescricao().trim().toUpperCase() +
+              m.getMicroregiao().getMesoregiao().getUf().getDescricao().trim().toUpperCase()
+              , m -> m, (existente, novo) -> existente));
     }
 
-    String disDesc = getCellValue(row, COL_DISTRITO);
+    String ufDesc = getCellValue(row, COL_UF);
+    String mesoDesc = getCellValue(row, COL_MESORREGIAO);
+    String microDesc = getCellValue(row, COL_MICRORREGIAO);
     String munDesc = getCellValue(row, COL_MUNICIPIO);
+    String disDesc = getCellValue(row, COL_DISTRITO);
 
-    if (munDesc.isEmpty() || disDesc.isEmpty()) {
+    if (ufDesc.isEmpty() || mesoDesc.isEmpty() || microDesc.isEmpty() || munDesc.isEmpty() || disDesc.isEmpty()) {
       return null;
     }
 
-    Municipio munObj = municipioMap.get(munDesc.toUpperCase());
+    Municipio munObj = municipioMap.get(munDesc.toUpperCase() + microDesc.toUpperCase() + mesoDesc.toUpperCase() + ufDesc.toUpperCase());
     if (munObj == null) {
-      LOGGER.warn("Município não encontrada no banco: {}", munDesc);
+      LOGGER.info("Município não encontrada no banco: {}", munDesc);
       return null;
     }
 
@@ -69,7 +76,7 @@ public class DistritoReader implements EntityReader<Distrito> {
 
   @Override
   public String extractUniqueKey(Row row) {
-    return (getCellValue(row, COL_DISTRITO) + "|" + getCellValue(row, COL_MUNICIPIO) + "|" + getCellValue(row, COL_UF)).toUpperCase();
+    return (getCellValue(row, COL_DISTRITO) + "|" + getCellValue(row, COL_MUNICIPIO) + "|" + getCellValue(row, COL_MICRORREGIAO) + "|" + getCellValue(row, COL_MESORREGIAO) + "|" + getCellValue(row, COL_UF)).toUpperCase();
   }
 
   @Override
