@@ -14,17 +14,17 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 
 /** 
- * Responsável pela configuração da documentação da OpenAPI.
+ * Responsável pela configuração da documentação Springdoc OpenAPI.
  * 
- * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
+ * @author Wagner Lopes
  */
 @Configuration
 public class OpenAPIConfig {
 
   private static final String APP_NAME = "Projeto Babilônia";
-  private static final String APP_VERSION = "v1.0.6-Beta";
+  private static final String APP_VERSION = "v1.0.7-prod";
   private static final String API_KEY_HEADER = "X-API-KEY";
   private static final String GROUP_NAME = "babilonia-public";
   private static final String GITHUB_URL = "https://github.com/wagnerlopes";

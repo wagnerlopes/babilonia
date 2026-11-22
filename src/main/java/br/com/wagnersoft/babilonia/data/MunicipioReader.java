@@ -52,22 +52,26 @@ public class MunicipioReader implements EntityReader<Municipio> {
 
     if (microRegiaoMap == null || microRegiaoMap.isEmpty()) {
       this.microRegiaoMap =  microRep.findAll().stream()
-          .collect(Collectors.toMap(m -> m.getDescricao().trim().toUpperCase(), m -> m, (existente, novo) -> existente));
+          .collect(Collectors.toMap(m -> m.getDescricao().trim().toUpperCase() +
+              m.getMesoregiao().getDescricao().trim().toUpperCase() +
+              m.getMesoregiao().getUf().getDescricao().trim().toUpperCase()
+              , m -> m, (existente, novo) -> existente));
     }
 
-    String munDesc = getCellValue(row, COL_MUNICIPIO);
-    String microDesc = getCellValue(row, COL_MICRORREGIAO);
     String ufDesc = getCellValue(row, COL_UF);
+    String mesoDesc = getCellValue(row, COL_MESORREGIAO);
+    String microDesc = getCellValue(row, COL_MICRORREGIAO);
+    String munDesc = getCellValue(row, COL_MUNICIPIO);
 
     Uf uf = this.ufRep.findByDescricaoExata(ufDesc).get();
 
-    if (munDesc.isEmpty() || microDesc.isEmpty()) {
+    if (ufDesc.isEmpty() || mesoDesc.isEmpty() || munDesc.isEmpty() || microDesc.isEmpty()) {
       return null;
     }
 
-    MicroRegiao microObj = microRegiaoMap.get(microDesc.toUpperCase());
+    MicroRegiao microObj = microRegiaoMap.get(microDesc.toUpperCase() + mesoDesc.toUpperCase() + ufDesc.toUpperCase());
     if (microObj == null) {
-      LOGGER.warn("Microrregião não encontrada no banco: {}", microDesc);
+      LOGGER.info("Microrregião não encontrada no banco: {}", microDesc);
       return null;
     }
 
@@ -83,7 +87,7 @@ public class MunicipioReader implements EntityReader<Municipio> {
 
   @Override
   public String extractUniqueKey(Row row) {
-    return (getCellValue(row, COL_MUNICIPIO) + "|" + getCellValue(row, COL_MICRORREGIAO) + "|" + getCellValue(row, COL_UF)).toUpperCase();
+    return (getCellValue(row, COL_MUNICIPIO) + "|" + getCellValue(row, COL_MICRORREGIAO) + "|" + getCellValue(row, COL_MESORREGIAO) + "|" + getCellValue(row, COL_UF)).toUpperCase();
   }
 
   @Override
