@@ -129,10 +129,17 @@ jobs:
           name: spotbugs
           path: quality
         continue-on-error: true
-        
+
+      - name: Obter versão do Maven
+        id: version
+        run: |
+          echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+          echo "BUILD_DATE=$(date '+%d/%m/%Y %H:%M')" >> $GITHUB_ENV
+          echo "COMMIT_SHA=${GITHUB_SHA}" >> $GITHUB_ENV
+          
       - name: Create index.html
         run: |
-          cat <<'EOF' > quality/index.html
+          cat <<EOF > quality/index.html
           <!DOCTYPE html>
           <html lang="pt-BR">
           <head>
@@ -141,8 +148,11 @@ jobs:
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
           </head>
           <body class="m-5">
-            <h1>Portal de Qualidade do Projeto Babilonia</h1>
+            <h1>Portal de Qualidade do Projeto Babilônia</h1>
             <hr>
+            <p><strong>Versão:</strong> ${VERSION}</p>
+            <p><strong>Build:</strong> ${BUILD_DATE}</p>
+            <p><strong>Commit:</strong> ${COMMIT_SHA}</p>            
             <h2>Relatórios gerados automaticamente:</h2>
             <ul>
               <li>📊 <a href="coverage/index.html">Cobertura de Testes (Jacoco)</a></li>
